@@ -34,5 +34,9 @@ build/
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 
-# PHP log file
-phplog
+# Omit Credentials.yml
+credentials.yml
+
+## PHPStorm IDE files
+/.idea/
+
