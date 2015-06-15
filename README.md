@@ -5,7 +5,7 @@ The goal of this code sample repository is to provide completely self-contained 
 Clone this repository.
 Run the individual samples e.g. 
 ````
-ruby VisaCheckout/visacheckout-decrypt.ruby
+ruby VisaCheckout/visacheckout-decrypt.rb
 ````
 
 ## API Reference
