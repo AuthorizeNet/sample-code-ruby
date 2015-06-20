@@ -11,7 +11,7 @@ transaction = Transaction.new(config['api_login_id'], config['api_transaction_ke
 request = CreateTransactionRequest.new
 
 request.transactionRequest = TransactionRequestType.new()
-request.transactionRequest.amount = 28.00
+request.transactionRequest.amount = 30.00
 request.transactionRequest.payment = PaymentType.new
 request.transactionRequest.payment.creditCard = CreditCardType.new('4007000000027','1220','123')
 request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyTransaction
