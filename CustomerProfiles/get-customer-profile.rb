@@ -9,15 +9,15 @@ require 'rubygems'
   transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
   
-  request = CreateCustomerProfileRequest.new
-  request.profile = CustomerProfileType.new('jdoe','John2 Doe','jdoe@mail.com',nil, nil)
+  request = GetCustomerProfileRequest.new
+  request.customerProfileId = '36608372'
 
-  response = transaction.create_customer_profile(request)
+  response = transaction.get_customer_profile(request)
 
 
   if response.messages.resultCode == MessageTypeEnum::Ok
-    puts "Successfully created a customer profile with id:  #{response.customerProfileId}"
+    puts "Successfully retrieved a customer with profile id is #{request.customerProfileId} and whose customer id is #{response.profile.merchantCustomerId}"
   else
     puts response.messages.messages[0].text
-    raise "Failed to create a new customer profile."
+    raise "Failed to get customer profile information with id #{request.customerProfileId}"
   end

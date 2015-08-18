@@ -15,7 +15,7 @@ require 'rubygems'
     request.subscription.name = "Jane Doe"
     request.subscription.paymentSchedule = PaymentScheduleType.new
     request.subscription.paymentSchedule.interval = PaymentScheduleType::Interval.new("3","months")
-    request.subscription.paymentSchedule.startDate = '2018-08-30'
+    request.subscription.paymentSchedule.startDate = '2017-08-30'
     request.subscription.paymentSchedule.totalOccurrences ='12'
     request.subscription.paymentSchedule.trialOccurrences ='1'
 
