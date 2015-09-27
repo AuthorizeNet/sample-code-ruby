@@ -24,5 +24,5 @@ require 'rubygems'
     puts "Successfully updated customer with customer profile id #{request.profile.customerProfileId}"
   else
     puts response.messages.messages[0].text
-    raise "Failed to failed to update customer with customer profile id #{request.profile.customerProfileId}"
+    raise "Failed to update customer with customer profile id #{request.profile.customerProfileId}"
   end

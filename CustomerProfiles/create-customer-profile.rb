@@ -10,7 +10,7 @@ require 'rubygems'
 
   
   request = CreateCustomerProfileRequest.new
-  request.profile = CustomerProfileType.new('jdoe','John2 Doe','jdoe@mail.com',nil, nil)
+  request.profile = CustomerProfileType.new('jdoe'+rand(10000).to_s,'John2 Doe','jdoe@mail.com',nil, nil)
 
   response = transaction.create_customer_profile(request)
 

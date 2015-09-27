@@ -10,7 +10,7 @@ require 'rubygems'
 
   
   request = GetCustomerProfileRequest.new
-  request.customerProfileId = '36608372'
+  request.customerProfileId = '37115969'
 
   response = transaction.get_customer_profile(request)
 
