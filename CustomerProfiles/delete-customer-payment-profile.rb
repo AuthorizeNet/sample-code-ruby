@@ -10,8 +10,8 @@ require 'rubygems'
 
   
   request = DeleteCustomerPaymentProfileRequest.new
-  request.customerProfileId = '36551110'
-  request.customerPaymentProfileId = '36551110'
+  request.customerProfileId = '35894174'
+  request.customerPaymentProfileId = '33604709'
 
   response = transaction.delete_customer_payment_profile(request)
 
@@ -19,6 +19,5 @@ require 'rubygems'
   if response.messages.resultCode == MessageTypeEnum::Ok
     puts "Successfully deleted payment profile with customer payment profile id #{request.customerPaymentProfileId}"
   else
-    puts response.messages.messages[0].text
-    raise "Failed to delete payment profile with profile id #{request.customerPaymentProfileId}"
+    puts "Failed to delete payment profile with profile id #{request.customerPaymentProfileId} : #{response.messages.messages[0].text}"
   end

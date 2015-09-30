@@ -11,17 +11,16 @@ require 'rubygems'
   
   request = CreateCustomerPaymentProfileRequest.new
   
-  payment = PaymentType.new(CreditCardType.new('4111111111111111','2025-05'))
+  payment = PaymentType.new(CreditCardType.new('4111111111111111','2020-05'))
   profile = CustomerPaymentProfileType.new(nil,nil,payment,nil,nil)
 
   request.paymentProfile = profile
-  request.customerProfileId = '35803770'
-  response = transaction.create_customer_profile(request)
+  request.customerProfileId = '35894174'
+  response = transaction.create_customer_payment_profile(request)
 
 
   if response.messages.resultCode == MessageTypeEnum::Ok
-    puts "Successfully created a customer profile with id:  #{response.customerProfileId}"
+    puts "Successfully created a customer payment profile with id:  #{response.customerPaymentProfileId}"
   else
-    puts response.messages.messages[0].text
-    raise "Failed to create a new customer profile."
+    puts "Failed to create a new customer payment profile: #{response.messages.messages[0].text}"
   end

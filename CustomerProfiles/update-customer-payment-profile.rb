@@ -10,19 +10,20 @@ require 'rubygems'
 
   
   request = UpdateCustomerPaymentProfileRequest.new
-  request.profile = CustomerProfileExType.new
 
-  #Edit this part to select a specific customer
-  request.profile.customerProfileId = "35704713"
-  request.profile.merchantCustomerId = "mycustomer"
-  request.profile.description = "john doe"
-  request.profile.email = "email@email.com"
-  response = transaction.update_customer_profile(request)
+  payment = PaymentType.new(CreditCardType.new('4111111111111111','2025-05'))
+  profile = CustomerPaymentProfileExType.new(nil,nil,payment,nil,nil)
+
+  request.paymentProfile = profile
+  request.customerProfileId = '35894174'
+  profile.customerPaymentProfileId = '33605803'
+
+  response = transaction.update_customer_payment_profile(request)
 
 
   if response.messages.resultCode == MessageTypeEnum::Ok
-    puts "Successfully updated customer with customer profile id #{request.profile.customerProfileId}"
+    puts "Successfully updated customer payment profile with  id #{request.paymentProfile.customerPaymentProfileId}"
   else
     puts response.messages.messages[0].text
-    raise "Failed to update customer with customer profile id #{request.profile.customerProfileId}"
+    raise "Failed to update customer with customer payment profile id #{request.paymentProfile.customerPaymentProfileId}"
   end

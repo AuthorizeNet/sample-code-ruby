@@ -10,8 +10,8 @@ require 'rubygems'
 
   
   request = GetCustomerPaymentProfileRequest.new
-  request.customerProfileId = '37115969'
-  request.customerPaymentProfileId = '37115971'
+  request.customerProfileId = '35894174'
+  request.customerPaymentProfileId = '33604709'
 
   response = transaction.get_customer_payment_profile(request)
 
