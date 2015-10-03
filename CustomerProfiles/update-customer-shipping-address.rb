@@ -10,19 +10,20 @@ require 'rubygems'
 
   
   request = UpdateCustomerShippingAddressRequest.new
-  request.profile = CustomerProfileExType.new
 
+  
+  request.address = CustomerAddressExType.new('John','Doe','Anet','800 N 106th')
+  
   #Edit this part to select a specific customer
-  request.profile.customerProfileId = "35704713"
-  request.profile.merchantCustomerId = "mycustomer"
-  request.profile.description = "john doe"
-  request.profile.email = "email@email.com"
-  response = transaction.update_customer_profile(request)
+  request.address.customerAddressId = "35745790"
+  request.customerProfileId = '35894174'
+
+  response = transaction.update_customer_shipping_profile(request)
 
 
   if response.messages.resultCode == MessageTypeEnum::Ok
-    puts "Successfully updated customer with customer profile id #{request.profile.customerProfileId}"
+    puts "Successfully updated customer with customer profile id #{request.address.customerAddressId}"
   else
     puts response.messages.messages[0].text
-    raise "Failed to update customer with customer profile id #{request.profile.customerProfileId}"
+    raise "Failed to update customer with customer profile id #{request.address.customerAddressId}"
   end

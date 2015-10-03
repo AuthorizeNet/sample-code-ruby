@@ -10,10 +10,10 @@
 
   
   request = GetCustomerShippingAddressRequest.new
-  request.customerProfileId = '37115969'
-  request.customerAddressId = '37115971'
+  request.customerProfileId = '35894174'
+  request.customerAddressId = '35745790'
 
-  response = transaction.get_customer_shipping_address(request)
+  response = transaction.get_customer_shipping_profile(request)
 
 
   if response.messages.resultCode == MessageTypeEnum::Ok

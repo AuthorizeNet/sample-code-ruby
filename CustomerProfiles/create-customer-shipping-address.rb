@@ -12,8 +12,8 @@ require 'rubygems'
   request = CreateCustomerShippingAddressRequest.new
   
   request.address = CustomerAddressType.new('John','Doe')
-  request.customerProfileId = '35803770'
-  response = transaction.create_customer_shipping_adddress(request)
+  request.customerProfileId = '35894174'
+  response = transaction.create_customer_shipping_profile(request)
 
 
   if response.messages.resultCode == MessageTypeEnum::Ok
