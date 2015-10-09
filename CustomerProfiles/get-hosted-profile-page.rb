@@ -16,7 +16,7 @@ require 'rubygems'
   
   
   request = GetHostedProfilePageRequest.new
-  request.customerProfileId = '37680862'
+  request.customerProfileId = '37680862' # Insert a valid customer profile ID here. This ID will NOT work with the default credentials.
   request.refId = ""
   request.hostedProfileSettings = settings
   
