@@ -7,7 +7,7 @@ require 'rubygems'
 
   config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
 
-  transaction = Transaction.new(config['paypal_api_login_id'], config['paypal_api_transaction_key'], :gateway => :sandbox)
+  transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
   firstSettlementDate = Date.today - 31
   lastSettlementDate = Date.today
