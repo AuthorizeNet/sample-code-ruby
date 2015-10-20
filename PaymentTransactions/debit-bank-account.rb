@@ -11,14 +11,16 @@ require 'rubygems'
   request = CreateTransactionRequest.new
 
   request.transactionRequest = TransactionRequestType.new()
-  request.transactionRequest.amount = 16.00
-
-#### TBD
+  request.transactionRequest.amount = 26.00
+  request.transactionRequest.payment = PaymentType.new
+  request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'125000024','12345678', 'John Doe') 
+  request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
+  
   
   response = transaction.create_transaction(request)
 
   if response.messages.resultCode == MessageTypeEnum::Ok
-    puts "Successfully made a purchase (authorization code: #{response.transactionResponse.authCode})"
+    puts "Successfully made a purchase (Transaction ID: #{response.transactionResponse.transId})"
 
   else
     puts response.messages.messages[0].text
