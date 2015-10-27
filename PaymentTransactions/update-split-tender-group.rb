@@ -23,8 +23,6 @@ require 'rubygems'
   
   response = transaction.update_split_tender_group(request)
 
-  puts response.to_yaml
-
   if response.messages.resultCode == MessageTypeEnum::Ok
     puts "Successful Update Split Tender Group"
     puts response.messages.messages[0].code
