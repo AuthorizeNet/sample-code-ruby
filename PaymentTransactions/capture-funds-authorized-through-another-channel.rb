@@ -11,12 +11,12 @@ require 'rubygems'
   request = CreateTransactionRequest.new
 
   request.transactionRequest = TransactionRequestType.new()
-  request.transactionRequest.amount = 2.00
-  request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
-  request.transactionRequest.profile = CustomerProfilePaymentType.new()
-  request.transactionRequest.profile.customerProfileId = "36731856"
-  request.transactionRequest.profile.paymentProfile = PaymentProfile.new("33211899")
-
+  request.transactionRequest.amount = 116.00
+  request.transactionRequest.payment = PaymentType.new
+  request.transactionRequest.payment.creditCard = CreditCardType.new('4111111111111111','0718') 
+  request.transactionRequest.transactionType = TransactionTypeEnum::CaptureOnlyTransaction
+  request.transactionRequest.authCode = "ROHNFQ"
+  
   response = transaction.create_transaction(request)
 
   if response.messages.resultCode == MessageTypeEnum::Ok
@@ -25,5 +25,7 @@ require 'rubygems'
     end
   else
     puts response.messages.messages[0].text
-    raise "Failed to charge customer profile."
+    puts response.transactionResponse.errors.errors[0].errorCode
+    puts response.transactionResponse.errors.errors[0].errorText
+    raise "Failed to charge card."
   end
