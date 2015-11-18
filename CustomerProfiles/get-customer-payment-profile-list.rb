@@ -8,12 +8,6 @@ require 'rubygems'
 
   transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
   
-  #set the split tender ID here
-
-  #set the split tender status here.
-  #SplitTenderStatusEnum::Completed
-  #SplitTenderStatusEnum::Held
-  #SplitTenderStatusEnum::Voided
   searchTypeEnum = CustomerPaymentProfileSearchTypeEnum::CardsExpiringInMonth
   sorting = CustomerPaymentProfileSorting.new
   orderByEnum = CustomerPaymentProfileOrderFieldEnum::Id
@@ -33,10 +27,9 @@ require 'rubygems'
   request.paging = paging
   
   response = transaction.get_customer_payment_profile_list(request)
-  puts response.paymentProfiles.paymentProfile.length
-  puts response.paymentProfiles.paymentProfile[0].billTo.firstName
+  
   if response.messages.resultCode == MessageTypeEnum::Ok
-    puts "Successful got customer payment profile list"
+    puts "Successfully got customer payment profile list"
     puts response.messages.messages[0].code
     puts response.messages.messages[0].text
     puts "Total Result in Set = #{response.totalNumInResultSet}"

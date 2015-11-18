@@ -16,7 +16,7 @@ require 'rubygems'
   response = transaction.arb_get_subscription_request(request)
   
   if response.messages.resultCode == MessageTypeEnum::Ok
-    puts "Successful got customer payment profile list"
+    puts "Successful got ARB subscription"
     puts response.messages.messages[0].code
     puts response.messages.messages[0].text
     puts "Subscription name = #{response.subscription.name}"
@@ -29,5 +29,5 @@ require 'rubygems'
   else
     puts response.messages.messages[0].code
     puts response.messages.messages[0].text
-    raise "Failed to get customer payment profile list"
+    raise "Failed to get ARB subscription"
   end
