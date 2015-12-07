@@ -2,25 +2,28 @@ require 'rubygems'
   require 'yaml'
   require 'authorizenet'
 
-  include AuthorizeNet::Reporting
+  include AuthorizeNet::API
 
   config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
 
   transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
   
-  #create getDetails Transaction for a Valid Transaction ID
-  response = transaction.get_transaction_details("2239287784")
-  transaction = response.transaction
+  transId = "2239287784"
+  request = GetTransactionDetailsRequest.new
+  request.transId = transId
   
-  if response.result_code == "Ok" 
+  #standard api call to retrieve response
+  response = transaction.get_transaction_details(request)
+  
+  if response.messages.resultCode == MessageTypeEnum::Ok
     puts "Get Transaction Details Successful " 
-    puts "Transaction Id:   #{transaction.id}"
-    puts "Transaction Type:   #{transaction.type}"
-    puts "Transaction Status:   #{transaction.status}"
-    printf("Auth Amount:  %.2f\n",transaction.auth_amount)
-    printf("Settle Amount:  %.2f\n",transaction.settle_amount)
+    puts "Transaction Id:   #{response.transaction.transId}"
+    puts "Transaction Type:   #{response.transaction.transactionType}"
+    puts "Transaction Status:   #{response.transaction.transactionStatus}"
+    printf("Auth Amount:  %.2f\n", response.transaction.authAmount)
+    printf("Settle Amount:  %.2f\n", response.transaction.settleAmount)
   else
-    puts "ERROR message: #{response.message_text}"
-    puts "ERROR code: #{response.message_code}"
+    puts response.messages.messages[0].code
+    puts response.messages.messages[0].text
     raise "Failed to get transaction Details."
   end
