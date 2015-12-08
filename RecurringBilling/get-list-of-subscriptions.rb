@@ -27,6 +27,12 @@ if response != nil
     puts "Successfully got the list of subscriptions"
     puts response.messages.messages[0].code
     puts response.messages.messages[0].text
+    puts "Subscription Count: #{response.totalNumInResultSet}"
+    
+
+    response.subscriptionDetails.subscriptionDetail.each do |subscriptionDetail|
+      puts subscriptionDetail.id
+   end
 
   else
 

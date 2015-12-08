@@ -10,14 +10,16 @@ require 'rubygems'
 
   
   request = GetCustomerPaymentProfileRequest.new
-  request.customerProfileId = '35894174'
-  request.customerPaymentProfileId = '33604709'
+  request.customerProfileId = '36152115'
+  request.customerPaymentProfileId = '32689262'
 
   response = transaction.get_customer_payment_profile(request)
 
 
   if response.messages.resultCode == MessageTypeEnum::Ok
     puts "Successfully retrieved a payment profile with profile id is #{request.customerPaymentProfileId} and whose customer id is #{request.customerProfileId}"
+    puts "First name in billing address: #{response.paymentProfile.billTo.firstName}"
+    puts "Masked Credit card number: #{response.paymentProfile.payment.creditCard.cardNumber}"
   else
     puts response.messages.messages[0].text
     raise "Failed to get payment profile information with id #{request.customerPaymentProfileId}"
