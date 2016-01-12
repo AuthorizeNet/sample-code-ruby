@@ -10,7 +10,8 @@ rvm:
 
 install:
   - gem install authorizenet
-  - gem install bundler
 
 script: 
+  - pwd
+  - bundle
   - bundle exec rspec spec
