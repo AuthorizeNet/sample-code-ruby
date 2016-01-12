@@ -13,7 +13,7 @@ require 'rubygems'
     request = CreateTransactionRequest.new
   
     request.transactionRequest = TransactionRequestType.new()
-    request.transactionRequest.amount = SecureRandom.random_number.round(3)
+    request.transactionRequest.amount = SecureRandom.random_number.round(4)
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0220','123') 
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction

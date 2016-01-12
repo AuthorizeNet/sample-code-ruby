@@ -13,7 +13,7 @@ require 'rubygems'
     request = CreateTransactionRequest.new
   
     request.transactionRequest = TransactionRequestType.new()
-    random_amount = SecureRandom.random_number.round(3)
+    random_amount = SecureRandom.random_number.round(4)
     request.transactionRequest.amount = random_amount
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0220','123') 
