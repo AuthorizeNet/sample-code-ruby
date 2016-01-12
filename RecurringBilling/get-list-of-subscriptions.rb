@@ -4,8 +4,9 @@ require 'rubygems'
 
   include AuthorizeNet::API
 
-  config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
- transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
+  def get_list_of_subscriptions()
+    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
+    transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     request = ARBGetSubscriptionListRequest.new
     request.refId = '2238251168'
     
@@ -17,27 +18,27 @@ require 'rubygems'
     request.paging = Paging.new
     request.paging.limit = '1000'
     request.paging.offset = '1'
-
-
-    response = transaction.get_subscription_list(request)
   
-
-if response != nil
-  if response.messages.resultCode == MessageTypeEnum::Ok
-    puts "Successfully got the list of subscriptions"
-    puts response.messages.messages[0].code
-    puts response.messages.messages[0].text
-    puts "Subscription Count: #{response.totalNumInResultSet}"
+  
+    response = transaction.get_subscription_list(request)
     
+  
+    if response != nil
+      if response.messages.resultCode == MessageTypeEnum::Ok
+        puts "Successfully got the list of subscriptions"
+        puts response.messages.messages[0].code
+        puts response.messages.messages[0].text
+    
+      else
+    
+        puts response.messages.messages[0].code
+        puts response.messages.messages[0].text
+        raise "Failed to get the list of subscriptions"
+      end
+    end
+    return response
+ end
 
-    response.subscriptionDetails.subscriptionDetail.each do |subscriptionDetail|
-      puts subscriptionDetail.id
-   end
-
-  else
-
-    puts response.messages.messages[0].code
-    puts response.messages.messages[0].text
-    raise "Failed to get the list of subscriptions"
-  end
+if __FILE__ == $0
+  get_list_of_subscriptions()
 end

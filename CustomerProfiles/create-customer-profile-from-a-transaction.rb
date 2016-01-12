@@ -3,7 +3,7 @@ require 'rubygems'
   require 'authorizenet'
 
   include AuthorizeNet::API
-
+ 
   def create_customer_profile_from_a_transaction(transId = 2242762682)
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
 
