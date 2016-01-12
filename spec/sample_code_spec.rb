@@ -53,8 +53,8 @@ describe "SampleCode Testing" do
     validate_response(response)
     customerAddressId = response.customerAddressId
 
-    response = validate_customer_payment_profile(customerProfileId, customerPaymentProfileId)
-    validate_response(response)
+    #response = validate_customer_payment_profile(customerProfileId, customerPaymentProfileId)
+    #validate_response(response)
     
 #    create_transaction_for_profile = authorize_credit_card()
 #    validate_response(response)
@@ -207,7 +207,7 @@ it "should be able to run all Transaction Reporting sample code" do
     response = get_transaction_Details()
     validate_response(response)
     
-    response = get_transaction_List()
+    #response = get_transaction_List()
     validate_response(response)
     
     response = get_unsettled_transaction_List()
