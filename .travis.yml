@@ -9,6 +9,7 @@ rvm:
   - 2.1.0
 
 install:
+  - bundle install
   - gem install authorizenet
 
 script: 
