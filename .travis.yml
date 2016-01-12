@@ -9,8 +9,8 @@ rvm:
   - 2.1.0
 
 install:
-  - bundle install
   - gem install authorizenet
+  - bundle install
 
 script: 
   - rspec spec
