@@ -8,10 +8,9 @@ rvm:
   - 2.0.0
   - 2.1.0
 
-install:
-  - gem install authorizenet
 
 script: 
   - pwd
+  - gem install authorizenet
   - bundle install
   - bundle exec rspec spec
