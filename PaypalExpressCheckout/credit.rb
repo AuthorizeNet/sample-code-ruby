@@ -1,6 +1,7 @@
   require 'rubygems'
   require 'yaml'
-  require 'authorizenet'
+  require 'authorizenet' 
+ require 'securerandom'
   
   include AuthorizeNet::API
   
@@ -20,7 +21,7 @@
     paymentType.payPal = payPalType
     
     request.transactionRequest = TransactionRequestType.new()
-    request.transactionRequest.amount = Random.new(Random.new_seed).rand.round(3)
+    request.transactionRequest.amount = SecureRandom.random_number.round(3)
     request.transactionRequest.payment = paymentType
     #refTransId for which credit has to happen
     request.transactionRequest.refTransId = "2241762126"

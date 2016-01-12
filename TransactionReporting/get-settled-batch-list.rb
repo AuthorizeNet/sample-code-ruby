@@ -1,6 +1,7 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet'
+  require 'authorizenet' 
+ require 'securerandom'
   require "date"
 
   include AuthorizeNet::API

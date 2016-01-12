@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'yaml'
-require 'authorizenet'
+require 'authorizenet' 
+ require 'securerandom'
 
 include AuthorizeNet::API
 

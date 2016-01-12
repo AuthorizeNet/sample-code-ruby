@@ -1,6 +1,7 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet'
+  require 'authorizenet' 
+ require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -12,7 +13,7 @@ require 'rubygems'
     request = CreateTransactionRequest.new
   
     request.transactionRequest = TransactionRequestType.new()
-    request.transactionRequest.amount = Random.new(Random.new_seed).rand.round(3)
+    request.transactionRequest.amount = SecureRandom.random_number.round(3)
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.payPal = PayPalType.new(succesUrl="http://www.merchanteCommerceSite.com/Success/TC25262", cancelUrl="http://www.merchanteCommerceSite.com/Success/TC25262")
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyTransaction
