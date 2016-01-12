@@ -14,4 +14,4 @@ install:
 
 
 script: 
-  - bundle exec rspec spec
+  - bundle exec rspec spec\sample_code_spec.rb
