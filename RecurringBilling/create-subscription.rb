@@ -6,7 +6,7 @@ require 'rubygems'
 
   include AuthorizeNet::API
 
-  def create_subscription()
+  def create_Subscription()
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
   
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
@@ -51,6 +51,6 @@ require 'rubygems'
   end
 
 if __FILE__ == $0
-  create_subscription()
+  create_Subscription()
 end
 

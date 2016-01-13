@@ -102,7 +102,7 @@ describe "SampleCode Testing" do
   
 it "should be able to run all Recurring Billing sample code" do
 
-    response = create_subscription()
+    response = create_Subscription()
     validate_response(response)
     subscriptionId = response.subscriptionId
     
