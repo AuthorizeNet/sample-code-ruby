@@ -1,6 +1,7 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet' 
+  require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
@@ -21,8 +22,8 @@ require 'rubygems'
     request.subscription.paymentSchedule.totalOccurrences ='12'
     request.subscription.paymentSchedule.trialOccurrences ='1'
 
-    random_amount = Random.new(Random.new_seed)
-    request.subscription.amount = random_amount.rand.round(3)
+    random_amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
+    request.subscription.amount = random_amount
     request.subscription.trialAmount = 0.00
     request.subscription.payment = PaymentType.new
     request.subscription.payment.creditCard = CreditCardType.new('4111111111111111','0120','123')

@@ -1,6 +1,7 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet' 
+  require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
@@ -13,7 +14,7 @@ require 'rubygems'
     request = CreateTransactionRequest.new
   
     request.transactionRequest = TransactionRequestType.new()
-    request.transactionRequest.amount = SecureRandom.random_number.round(4)
+    request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     request.transactionRequest.profile = CustomerProfilePaymentType.new()
     request.transactionRequest.profile.customerProfileId = "36731856"

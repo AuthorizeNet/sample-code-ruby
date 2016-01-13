@@ -1,6 +1,7 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet' 
+  require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
@@ -13,7 +14,7 @@ require 'rubygems'
     request = CreateTransactionRequest.new
   
     request.transactionRequest = TransactionRequestType.new()
-    request.transactionRequest.amount = SecureRandom.random_number.round(4)
+    request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'125000024','12345678', 'John Doe') 
     request.transactionRequest.transactionType = TransactionTypeEnum::RefundTransaction
