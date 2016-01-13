@@ -1,6 +1,7 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet' 
+  require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
@@ -14,6 +15,7 @@ require 'rubygems'
   
     request.transactionRequest = TransactionRequestType.new()
     random_amount = SecureRandom.random_number.round(4)
+    puts random_amount
     request.transactionRequest.amount = random_amount
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0220','123') 
