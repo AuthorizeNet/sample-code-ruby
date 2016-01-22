@@ -18,9 +18,12 @@ require 'rubygems'
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0220','123') 
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyTransaction
+
+    userField = UserField.new('userFieldName','userFieldvalue')
+    request.transactionRequest.userFields = UserFields.new([userField])
     
     response = transaction.create_transaction(request)
-  
+    
     if response.messages.resultCode == MessageTypeEnum::Ok
       puts "Successful AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
   
