@@ -17,7 +17,10 @@ require 'rubygems'
   if response.messages.resultCode == MessageTypeEnum::Ok
     puts "Successfully retrieved a customer with profile id is #{request.customerProfileId} and whose customer id is #{response.profile.merchantCustomerId}"
     response.profile.paymentProfiles.each do |paymentProfile|
-      puts "Payment Profile ID #{paymentProfile.customerPaymentProfileId}"     
+      puts "Payment Profile ID #{paymentProfile.customerPaymentProfileId}" 
+      puts "Payment Details:"
+      puts "Last Name #{paymentProfile.billTolastName}"
+      puts "Address #{paymentProfile.billTo.address}"    
     end
     response.profile.shipToList.each do |ship|
       puts "Shipping Details:"
