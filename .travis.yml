@@ -1,0 +1,17 @@
+language: ruby
+
+sudo:
+    false
+    
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.1.0
+  
+install:
+  - gem install authorizenet
+  - bundle install
+
+
+script: 
+  - bundle exec rspec spec/sample_code_spec.rb
