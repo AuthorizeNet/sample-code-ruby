@@ -22,8 +22,10 @@ require 'rubygems'
       response.profile.paymentProfiles.each do |paymentProfile|
         puts "Payment Profile ID #{paymentProfile.customerPaymentProfileId}" 
         puts "Payment Details:"
-        puts "Last Name #{paymentProfile.billTolastName}"
-        puts "Address #{paymentProfile.billTo.address}"    
+        if paymentProfile.billTo != nil
+          puts "Last Name #{paymentProfile.billTo.lastName}"
+          puts "Address #{paymentProfile.billTo.address}"    
+        end
       end
       response.profile.shipToList.each do |ship|
         puts "Shipping Details:"
