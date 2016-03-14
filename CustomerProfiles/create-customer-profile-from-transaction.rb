@@ -13,6 +13,16 @@ require 'rubygems'
     
     request = CreateCustomerProfileFromTransactionRequest.new
     request.transId = transId
+	
+	#You can either specify the customer information in form of customerProfileBaseType object
+	request.customer = CustomerProfileBaseType.new
+	request.customer.merchantCustomerId = "1231232"
+    request.customer.description = "This is a sample customer profile"
+    request.customer.email = "johnsnow@castleblack.com"
+	#  OR   
+	# You can just provide the customer Profile ID
+	# customerProfileId = "123343" 
+	
     response = transaction.create_customer_profile_from_transaction(request)
 
 
