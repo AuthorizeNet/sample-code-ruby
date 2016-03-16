@@ -114,8 +114,9 @@ it "should be able to run all Recurring Billing sample code" do
 	response = create_subscription_from_customer_profile(profile_response.customerProfileId, payment_response.customerPaymentProfileId, shipping_response.customerAddressId)
 	validate_response(response)
 	
-	delete_customer_profile(profile_response.customerProfileId)
 	cancel_subscription(response.subscriptionId)	
+	delete_customer_profile(profile_response.customerProfileId)
+	
     #End of create subscription from customer profile
 	
     response = get_subscription(subscriptionId)

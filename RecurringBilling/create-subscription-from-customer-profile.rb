@@ -6,7 +6,7 @@ require 'rubygems'
 
   include AuthorizeNet::API
 
-  def create_Subscription_from_customer_profile(profileId = "123213", paymentProfileId = "123213", addressId = "123213")
+  def create_subscription_from_customer_profile(profileId = "123213", paymentProfileId = "123213", addressId = "123213")
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
   
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
