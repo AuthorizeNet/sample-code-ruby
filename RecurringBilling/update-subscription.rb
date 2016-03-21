@@ -1,11 +1,12 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet' 
+  require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
 
-  def update_subscription(subscriptionId = '2790501')
+  def update_subscription(subscriptionId = '3095800')
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     #subscription = Subscription.new(config['api_login_id'], config['api_subscription_key'], :gateway => :sandbox)
@@ -16,10 +17,16 @@ require 'rubygems'
     request.subscription = ARBSubscriptionType.new
     
     request.subscription.payment = PaymentType.new
-    request.subscription.payment.creditCard = CreditCardType.new('4111111111111111','0120','123')
+    request.subscription.payment.creditCard = CreditCardType.new('4111111111111111','0125','123')
   
     response = transaction.update_subscription(request)
      
+    # You can pass a customer profile to update subscription
+    #request.subscription.profile = CustomerProfileIdType.new
+    #request.subscription.profile.customerProfileId = "123213"
+    #request.subscription.profile.customerPaymentProfileId = "2132321"
+    #request.subscription.profile.customerAddressId = "2131232"
+
     #validate the transaction was created
     #expect(response.transactionResponse.transId).not_to eq("0")  
     #{request.customerProfileId}

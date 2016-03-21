@@ -6,7 +6,7 @@ require 'rubygems'
 
   include AuthorizeNet::API
 
-  def get_customer_profile(customerProfileId = '36152115')
+  def get_customer_profile(customerProfileId = '40036377')
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
 
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
@@ -34,6 +34,14 @@ require 'rubygems'
         puts "Address #{ship.address}"
         puts "Customer Address ID #{ship.customerAddressId}"
       end
+
+      if response.subscriptionIds.subscriptionId != nil
+        puts "List of subscriptions : "
+        response.subscriptionIds.subscriptionId.each do |subscriptionId|
+          puts "#{subscriptionId}"
+        end
+      end
+
     else
       puts response.messages.messages[0].text
       raise "Failed to get customer profile information with id #{request.customerProfileId}"
