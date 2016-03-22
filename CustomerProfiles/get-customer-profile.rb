@@ -35,7 +35,7 @@ require 'rubygems'
         puts "Customer Address ID #{ship.customerAddressId}"
       end
 
-      if response.subscriptionIds.subscriptionId != nil
+      if response.subscriptionIds != nil && response.subscriptionIds.subscriptionId != nil
         puts "List of subscriptions : "
         response.subscriptionIds.subscriptionId.each do |subscriptionId|
           puts "#{subscriptionId}"

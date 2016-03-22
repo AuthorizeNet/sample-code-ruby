@@ -22,7 +22,7 @@
     if response.messages.resultCode == MessageTypeEnum::Ok
       puts "Successfully retrieved a shipping address with profile id #{request.customerAddressId} and whose customer id is #{request.customerProfileId}"
 
-      if response.subscriptionIds.subscriptionId != nil
+      if response.subscriptionIds != nil && response.subscriptionIds.subscriptionId != nil
         puts "List of subscriptions : "
         response.subscriptionIds.subscriptionId.each do |subscriptionId|
           puts "#{subscriptionId}"
