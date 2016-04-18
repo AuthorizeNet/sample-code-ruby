@@ -13,6 +13,7 @@ require 'rubygems'
   
     request = CreateTransactionRequest.new
   
+    # Do an AuthOnly Transaction first, so we can capture it separately
     request.transactionRequest = TransactionRequestType.new()
     random_amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.amount = random_amount
