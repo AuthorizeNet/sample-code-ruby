@@ -16,7 +16,7 @@ require 'rubygems'
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.creditCard = CreditCardType.new('5424000000000015','1220','999') 
+    request.transactionRequest.payment.creditCard = CreditCardType.new('0015','XXXX') 
     request.transactionRequest.refTransId = 2233511297
     request.transactionRequest.transactionType = TransactionTypeEnum::RefundTransaction
     
