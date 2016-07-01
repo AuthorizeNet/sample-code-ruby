@@ -110,6 +110,9 @@ it "should be able to run all Recurring Billing sample code" do
 	profile_response = create_customer_profile()
 	payment_response = create_customer_payment_profile(profile_response.customerProfileId)    
 	shipping_response = create_customer_shipping_address(profile_response.customerProfileId)
+	
+	#waiting for creating customer profile.
+	sleep 10
     	
 	response = create_subscription_from_customer_profile(profile_response.customerProfileId, payment_response.customerPaymentProfileId, shipping_response.customerAddressId)
 	validate_response(response)
