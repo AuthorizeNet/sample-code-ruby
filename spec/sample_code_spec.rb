@@ -1,4 +1,15 @@
-require "spec_helper"
+cwd = Dir.pwd
+
+if cwd.include? "sample-code-ruby"
+    puts "String includes sample-code-ruby"
+    specpath = "./spec/"
+    dirpath = "./"
+else
+    specpath = "./sample-code-ruby/spec/"
+    dirpath = "./sample-code-ruby/"
+end
+
+require specpath + "spec_helper"
 
 include  AuthorizeNet::API
 
@@ -6,11 +17,11 @@ describe "SampleCode Testing" do
   
   before :all do
     begin
-      Dir.glob("./**/*.rb") do |item| # note one extra "*"
+      Dir.glob(dirpath + "**/*.rb") do |item| # note one extra "*"
         next if item == '.' or item == '..'
         item = item[0..-4]
         
-        if item != './spec/sample_code_spec'
+        if item != specpath + 'sample_code_spec'
             puts "working on: #{item}"
             require item
         end
