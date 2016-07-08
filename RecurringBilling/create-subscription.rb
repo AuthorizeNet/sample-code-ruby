@@ -1,8 +1,7 @@
 require 'rubygems'
 require 'yaml'
 require 'authorizenet'
-require 'coveralls'
-Coveralls.wear!
+
 
  require 'securerandom'
 
