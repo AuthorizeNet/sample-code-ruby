@@ -1,6 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
+require 'yaml'
+require 'authorizenet'
+
 
  require 'securerandom'
 
