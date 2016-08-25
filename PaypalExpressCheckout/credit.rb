@@ -31,7 +31,7 @@
     
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+        if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successful Credit Transaction (Transaction response code: #{response.transactionResponse.responseCode})"
           puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else

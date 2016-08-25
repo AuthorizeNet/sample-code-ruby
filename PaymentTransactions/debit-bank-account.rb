@@ -14,7 +14,7 @@ require 'rubygems'
     request = CreateTransactionRequest.new
   
     request.transactionRequest = TransactionRequestType.new()
-    request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
+    request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 15 ).round(2)
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'125000024','12345678', 'John Doe') 
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
@@ -23,7 +23,7 @@ require 'rubygems'
 
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+        if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully debited (Transaction ID: #{response.transactionResponse.transId})"
           puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else

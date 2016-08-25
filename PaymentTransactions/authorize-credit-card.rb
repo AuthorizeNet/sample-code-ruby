@@ -31,7 +31,7 @@ require 'rubygems'
     
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+        if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully created an AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
           puts "Description : #{response.transactionResponse.messages.messages[0].description}"
           puts "User Fields : "

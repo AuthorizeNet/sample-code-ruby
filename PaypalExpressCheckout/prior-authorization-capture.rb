@@ -25,7 +25,7 @@ require 'rubygems'
 
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+        if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successful AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
           refTransId =  response.transactionResponse.transId
           puts "Description : #{response.transactionResponse.messages.messages[0].description}"
@@ -74,7 +74,7 @@ require 'rubygems'
 
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+        if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully created a Prior Authorization capture transaction (authorization code: #{response.transactionResponse.authCode})"
           puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else

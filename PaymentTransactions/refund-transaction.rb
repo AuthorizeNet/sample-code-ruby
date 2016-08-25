@@ -24,7 +24,7 @@ require 'rubygems'
   
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+        if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully refunded a transaction (Transaction ID #{response.transactionResponse.transId})"
           puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else
