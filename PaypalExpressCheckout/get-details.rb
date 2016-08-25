@@ -23,14 +23,14 @@ require 'rubygems'
     
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.payment = paymentType
-    request.transactionRequest.refTransId = "2242023171"
+    request.transactionRequest.refTransId = "60007066940"
     request.transactionRequest.transactionType = TransactionTypeEnum::GetDetailsTransaction
     
     response = transaction.create_transaction(request)
 
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+        if response.transactionResponse != nil && (response.transactionResponse.messages != nil)
           puts "Paypal Get Details successful."
           puts "Response Code : #{response.transactionResponse.responseCode}"
           puts "Shipping address : #{response.transactionResponse.shipTo.address}, #{response.transactionResponse.shipTo.city}, #{response.transactionResponse.shipTo.state}, #{response.transactionResponse.shipTo.country}"

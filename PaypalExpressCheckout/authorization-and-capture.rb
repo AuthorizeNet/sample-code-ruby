@@ -31,7 +31,7 @@ require 'rubygems'
 
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && (response.transactionResponse.responseCode == "1" || response.transactionResponse.responseCode == "5")
+        if response.transactionResponse != nil && (response.transactionResponse.messages != nil)
           puts "Successful Paypal Authorize Capture Transaction."
           puts "Response Code : #{response.transactionResponse.responseCode}" 
           puts "Transaction ID : #{response.transactionResponse.transId}"
