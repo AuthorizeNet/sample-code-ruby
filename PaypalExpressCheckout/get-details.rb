@@ -1,6 +1,7 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet' 
+  require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
@@ -26,19 +27,38 @@ require 'rubygems'
     request.transactionRequest.transactionType = TransactionTypeEnum::GetDetailsTransaction
     
     response = transaction.create_transaction(request)
-    
-    #// If API Response is ok, go ahead and check the transaction response
-    if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Paypal Get Details successful."
-      puts "Response Code : #{response.transactionResponse.responseCode}"
-      puts "Shipping address : #{response.transactionResponse.shipTo.address}, #{response.transactionResponse.shipTo.city}, #{response.transactionResponse.shipTo.state}, #{response.transactionResponse.shipTo.country}"
-      if response.transactionResponse.secureAcceptance != nil
-        puts "Payer ID : #{response.transactionResponse.secureAcceptance.PayerID}"
+
+    if response != nil
+      if response.messages.resultCode == MessageTypeEnum::Ok
+        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+          puts "Paypal Get Details successful."
+          puts "Response Code : #{response.transactionResponse.responseCode}"
+          puts "Shipping address : #{response.transactionResponse.shipTo.address}, #{response.transactionResponse.shipTo.city}, #{response.transactionResponse.shipTo.state}, #{response.transactionResponse.shipTo.country}"
+          if response.transactionResponse.secureAcceptance != nil
+            puts "Payer ID : #{response.transactionResponse.secureAcceptance.PayerID}"
+          end
+          puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+        else
+          puts "Transaction Failed"
+          if response.transactionResponse.errors != nil
+            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          end
+          raise "Paypal Get Details failed."
+        end
+      else
+        puts "Transaction Failed"
+        if response.transactionResponse != nil && response.transactionResponse.errors != nil
+          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+        else
+          puts "Error Code : #{response.messages.messages[0].code}"
+          puts "Error Message : #{response.messages.messages[0].text}"
+        end
+        raise "Paypal Get Details failed."
       end
     else
-      puts response.messages.messages[0].text
-      puts response.transactionResponse.errors.errors[0].errorCode
-      puts response.transactionResponse.errors.errors[0].errorText
+      puts "Response is null"
       raise "Paypal Get Details failed."
     end
     

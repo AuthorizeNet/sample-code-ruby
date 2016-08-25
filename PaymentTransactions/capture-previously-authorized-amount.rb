@@ -25,36 +25,72 @@ require 'rubygems'
   
     authTransId = 0
   
-    if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successful AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
-      authTransId = response.transactionResponse.transId
-      puts "Transaction ID (for later capture: #{authTransId})"
-  
+    if response != nil
+      if response.messages.resultCode == MessageTypeEnum::Ok
+        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+          puts "Successfully created an AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
+          puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+          puts "Transaction ID : #{response.transactionResponse.transId} (for later capture)"
+        else
+          puts "Transaction Failed"
+          if response.transactionResponse.errors != nil
+            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          end
+          raise "Failed to authorize card."
+        end
+      else
+        puts "Transaction Failed"
+        if response.transactionResponse != nil && response.transactionResponse.errors != nil
+          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+        else
+          puts "Error Code : #{response.messages.messages[0].code}"
+          puts "Error Message : #{response.messages.messages[0].text}"
+        end
+        raise "Failed to authorize card."
+      end
     else
-      puts response.messages.messages[0].text
-      puts response.transactionResponse.errors.errors[0].errorCode
-      puts response.transactionResponse.errors.errors[0].errorText
+      puts "Response is null"
       raise "Failed to authorize card."
     end
-    
   
     request = CreateTransactionRequest.new
   
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = random_amount
-    request.transactionRequest.refTransId = authTransId
+    request.transactionRequest.refTransId = response.transactionResponse.transId
     request.transactionRequest.transactionType = TransactionTypeEnum::PriorAuthCaptureTransaction
     
     response = transaction.create_transaction(request)
-  
-    if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully captured the authorized amount (Transaction ID: #{response.transactionResponse.transId})"
-  
+
+    if response != nil
+      if response.messages.resultCode == MessageTypeEnum::Ok
+        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+          puts "Successfully captured the authorized amount (Transaction ID: #{response.transactionResponse.transId})"
+          puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+        else
+          puts "Transaction Failed"
+          if response.transactionResponse.errors != nil
+            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          end
+          raise "Failed to capture."
+        end
+      else
+        puts "Transaction Failed"
+        if response.transactionResponse != nil && response.transactionResponse.errors != nil
+          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+        else
+          puts "Error Code : #{response.messages.messages[0].code}"
+          puts "Error Message : #{response.messages.messages[0].text}"
+        end
+        raise "Failed to capture."
+      end
     else
-      puts response.messages.messages[0].text
-      puts response.transactionResponse.errors.errors[0].errorCode
-      puts response.transactionResponse.errors.errors[0].errorText
-      raise "Failed to capture the funds."
+      puts "Response is null"
+      raise "Failed to capture."
     end
     
     return response

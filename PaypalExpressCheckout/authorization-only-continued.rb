@@ -31,20 +31,35 @@
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyContinueTransaction 
     response = transaction.create_transaction(request)
   
-  
-    if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successful AuthOnly Transaction (Transaction response code: #{response.transactionResponse.responseCode})"
-      #puts response.messages.messages[0].text
-      #puts response.transactionResponse.to_yaml
-      puts response.transactionResponse.messages.messages[0].code
-      puts response.transactionResponse.messages.messages[0].description
+    if response != nil
+      if response.messages.resultCode == MessageTypeEnum::Ok
+        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+          puts "Successful AuthOnly Transaction (Transaction response code: #{response.transactionResponse.responseCode})"
+          puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+        else
+          puts "Transaction Failed"
+          if response.transactionResponse.errors != nil
+            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          end
+          raise "Failed to authorize card."
+        end
+      else
+        puts "Transaction Failed"
+        if response.transactionResponse != nil && response.transactionResponse.errors != nil
+          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+        else
+          puts "Error Code : #{response.messages.messages[0].code}"
+          puts "Error Message : #{response.messages.messages[0].text}"
+        end
+        raise "Failed to authorize card."
+      end
     else
-      puts response.messages.messages[0].text
-      puts response.transactionResponse.errors.errors[0].errorCode
-      puts response.transactionResponse.errors.errors[0].errorText
+      puts "Response is null"
       raise "Failed to authorize card."
     end
-    
+      
     return response
     
 end

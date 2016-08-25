@@ -27,18 +27,37 @@ require 'rubygems'
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
     response = transaction.create_transaction(request)
-    
-    #// If API Response is ok, go ahead and check the transaction response
-    if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successful Paypal Authorize Capture Transaction."
-      puts "Response Code : #{response.transactionResponse.responseCode}" 
-      puts "Transaction ID : #{response.transactionResponse.transId}"
-      puts "Secure Acceptance URL : #{response.transactionResponse.secureAcceptance.SecureAcceptanceUrl}"
+
+    if response != nil
+      if response.messages.resultCode == MessageTypeEnum::Ok
+        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+          puts "Successful Paypal Authorize Capture Transaction."
+          puts "Response Code : #{response.transactionResponse.responseCode}" 
+          puts "Transaction ID : #{response.transactionResponse.transId}"
+          puts "Secure Acceptance URL : #{response.transactionResponse.secureAcceptance.SecureAcceptanceUrl}"
+          puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+        else
+          puts "Transaction Failed"
+          if response.transactionResponse.errors != nil
+            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          end
+          raise "Failed to Failed Paypal Authorize Capture Transaction."
+        end
+      else
+        puts "Transaction Failed"
+        if response.transactionResponse != nil && response.transactionResponse.errors != nil
+          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+        else
+          puts "Error Code : #{response.messages.messages[0].code}"
+          puts "Error Message : #{response.messages.messages[0].text}"
+        end
+        raise "Failed to Failed Paypal Authorize Capture Transaction."
+      end
     else
-      puts response.messages.messages[0].text
-      puts response.transactionResponse.errors.errors[0].errorCode
-      puts response.transactionResponse.errors.errors[0].errorText
-      raise "Failed Paypal Authorize Capture Transaction."
+      puts "Response is null"
+      raise "Failed to Failed Paypal Authorize Capture Transaction."
     end
     
     return response
