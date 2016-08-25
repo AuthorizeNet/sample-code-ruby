@@ -23,6 +23,7 @@ require 'rubygems'
     
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
+
     request.transactionRequest.payment = paymentType
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
@@ -30,7 +31,7 @@ require 'rubygems'
 
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
+        if response.transactionResponse != nil && (response.transactionResponse.responseCode == "1" || response.transactionResponse.responseCode == "5")
           puts "Successful Paypal Authorize Capture Transaction."
           puts "Response Code : #{response.transactionResponse.responseCode}" 
           puts "Transaction ID : #{response.transactionResponse.transId}"
@@ -42,7 +43,7 @@ require 'rubygems'
             puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
             puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
           end
-          raise "Failed to Failed Paypal Authorize Capture Transaction."
+          raise "Failed Paypal Authorize Capture Transaction."
         end
       else
         puts "Transaction Failed"

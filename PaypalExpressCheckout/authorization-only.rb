@@ -23,8 +23,8 @@ require 'rubygems'
   
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.responseCode == "1"
-          puts "Successfully created a AuthorizeOnly transaction (authorization code: #{response.transactionResponse.authCode})"
+        if response.transactionResponse != nil && (response.transactionResponse.responseCode == "1" || response.transactionResponse.responseCode == "5")
+          puts "Successfully created a AuthorizeOnly transaction (Transaction ID: #{response.transactionResponse.transId})"
           puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
