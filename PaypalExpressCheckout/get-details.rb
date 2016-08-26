@@ -23,7 +23,7 @@ require 'rubygems'
     
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.payment = paymentType
-    request.transactionRequest.refTransId = "60007066940"
+    request.transactionRequest.refTransId = "60007125784"
     request.transactionRequest.transactionType = TransactionTypeEnum::GetDetailsTransaction
     
     response = transaction.create_transaction(request)
