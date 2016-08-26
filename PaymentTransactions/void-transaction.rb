@@ -29,7 +29,9 @@ require 'rubygems'
           puts "Successful AuthCapture Transaction (authorization code: #{response.transactionResponse.authCode})"
           authTransId = response.transactionResponse.transId
           puts "Transaction ID (for later void: #{authTransId})"
-          puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+          puts "Transaction Response code : #{response.transactionResponse.responseCode}"
+          puts "Code : #{response.transactionResponse.messages.messages[0].code}"
+		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
@@ -67,7 +69,9 @@ require 'rubygems'
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully voided the transaction (Transaction ID: #{response.transactionResponse.transId})"
-          puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+          puts "Transaction Response code : #{response.transactionResponse.responseCode}"
+          puts "Code : #{response.transactionResponse.messages.messages[0].code}"
+		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil

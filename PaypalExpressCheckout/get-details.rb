@@ -37,7 +37,9 @@ require 'rubygems'
           if response.transactionResponse.secureAcceptance != nil
             puts "Payer ID : #{response.transactionResponse.secureAcceptance.PayerID}"
           end
-          puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+          puts "Transaction Response code : #{response.transactionResponse.responseCode}"
+          puts "Code : #{response.transactionResponse.messages.messages[0].code}"
+		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
