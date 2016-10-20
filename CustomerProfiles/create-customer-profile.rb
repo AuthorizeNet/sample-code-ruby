@@ -13,13 +13,25 @@ require 'rubygems'
 
     
     request = CreateCustomerProfileRequest.new
-    request.profile = CustomerProfileType.new('jdoe'+rand(10000).to_s,'John2 Doe',rand(10000).to_s + '@mail.com',nil, nil)
+    payment = PaymentType.new(CreditCardType.new('4111111111111111','2020-05'))
+    profile = CustomerPaymentProfileType.new(nil,nil,payment,nil,nil)
+    address = CustomerAddressType.new('John','Doe')
+
+    request.profile = CustomerProfileType.new('jdoe'+rand(10000).to_s,'John2 Doe',rand(10000).to_s + '@mail.com', [profile], [address])
 
     response = transaction.create_customer_profile(request)
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
       puts "Successfully created aX customer profile with id:  #{response.customerProfileId}"
+      puts "Customer Payment Profile Id List:"
+      response.customerPaymentProfileIdList.numericString.each do |id|
+        puts id
+      end
+      puts "Customer Shipping Address Id List:"
+      response.customerShippingAddressIdList.numericString.each do |id|
+        puts id
+      end
     else
       puts response.messages.messages[0].text
       raise "Failed to create a new customer profile."
