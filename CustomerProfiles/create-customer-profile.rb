@@ -15,9 +15,8 @@ require 'rubygems'
     request = CreateCustomerProfileRequest.new
     payment = PaymentType.new(CreditCardType.new('4111111111111111','2020-05'))
     profile = CustomerPaymentProfileType.new(nil,nil,payment,nil,nil)
-    address = CustomerAddressType.new('John','Doe')
 
-    request.profile = CustomerProfileType.new('jdoe'+rand(10000).to_s,'John2 Doe',rand(10000).to_s + '@mail.com', [profile], [address])
+    request.profile = CustomerProfileType.new('jdoe'+rand(10000).to_s,'John2 Doe',rand(10000).to_s + '@mail.com', [profile], nil)
 
     response = transaction.create_customer_profile(request)
 
