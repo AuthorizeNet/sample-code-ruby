@@ -1,11 +1,12 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet' 
+  require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
 
-  def get_hosted_profile_page(customerProfileId = '37696245')
+  def get_accept_customer_profile_page(customerProfileId = '37696245')
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
 
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
