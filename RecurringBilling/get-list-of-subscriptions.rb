@@ -1,6 +1,7 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet' 
+  require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
@@ -29,6 +30,11 @@ require 'rubygems'
         puts "Successfully got the list of subscriptions"
         puts response.messages.messages[0].code
         puts response.messages.messages[0].text
+
+        response.subscriptionDetails.subscriptionDetail.each do |sub|
+          puts "Subscription #{sub.id} #{sub.name}  Status : #{sub.status}"
+          
+        end
     
       else
     
