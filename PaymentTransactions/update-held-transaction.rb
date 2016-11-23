@@ -27,15 +27,15 @@ require 'rubygems'
           puts "Code : #{response.transactionResponse.messages.messages[0].code}"
 		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else
-          puts "Transaction Failed"
+          puts "Update Transaction Failed"
           if response.transactionResponse.errors != nil
             puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
             puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
           end
-          raise "Failed to charge card."
+          raise "Failed to update transaction."
         end
       else
-        puts "Transaction Failed"
+        puts "Update transaction Failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
           puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
           puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
@@ -43,11 +43,11 @@ require 'rubygems'
           puts "Error Code : #{response.messages.messages[0].code}"
           puts "Error Message : #{response.messages.messages[0].text}"
         end
-        raise "Failed to charge card."
+        raise "Failed to update transaction."
       end
     else
       puts "Response is null"
-      raise "Failed to charge card."
+      raise "Failed to update transaction."
     end
     
     return response
