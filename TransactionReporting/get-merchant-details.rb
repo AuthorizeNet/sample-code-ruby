@@ -23,19 +23,19 @@ require 'rubygems'
         response.processors.processor.each do |processor|
           puts "Processor Name: #{processor.name}"
         end
-        response.processors.marketTypes.each do |marketType|
+        response.marketTypes.each do |marketType|
           puts "MarketType: #{marketType}"
         end
-        response.processors.productCodes.each do |productCode|
+        response.productCodes.each do |productCode|
           puts "Product Code: #{productCode}"
         end
-        response.processors.paymentMethods.each do |paymentMethod|
+        response.paymentMethods.each do |paymentMethod|
           puts "Payment Method: #{paymentMethod}"
         end
-        response.processors.currencies.each do |currency|
+        response.currencies.each do |currency|
           puts "Currency: #{currency}"
         end
-        
+
       else
         puts response.messages.messages[0].code
         puts response.messages.messages[0].text
