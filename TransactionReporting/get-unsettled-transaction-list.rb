@@ -20,7 +20,7 @@ require 'rubygems'
       request.paging.offset = 1;
 
       request.sorting = TransactionListSorting.new;
-      request.sorting.orderBy = TransactionListOrderFieldEnum.Id;
+      request.sorting.orderBy = TransactionListOrderFieldEnum::Id;
       request.sorting.orderDescending = true;
       
       response = transaction.get_unsettled_transaction_list(request)
