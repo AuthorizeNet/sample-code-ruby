@@ -266,6 +266,20 @@ it "should be able to run all Apple Pay sample code" do
 #    validate_response(response)
 #    
     end
+
+it "should be able to run Merchant Details sample code" do
+
+response = get_merchant_details()
+validate_response(response)
+
+end
+
+it "should be able to run Update Held Transaction sample code" do
+
+response = update_held_transaction()
+validate_response(response)
+
+end
     
     
 end

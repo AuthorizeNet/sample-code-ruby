@@ -1,6 +1,7 @@
 require 'rubygems'
   require 'yaml'
-  require 'authorizenet' 
+  require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
@@ -12,6 +13,15 @@ require 'rubygems'
       transaction = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
       
       request = GetUnsettledTransactionListRequest.new
+
+      request.status  = TransactionGroupStatusEnum.Any;
+      request.paging = Paging.new;
+      request.paging.limit = 10;
+      request.paging.offset = 1;
+
+      request.sorting = TransactionListSorting.new;
+      request.sorting.orderBy = TransactionListOrderFieldEnum.Id;
+      request.sorting.orderDescending = true;
       
       response = transaction.get_unsettled_transaction_list(request)
       
