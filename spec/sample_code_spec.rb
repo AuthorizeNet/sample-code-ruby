@@ -269,15 +269,15 @@ it "should be able to run all Apple Pay sample code" do
 
 it "should be able to run Merchant Details sample code" do
 
-response = get_merchant_details()
-validate_response(response)
+    response = get_merchant_details()
+    validate_response(response)
 
 end
 
 it "should be able to run Update Held Transaction sample code" do
 
-response = update_held_transaction()
-validate_response(response)
+    response = update_held_transaction("12345")
+    validate_response(response)
 
 end
     

@@ -22,7 +22,7 @@ require 'rubygems'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
-          puts "Successfully updated transaction : #{response.transactionResponse.transId})"
+          puts "Successfully updated transaction : #{response.transactionResponse.authCode})"
           puts "Transaction Response code : #{response.transactionResponse.responseCode}"
           puts "Code : #{response.transactionResponse.messages.messages[0].code}"
 		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
