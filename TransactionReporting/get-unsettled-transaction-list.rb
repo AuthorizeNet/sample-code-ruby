@@ -14,7 +14,7 @@ require 'rubygems'
       
       request = GetUnsettledTransactionListRequest.new
 
-      request.status  = TransactionGroupStatusEnum.Any;
+      request.status  = TransactionGroupStatusEnum.ANY;
       request.paging = Paging.new;
       request.paging.limit = 10;
       request.paging.offset = 1;
