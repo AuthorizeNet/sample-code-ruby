@@ -88,7 +88,7 @@ describe "SampleCode Testing" do
     response = get_customer_shipping_address(customerProfileId, customerAddressId)
     validate_response(response)
     
-    response = get_hosted_profile_page(customerProfileId)
+    response = get_accept_customer_profile_page(customerProfileId)
     validate_response(response)
         
     response = update_customer_payment_profile(customerProfileId, customerPaymentProfileId)
