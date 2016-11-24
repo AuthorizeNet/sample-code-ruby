@@ -18,11 +18,10 @@ require 'rubygems'
     transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
     setting = SettingType.new
-    setting.settingName = SettingNameEnum::HostedPaymentReturnOptions
+    setting.settingName = SettingNameEnum::HOSTEDPAYMENTRETURNOPTIONS
     setting.settingValue = "https://returnurl.com/return/"
     
     settings = Settings.new([setting])
-    
     
     request = GetHostedPaymentPageRequest.new
     request.transactionRequest = transactionRequest
@@ -37,7 +36,7 @@ require 'rubygems'
     else
       puts "#{response.messages.messages[0].code}"
       puts "#{response.messages.messages[0].text}"
-      raise "Failed to get hosted profile page with customer profile id #{request.customerProfileId}"
+      raise "Failed to get hosted payment page"
     end
     return response
   end
