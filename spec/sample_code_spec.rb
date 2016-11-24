@@ -283,8 +283,8 @@ end
 
 it "should be able to run Get Hosted Payment Page sample code" do
 
-    # response = get_hosted_payment_page()
-    # validate_response(response)
+    response = get_hosted_payment_page()
+    validate_response(response)
 
 end
     
