@@ -18,7 +18,7 @@ require 'rubygems'
     transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
     setting = SettingType.new
-    setting.settingName = SettingNameEnum::HOSTEDPAYMENTRETURNOPTIONS
+    setting.settingName = SettingNameEnum::HostedPaymentReturnOptions
     setting.settingValue = "https://returnurl.com/return/"
     
     settings = Settings.new([setting])
