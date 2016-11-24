@@ -280,6 +280,13 @@ it "should be able to run Update Held Transaction sample code" do
     #validate_response(response)
 
 end
+
+it "should be able to run Get Hosted Payment Page sample code" do
+
+    response = get_hosted_payment_page()
+    validate_response(response)
+
+end
     
     
 end
