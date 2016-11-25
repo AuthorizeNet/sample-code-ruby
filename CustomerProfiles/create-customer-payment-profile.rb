@@ -15,9 +15,10 @@ require 'rubygems'
     
     payment = PaymentType.new(CreditCardType.new('4111111111111111','2020-05'))
     profile = CustomerPaymentProfileType.new(nil,nil,payment,nil,nil)
-	profile.billTo = CustomerAddressType.new
-	profile.billTo.firstName = "John"
-	profile.billTo.lastName = "Snow"
+    profile.billTo = CustomerAddressType.new
+    profile.billTo.firstName = "John"
+    profile.billTo.lastName = "Snow"
+    profile.defaultPaymentProfile = true;
 
     request.paymentProfile = profile
     request.customerProfileId = customerProfileId

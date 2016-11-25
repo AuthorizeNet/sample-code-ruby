@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'yaml'
-require 'authorizenet' 
+require 'authorizenet' 
+
  require 'securerandom'
 
   include AuthorizeNet::API
@@ -14,6 +15,14 @@ require 'authorizenet'
     #batchId = "4551107"
     request = AuthorizeNet::API::GetTransactionListRequest.new
     request.batchId = batchId
+    request.paging = Paging.new;
+    request.paging.limit = 10;
+    request.paging.offset = 1;
+
+    request.sorting = TransactionListSorting.new;
+    request.sorting.orderBy = TransactionListOrderFieldEnum.Id;
+    request.sorting.orderDescending = true;
+
     response = transaction1.get_transaction_list(request)
     
     if response.messages.resultCode == MessageTypeEnum::Ok
