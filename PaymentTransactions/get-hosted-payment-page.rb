@@ -12,16 +12,18 @@ require 'rubygems'
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
     transactionRequest = TransactionRequestType.new
-    transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
-    transactionRequest.payment = PaymentType.new
-    transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0220','123') 
+    transactionRequest.amount = 12.12
     transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
-    setting = SettingType.new
-    setting.settingName = SettingNameEnum::HostedPaymentReturnOptions
-    setting.settingValue = "https://returnurl.com/return/"
+    setting1 = SettingType.new
+    setting1.settingName = SettingNameEnum::HostedPaymentButtonOptions
+    setting1.settingValue = "{\"text\": \"Pay\"}"
+
+    setting2 = SettingType.new
+    setting2.settingName = SettingNameEnum::HostedPaymentOrderOptions
+    setting2.settingValue = "{\"show\": false}"
     
-    settings = Settings.new([setting])
+    settings = Settings.new([ setting1, setting2])
     
     request = GetHostedPaymentPageRequest.new
     request.transactionRequest = transactionRequest
