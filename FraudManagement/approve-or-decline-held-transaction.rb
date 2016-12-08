@@ -6,7 +6,7 @@ require 'rubygems'
 
   include AuthorizeNet::API
 
-  def update_held_transaction(refTransId)
+  def approve_or_decline_held_transaction(refTransId)
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
   
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
