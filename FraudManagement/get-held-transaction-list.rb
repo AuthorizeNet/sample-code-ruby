@@ -6,7 +6,7 @@ require 'rubygems'
 
   include AuthorizeNet::API
 
-  def get_unsettled_transaction_List()
+  def get_held_transaction_List()
     
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
       #merchant information
