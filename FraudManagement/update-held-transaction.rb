@@ -15,7 +15,7 @@ require 'rubygems'
   
     request.heldTransactionRequest = HeldTransactionRequestType.new()
     request.heldTransactionRequest.action = AfdsTransactionEnum::Approve
-    request.heldTransactionRequest.refTransId = "12345"
+    request.heldTransactionRequest.refTransId = "60012148061"
     
     response = transaction.update_held_transaction(request)
   
