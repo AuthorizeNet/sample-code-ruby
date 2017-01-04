@@ -12,10 +12,10 @@
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
     request = CreateTransactionRequest.new
-    request.transactionRequest = TransactionRequestType.new(
-      :amount => 39.55,
-      :payment => PaymentType.new(:opaqueData => OpaqueDataType.new('COMMON.ACCEPT.INAPP.PAYMENT','9479246682350209005001',nil) )
-  )
+    request.transactionRequest = TransactionRequestType.new()
+    request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
+    request.transactionRequest.payment = PaymentType.new
+    request.transactionRequest.payment.opaqueData  = OpaqueDataType.new('COMMON.ACCEPT.INAPP.PAYMENT','9479246682350209005001',nil)
 
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
 
