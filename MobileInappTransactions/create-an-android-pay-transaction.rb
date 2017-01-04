@@ -12,7 +12,6 @@
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
     request = CreateTransactionRequest.new
-    request = CreateTransactionRequest.new
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = PaymentType.new
