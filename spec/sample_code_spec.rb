@@ -281,9 +281,9 @@ it "should be able to run Update Held Transaction sample code" do
 
 end
 
-it "should be able to run Get Hosted Payment Page sample code" do
+it "should be able to run Get Accept Payment Page sample code" do
 
-    response = get_hosted_payment_page()
+    response = get_an_accept_payment_page()
     validate_response(response)
 
 end
