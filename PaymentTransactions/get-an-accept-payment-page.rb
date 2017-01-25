@@ -44,5 +44,5 @@ require 'rubygems'
   end
   
 if __FILE__ == $0
-  get_hosted_payment_page()
+  get_an_accept_payment_page()
 end
