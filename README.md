@@ -1,6 +1,9 @@
 [![Travis](https://img.shields.io/travis/AuthorizeNet/sample-code-ruby/master.svg)]
 (https://travis-ci.org/AuthorizeNet/sample-code-ruby)
 # Sample Ruby Code for Authorize.Net
+[![Build Status](https://travis-ci.org/AuthorizeNet/sample-code-ruby.png?branch=master)]
+(https://travis-ci.org/AuthorizeNet/sample-code-ruby)
+
 This repository contains working code samples which demonstrate Ruby integration with the Authorize.Net Ruby SDK.
 The samples are organized just like our API, which you can also try out directly here: http://developer.authorize.net/api/reference
 
