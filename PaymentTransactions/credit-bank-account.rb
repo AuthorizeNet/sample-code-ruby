@@ -35,7 +35,7 @@ require 'rubygems'
             puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
             puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
           end
-          raise "Failed to make refund."
+          puts "Failed to make refund."
         end
       else
         puts "Transaction Failed"
@@ -46,7 +46,7 @@ require 'rubygems'
           puts "Error Code : #{response.messages.messages[0].code}"
           puts "Error Message : #{response.messages.messages[0].text}"
         end
-        raise "Failed to make refund."
+        puts "Failed to make refund."
       end
     else
       puts "Response is null"
