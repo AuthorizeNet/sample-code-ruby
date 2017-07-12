@@ -16,7 +16,7 @@ require 'rubygems'
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 15 ).round(2)
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'125000024','12345678', 'John Doe') 
+    request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'121042882','12345678', 'John Doe') 
     request.transactionRequest.transactionType = TransactionTypeEnum::RefundTransaction
     
     response = transaction.create_transaction(request)
@@ -35,7 +35,7 @@ require 'rubygems'
             puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
             puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
           end
-          puts "Failed to make refund."
+          puts "Failed to credit bank account."
         end
       else
         puts "Transaction Failed"
@@ -46,11 +46,11 @@ require 'rubygems'
           puts "Error Code : #{response.messages.messages[0].code}"
           puts "Error Message : #{response.messages.messages[0].text}"
         end
-        puts "Failed to make refund."
+        puts "Failed to credit bank account."
       end
     else
       puts "Response is null"
-      raise "Failed to make refund."
+      raise "Failed to credit bank account."
     end
         
     return response
