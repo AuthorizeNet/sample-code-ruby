@@ -17,7 +17,7 @@ require 'rubygems'
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0220','123') 
-    request.transactionRequest.customer = CustomerType.new(nil,'bmc@mail.com')
+    request.transactionRequest.customer = CustomerType.new(nil, nil, 'bmc@mail.com')
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
     response = transaction.create_transaction(request)
