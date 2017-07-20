@@ -23,6 +23,14 @@ require "rubygems"
     request.transactionRequest.shipTo = NameAndAddressType.new("firstNameST","lastNameST","companyST","addressST","New York","NY",
           "10010","USA")
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
+
+    userFieldArr = Array.new
+    userField = UserField.new("userFieldName","userFieldvalue")
+    userFieldArr.push(userField)
+    userField = UserField.new("userFieldName1","userFieldvalue1")
+    userFieldArr.push(userField)
+
+    request.transactionRequest.userFields = UserFields.new(userFieldArr)
     
     response = transaction.create_transaction(request)
   
@@ -30,9 +38,13 @@ require "rubygems"
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
-          puts "Transaction Response code : #{response.transactionResponse.responseCode}"
+          puts "Transaction Response Code : #{response.transactionResponse.responseCode}"
           puts "Code : #{response.transactionResponse.messages.messages[0].code}"
 		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+          puts "User Fields : "
+          response.transactionResponse.userFields.userFields.each do |userField|
+            puts userField.value
+          end
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
@@ -58,7 +70,7 @@ require "rubygems"
     end
     
     return response
-end
+  end
   
 if __FILE__ == $0
   charge_credit_card()
