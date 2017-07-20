@@ -1,23 +1,27 @@
-require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
+require "rubygems"
+  require "yaml"
+  require "authorizenet" 
 
- require 'securerandom'
+ require "securerandom"
 
   include AuthorizeNet::API
 
   def charge_credit_card()
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
   
-    transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
+    transaction = Transaction.new(config["api_login_id"], config["api_transaction_key"], :gateway => :sandbox)
   
     request = CreateTransactionRequest.new
-  
+
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0220','123') 
-    request.transactionRequest.customer = CustomerType.new(nil,'bmc@mail.com')
+    request.transactionRequest.payment.creditCard = CreditCardType.new("4242424242424242","0220","123") 
+    request.transactionRequest.customer = CustomerDataType.new(CustomerTypeEnum::Individual,"CUST-1234","bmc@mail.com",DriversLicenseType.new("DrivLicenseNumber123","WA","05/05/1990"),"123456789")
+    request.transactionRequest.billTo = CustomerAddressType.new("firstNameBT","lastNameBT","companyBT","addressBT","New York","NY",
+          "10010","USA","2121111111","2121111111")
+    request.transactionRequest.shipTo = NameAndAddressType.new("firstNameST","lastNameST","companyST","addressST","New York","NY",
+          "10010","USA")
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
     response = transaction.create_transaction(request)
