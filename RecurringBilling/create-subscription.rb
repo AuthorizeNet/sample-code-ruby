@@ -30,7 +30,7 @@ require 'authorizenet'
     request.subscription.payment.creditCard = CreditCardType.new('4111111111111111','0120','123')
 
     request.subscription.order = OrderType.new('invoiceNumber123','description123')
-    request.subscription.customer =  CustomerDataType.new(CustomerTypeEnum::Individual,'custId1','a@a.com')
+    request.subscription.customer = CustomerType.new(CustomerTypeEnum::Individual,'custId1','a@a.com')
     request.subscription.billTo = NameAndAddressType.new('John','Doe','xyt','10800 Blue St','New York','NY','10010','USA')
     request.subscription.shipTo = NameAndAddressType.new('John','Doe','xyt','10800 Blue St','New York','NY','10010','USA')
 

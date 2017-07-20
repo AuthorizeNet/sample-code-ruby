@@ -17,7 +17,7 @@ require 'rubygems'
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.opaqueData = OpaqueDataType.new('COMMON.ACCEPT.INAPP.PAYMENT','119eyJjb2RlIjoiNTBfMl8wNjAwMDUyN0JEODE4RjQxOUEyRjhGQkIxMkY0MzdGQjAxQUIwRTY2NjhFNEFCN0VENzE4NTUwMjlGRUU0M0JFMENERUIwQzM2M0ExOUEwMDAzNzlGRDNFMjBCODJEMDFCQjkyNEJDIiwidG9rZW4iOiI5NDkwMjMyMTAyOTQwOTk5NDA0NjAzIiwidiI6IjEuMSJ9') 
-    request.transactionRequest.customer = CustomerType.new(nil,'bmc@mail.com')
+    request.transactionRequest.customer = CustomerDataType.new(nil,nil,'bmc@mail.com')
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
     response = transaction.create_transaction(request)
@@ -54,7 +54,7 @@ require 'rubygems'
     end
     
     return response
-end
+  end
   
 if __FILE__ == $0
   create_an_accept_payment_transaction()
