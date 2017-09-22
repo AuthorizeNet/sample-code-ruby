@@ -31,6 +31,12 @@ require "rubygems"
     userFieldArr.push(userField)
 
     request.transactionRequest.userFields = UserFields.new(userFieldArr)
+
+    lineItemArr = Array.new
+    lineItem = LineItemType.new("SampleItemId","SampleName","SampleDescription","1","10.00","true")
+    lineItemArr.push(lineItem)
+
+    request.transactionRequest.lineItems = LineItems.new(lineItemArr)
     
     response = transaction.create_transaction(request)
   
@@ -38,6 +44,7 @@ require "rubygems"
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
+          puts "Transaction ID : #{response.transactionResponse.transId}"
           puts "Transaction Response Code : #{response.transactionResponse.responseCode}"
           puts "Code : #{response.transactionResponse.messages.messages[0].code}"
 		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"

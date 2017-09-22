@@ -31,13 +31,20 @@ require "rubygems"
     userFieldArr.push(userField)
 
     request.transactionRequest.userFields = UserFields.new(userFieldArr)
-    
+
+    lineItemArr = Array.new
+    lineItem = LineItemType.new("SampleItemId","SampleName","SampleDescription","1","10.00","true")
+    lineItemArr.push(lineItem)
+
+    request.transactionRequest.lineItems = LineItems.new(lineItemArr)
+
     response = transaction.create_transaction(request)
     
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully created an AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
+          puts "Transaction ID : #{response.transactionResponse.transId}"
           puts "Transaction Response Code : #{response.transactionResponse.responseCode}"
           puts "Code : #{response.transactionResponse.messages.messages[0].code}"
 		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
@@ -46,7 +53,7 @@ require "rubygems"
             puts userField.value
           end
         else
-          puts "Transaction Failed"
+          puts "Transaction Failed" 
           if response.transactionResponse.errors != nil
             puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
             puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
