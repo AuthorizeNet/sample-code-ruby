@@ -32,7 +32,9 @@ require "rubygems"
 
     request.transactionRequest.userFields = UserFields.new(userFieldArr)
 
+    # Build an array of line items
     lineItemArr = Array.new
+    # Arguments for LineItemType.new are itemId, name, description, quanitity, unitPrice, taxable
     lineItem = LineItemType.new("SampleItemId","SampleName","SampleDescription","1","10.00","true")
     lineItemArr.push(lineItem)
 
