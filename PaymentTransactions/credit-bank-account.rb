@@ -16,7 +16,7 @@ require 'rubygems'
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 15 ).round(2)
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'121042882','12345678', 'John Doe') 
+    request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'121042882','123456789', 'John Doe') 
     request.transactionRequest.transactionType = TransactionTypeEnum::RefundTransaction
     
     response = transaction.create_transaction(request)
@@ -54,7 +54,7 @@ require 'rubygems'
     end
         
     return response
-end
+  end
   
 if __FILE__ == $0
   credit_bank_account()

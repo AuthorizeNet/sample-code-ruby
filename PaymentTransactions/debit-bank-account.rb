@@ -9,14 +9,14 @@ require 'rubygems'
   def debit_bank_account()
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
   
-    transaction = Transaction.new('22Pav9kBpn', '35vB2T6kkZZW582q', :gateway => :sandbox)
-  
+    transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
+    
     request = CreateTransactionRequest.new
   
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 15 ).round(2)
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'121042882','12345678', 'John Doe') 
+    request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'121042882','123456789', 'John Doe') 
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
     response = transaction.create_transaction(request)
@@ -53,7 +53,7 @@ require 'rubygems'
     end
 
     return response
-end
+  end
   
 if __FILE__ == $0
   debit_bank_account()
