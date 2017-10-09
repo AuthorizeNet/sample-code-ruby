@@ -20,7 +20,7 @@ require 'rubygems'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully retrieved a payment profile with profile id is #{request.customerPaymentProfileId} and whose customer id is #{request.customerProfileId}"
+      puts "Successfully retrieved a payment profile with profile id #{request.customerPaymentProfileId} and whose customer id is #{request.customerProfileId}"
 
       if response.paymentProfile.subscriptionIds != nil && response.paymentProfile.subscriptionIds.subscriptionId != nil
         puts "List of subscriptions : "
