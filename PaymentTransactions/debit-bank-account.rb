@@ -16,25 +16,26 @@ require 'rubygems'
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 15 ).round(2)
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.bankAccount = BankAccountType.new(nil,'121042882','123456789', 'John Doe') 
+    request.transactionRequest.payment.bankAccount = BankAccountType.new('checking','121042882','123456789', 'John Doe','WEB','Wells Fargo Bank NA','101') 
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
     response = transaction.create_transaction(request)
 
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        if response.transactionResponse != nil && response.transactionResponse.messages != nil
+        if response.transactionResponse != nil && (response.transactionResponse.messages != nil)
           puts "Successfully debited (Transaction ID: #{response.transactionResponse.transId})"
           puts "Transaction Response code : #{response.transactionResponse.responseCode}"
           puts "Code : #{response.transactionResponse.messages.messages[0].code}"
 		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
+          puts "Transaction Response code : #{response.transactionResponse.responseCode}"          
           if response.transactionResponse.errors != nil
             puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
             puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
           end
-          raise "Failed to make purchase."
+          puts "Failed to debit bank account."
         end
       else
         puts "Transaction Failed"
@@ -45,11 +46,11 @@ require 'rubygems'
           puts "Error Code : #{response.messages.messages[0].code}"
           puts "Error Message : #{response.messages.messages[0].text}"
         end
-        raise "Failed to make purchase."
+        puts "Failed to debit bank account."
       end
     else
       puts "Response is null"
-      raise "Failed to make purchase."
+      raise "Failed to debit bank account."
     end
 
     return response
