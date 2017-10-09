@@ -22,7 +22,7 @@ require 'rubygems'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully created aX customer profile with id:  #{response.customerProfileId}"
+      puts "Successfully created a customer profile with id:  #{response.customerProfileId}"
       puts "Customer Payment Profile Id List:"
       response.customerPaymentProfileIdList.numericString.each do |id|
         puts id
