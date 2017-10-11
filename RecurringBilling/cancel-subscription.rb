@@ -1,7 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -29,7 +29,7 @@ require 'rubygems'
         raise "Failed to cancel a subscription"
       end
       return response
-    end
+  end
 
 if __FILE__ == $0
   cancel_subscription()

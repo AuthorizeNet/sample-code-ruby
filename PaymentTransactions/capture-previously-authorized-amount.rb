@@ -1,8 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
-
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -23,7 +22,7 @@ require 'rubygems'
     
     response = transaction.create_transaction(request)
   
-    authTransId = 0
+    authTransId = response.transactionResponse.transId
   
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
@@ -61,7 +60,7 @@ require 'rubygems'
   
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = random_amount
-    request.transactionRequest.refTransId = response.transactionResponse.transId
+    request.transactionRequest.refTransId = authTransId
     request.transactionRequest.transactionType = TransactionTypeEnum::PriorAuthCaptureTransaction
     
     response = transaction.create_transaction(request)
@@ -98,7 +97,7 @@ require 'rubygems'
     end
     
     return response
-end
+  end
   
 if __FILE__ == $0
   capture_previously_authorized_amount()

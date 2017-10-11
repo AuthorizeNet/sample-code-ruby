@@ -1,8 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
-
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -44,7 +43,7 @@ require 'rubygems'
       end
     end
     return response
- end
+  end
 
 if __FILE__ == $0
   get_list_of_subscriptions()

@@ -1,8 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
-
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -51,7 +50,7 @@ require 'rubygems'
     end
     
     return response
-end
+  end
   
 if __FILE__ == $0
   update_held_transaction("12345")

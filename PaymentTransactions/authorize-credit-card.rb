@@ -1,8 +1,7 @@
-require "rubygems"
-  require "yaml"
-  require "authorizenet" 
-
- require "securerandom"
+require 'rubygems'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -25,10 +24,10 @@ require "rubygems"
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyTransaction
 
     userFieldArr = Array.new
-    userField = UserField.new("userFieldName","userFieldvalue")
-    userFieldArr.push(userField)
-    userField = UserField.new("userFieldName1","userFieldvalue1")
-    userFieldArr.push(userField)
+    requestUserField = UserField.new("userFieldName","userFieldvalue")
+    userFieldArr.push(requestUserField)
+    requestUserField = UserField.new("userFieldName1","userFieldvalue1")
+    userFieldArr.push(requestUserField)
 
     request.transactionRequest.userFields = UserFields.new(userFieldArr)
 

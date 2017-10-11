@@ -1,8 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
-
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
   
@@ -63,7 +62,7 @@ require 'rubygems'
 
     return response
   
-end  
+  end  
   
 if __FILE__ == $0
   authorization_and_capture_continue()
