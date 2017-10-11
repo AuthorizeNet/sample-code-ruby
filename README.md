@@ -11,12 +11,12 @@ The samples are all completely independent and self-contained so you can look at
 
 ## Running the Samples From The Command Line
 1. Install the [Authorize.Net Ruby SDK](https://www.github.com/AuthorizeNet/sdk-ruby).
-2. Clone this repository.
+2. Clone this repository:
 ```
     $ git clone https://github.com/AuthorizeNet/sample-code-ruby
 ```
 
-3. Run the individual samples e.g.   
+3. Run the individual samples. For example:  
 ```
     $ ruby PaymentTransactions/charge-credit-card.rb 
 ```
