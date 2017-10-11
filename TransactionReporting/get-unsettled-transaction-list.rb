@@ -15,7 +15,8 @@ require 'securerandom'
 
       request.status  = TransactionGroupStatusEnum::ANY;
       request.paging = Paging.new;
-      request.paging.limit = 10;
+      # Paging limit can be up to 1000
+      request.paging.limit = '20'
       request.paging.offset = 1;
 
       request.sorting = TransactionListSorting.new;

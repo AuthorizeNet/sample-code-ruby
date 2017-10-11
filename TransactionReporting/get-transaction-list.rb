@@ -15,7 +15,8 @@ require 'securerandom'
     request = AuthorizeNet::API::GetTransactionListRequest.new
     request.batchId = batchId
     request.paging = Paging.new;
-    request.paging.limit = 10;
+    # Paging limit can be up to 1000
+    request.paging.limit = '10'
     request.paging.offset = 1;
 
     request.sorting = TransactionListSorting.new;
