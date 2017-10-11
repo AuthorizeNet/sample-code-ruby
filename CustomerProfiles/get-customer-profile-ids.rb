@@ -33,7 +33,7 @@ require 'securerandom'
 
     else
       puts response.messages.messages[0].text
-      raise "Failed to get customer profile information with id #{request.customerProfileId}"
+      raise "Failed to get customer profile information"
     end
     return response
   end
