@@ -23,21 +23,38 @@ require 'securerandom'
           "10010","USA")
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyTransaction
 
-    userFieldArr = Array.new
-    requestUserField = UserField.new("userFieldName","userFieldvalue")
-    userFieldArr.push(requestUserField)
-    requestUserField = UserField.new("userFieldName1","userFieldvalue1")
-    userFieldArr.push(requestUserField)
-
-    request.transactionRequest.userFields = UserFields.new(userFieldArr)
+    # tax, duty, and shipping are all instances of ExtendedAmountType
+    # Arguments for ExtendedAmountType.new are amount, name, description
+    request.transactionRequest.tax = ExtendedAmountType.new("0.99","Sales tax","Local municipality sales tax")
+    # Or, you can specify the components one at a time:
+    request.transactionRequest.shipping = ExtendedAmountType.new
+    request.transactionRequest.shipping.amount = "5.20"
+    request.transactionRequest.shipping.name = "Shipping charges"
+    request.transactionRequest.shipping.description = "Ultra-fast 3 day shipping"
 
     # Build an array of line items
     lineItemArr = Array.new
     # Arguments for LineItemType.new are itemId, name, description, quanitity, unitPrice, taxable
     lineItem = LineItemType.new("SampleItemId","SampleName","SampleDescription","1","10.00","true")
     lineItemArr.push(lineItem)
-
+    # Or, you can specify the components one at a time:
+    lineItem = LineItemType.new
+    lineItem.itemId = "1234"
+    lineItem.name = "Line Item 2"
+    lineItem.description = "another line item"
+    lineItem.quantity = "2"
+    lineItem.unitPrice = "2.95"
+    lineItem.taxable = "false"
+    lineItemArr.push(lineItem)
     request.transactionRequest.lineItems = LineItems.new(lineItemArr)
+
+    # Build an array of user fields
+    userFieldArr = Array.new
+    requestUserField = UserField.new("userFieldName","userFieldvalue")
+    userFieldArr.push(requestUserField)
+    requestUserField = UserField.new("userFieldName1","userFieldvalue1")
+    userFieldArr.push(requestUserField)
+    request.transactionRequest.userFields = UserFields.new(userFieldArr)
 
     response = transaction.create_transaction(request)
     
