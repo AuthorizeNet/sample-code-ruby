@@ -1,8 +1,8 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
- require 'securerandom'
-  require "date"
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
+require "date"
 
   include AuthorizeNet::API
 
@@ -40,7 +40,7 @@ require 'rubygems'
     
     return response
   
-end
+  end
 
   
   
