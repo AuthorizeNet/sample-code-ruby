@@ -17,7 +17,8 @@ require 'securerandom'
     request.sorting.orderDescending = 'false'
     
     request.paging = Paging.new
-    request.paging.limit = '1000'
+    # Paging limit can be up to 1000
+    request.paging.limit = '20'
     request.paging.offset = '1'
   
   
