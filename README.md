@@ -17,7 +17,7 @@ You can also run each sample directly from the command line.
 ```
     $ git clone https://github.com/AuthorizeNet/sample-code-ruby.git
 ```
-* Install the [Authorize.Net Ruby SDK](https://www.github.com/AuthorizeNet/sdk-ruby).
+* Install the [Authorize.Net Ruby SDK](https://www.github.com/AuthorizeNet/sdk-ruby):
 ```
     $ git clone https://github.com/AuthorizeNet/sample-code-ruby
 ```
