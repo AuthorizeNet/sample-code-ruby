@@ -19,10 +19,10 @@ require 'securerandom'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully retrieved a payment profile with profile id #{request.customerPaymentProfileId} and whose customer id is #{request.customerProfileId}"
+      puts "Successfully retrieved a payment profile with profile ID #{request.customerPaymentProfileId} and whose customer ID is #{request.customerProfileId}."
 
       if response.paymentProfile.subscriptionIds != nil && response.paymentProfile.subscriptionIds.subscriptionId != nil
-        puts "List of subscriptions : "
+        puts "  List of subscriptions : "
         response.paymentProfile.subscriptionIds.subscriptionId.each do |subscriptionId|
           puts "#{subscriptionId}"
         end
@@ -30,7 +30,7 @@ require 'securerandom'
 
     else
       puts response.messages.messages[0].text
-      raise "Failed to get payment profile information with id #{request.customerPaymentProfileId}"
+      raise "Failed to get payment profile information with ID #{request.customerPaymentProfileId}."
     end 
     return response
   end

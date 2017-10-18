@@ -5,7 +5,7 @@ require 'securerandom'
 
   include AuthorizeNet::API
 
-  def create_customer_payment_profile(customerProfileId = '35894174')
+  def create_customer_payment_profile(customerProfileId = '1813343337')
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
 
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
@@ -26,7 +26,7 @@ require 'securerandom'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully created a customer payment profile with id:  #{response.customerPaymentProfileId}"
+      puts "Successfully created a customer payment profile with id:  #{response.customerPaymentProfileId}."
     else
       puts "Failed to create a new customer payment profile: #{response.messages.messages[0].text}"
     end

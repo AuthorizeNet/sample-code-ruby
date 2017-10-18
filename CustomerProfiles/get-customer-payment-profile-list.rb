@@ -31,12 +31,12 @@ require 'securerandom'
     response = transaction.get_customer_payment_profile_list(request)
     
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully got customer payment profile list"
+      puts "Successfully got customer payment profile list."
       puts response.messages.messages[0].code
       puts response.messages.messages[0].text
-      puts "Total Result in Set = #{response.totalNumInResultSet}"
+      puts "  Total number in result set: #{response.totalNumInResultSet}"
 #      response.paymentProfiles.paymentProfile.each do |paymentProfile|
-#        puts "Payment profile id = #{paymentProfile.customerPaymentProfileId}"
+#        puts "Payment profile ID = #{paymentProfile.customerPaymentProfileId}"
 #        puts "First Name in Billing Address = #{paymentProfile.billTo.firstName}"
 #        puts "Credit Card Number = #{paymentProfile.payment.creditCard.cardNumber}"
 #      end

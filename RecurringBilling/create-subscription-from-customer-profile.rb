@@ -36,7 +36,7 @@ require 'securerandom'
 	
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        puts "Successfully created a subscription #{response.subscriptionId}"
+        puts "Successfully created a subscription with ID #{response.subscriptionId}."
       else
         #puts response.transactionResponse.errors.errors[0].errorCode
         #puts response.transactionResponse.errors.errors[0].errorText

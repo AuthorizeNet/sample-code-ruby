@@ -24,10 +24,10 @@ require 'securerandom'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully updated customer with customer profile id #{request.address.customerAddressId}"
+      puts "Successfully updated customer with customer profile ID #{request.address.customerAddressId}."
     else
       puts response.messages.messages[0].text
-      raise "Failed to update customer with customer profile id #{request.address.customerAddressId}"
+      raise "Failed to update customer with customer profile ID #{request.address.customerAddressId}."
     end
     return response
   end

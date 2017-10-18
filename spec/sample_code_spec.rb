@@ -51,7 +51,8 @@ describe "SampleCode Testing" do
   end
   
   it "should be able to run all Customer Profile sample code" do
-
+    puts "START - Customer Profiles"
+    
     response = create_customer_profile()
     validate_response(response)
     customerProfileId = response.customerProfileId
@@ -73,7 +74,6 @@ describe "SampleCode Testing" do
 #    validate_response(response)
    
     response = get_customer_payment_profile(customerProfileId, customerPaymentProfileId)
-    
     validate_response(response)
     
     response = get_customer_payment_profile_list()
@@ -112,7 +112,8 @@ describe "SampleCode Testing" do
   end
   
 it "should be able to run all Recurring Billing sample code" do
-
+    puts "START - Recurring Billing"
+    
     response = create_Subscription()
     validate_response(response)
     subscriptionId = response.subscriptionId
@@ -123,7 +124,9 @@ it "should be able to run all Recurring Billing sample code" do
 	shipping_response = create_customer_shipping_address(profile_response.customerProfileId)
 	
 	#waiting for creating customer profile.
-	sleep 10
+    puts "Waiting for creation of customer profile..."
+    sleep 10
+    puts "Proceeding"
     	
 	response = create_subscription_from_customer_profile(profile_response.customerProfileId, payment_response.customerPaymentProfileId, shipping_response.customerAddressId)
 	validate_response(response)
@@ -152,7 +155,7 @@ it "should be able to run all Recurring Billing sample code" do
     
   
 it "should be able to run all Payment Transaction sample code" do
-    puts "START"
+    puts "START - Payment Transactions"
 
     response = authorize_credit_card()
     validate_response(response)
@@ -205,8 +208,9 @@ it "should be able to run all Payment Transaction sample code" do
     end
     
     
-it "should be able to run all Paypal Express Checkout sample code" do
-
+it "should be able to run all PayPal Express Checkout sample code" do
+    puts "START - PayPal Express Checkout"
+    
     response = authorization_and_capture()
     validate_response(response)
     
@@ -231,7 +235,8 @@ it "should be able to run all Paypal Express Checkout sample code" do
     end
     
 it "should be able to run all Transaction Reporting sample code" do
-
+    puts "START - Transaction Reporting"
+    
     response = get_batch_Statistics()
     validate_response(response)
     
@@ -251,10 +256,20 @@ it "should be able to run all Transaction Reporting sample code" do
     validate_response(response)
     
     end
-  
-    
-it "should be able to run all Visa Checkout sample code" do
 
+    
+it "should be able to run Merchant Details sample code" do
+    puts "START - Transaction Reporting / Merchant Details"
+    
+    response = get_merchant_details()
+    validate_response(response)
+
+end
+
+
+it "should be able to run all Visa Checkout sample code" do
+    puts "START - Visa Checkout"
+    
 #    response = create_visa_checkout_transaction()
 #    validate_response(response)
     
@@ -269,13 +284,6 @@ it "should be able to run all Apple Pay sample code" do
 #    validate_response(response)
 #    
     end
-
-it "should be able to run Merchant Details sample code" do
-
-    response = get_merchant_details()
-    validate_response(response)
-
-end
 
 it "should be able to run Update Held Transaction sample code" do
 

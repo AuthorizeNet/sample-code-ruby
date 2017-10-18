@@ -5,7 +5,7 @@ require 'securerandom'
 
   include AuthorizeNet::API
 
-  def get_subscription_status(subscriptionId = '2790501')
+  def get_subscription_status(subscriptionId = '4792732')
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     #subscription = Subscription.new(config['api_login_id'], config['api_subscription_key'], :gateway => :sandbox)
@@ -18,7 +18,8 @@ require 'securerandom'
   
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        puts "Successfully got subscription status #{response.status}"
+        puts "Successfully got subscription status."
+        puts "  Status: #{response.status}"
     
       else
         puts response.messages.messages[0].code

@@ -36,14 +36,14 @@ require 'securerandom'
      
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        puts "Successfully created a subscription #{response.subscriptionId}"
+        puts "Successfully created a subscription with ID #{response.subscriptionId}."
     
       else
         #puts response.transactionResponse.errors.errors[0].errorCode
         #puts response.transactionResponse.errors.errors[0].errorText
         puts response.messages.messages[0].code
         puts response.messages.messages[0].text
-        raise "Failed to create a subscription"
+        raise "Failed to create a subscription."
       end
     end
     return response
@@ -52,4 +52,3 @@ require 'securerandom'
 if __FILE__ == $0
   create_Subscription()
 end
-

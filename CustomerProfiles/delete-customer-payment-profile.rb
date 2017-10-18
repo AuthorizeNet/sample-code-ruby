@@ -19,9 +19,9 @@ require 'securerandom'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully deleted payment profile with customer payment profile id #{request.customerPaymentProfileId}"
+      puts "Successfully deleted payment profile with customer payment profile ID #{request.customerPaymentProfileId}."
     else
-      puts "Failed to delete payment profile with profile id #{request.customerPaymentProfileId} : #{response.messages.messages[0].text}"
+      puts "Failed to delete payment profile with profile ID #{request.customerPaymentProfileId} : #{response.messages.messages[0].text}"
     end
     return response
   end

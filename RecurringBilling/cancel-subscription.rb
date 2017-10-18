@@ -18,9 +18,9 @@ require 'securerandom'
       
       if response != nil
         if response.messages.resultCode == MessageTypeEnum::Ok
-          puts "Successfully cancelled a subscription"
-          puts response.messages.messages[0].code
-          puts response.messages.messages[0].text
+          puts "Successfully cancelled a subscription."
+          puts "  Response code: #{response.messages.messages[0].code}"
+          puts "  Response message: #{response.messages.messages[0].text}"
         end
       
       else

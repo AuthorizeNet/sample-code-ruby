@@ -29,9 +29,9 @@ require 'securerandom'
     	else
         response.transactions.transaction.each do |trans|
   	  		puts "\nTransaction ID  :  #{trans.transId} "
-  	  		puts "Submitted on (Local)  :  %s " %[trans.submitTimeUTC]
+  	  		puts "Submitted on (Local)  :  %s " % [trans.submitTimeUTC]
   	  		puts "Status  :  #{trans.transactionStatus} "
-  	  		puts "Settle Amount  :  %.2f " %[trans.settleAmount]
+  	  		puts "Settle Amount  :  %.2f " % [trans.settleAmount]
   	  	end
     	end
     else
