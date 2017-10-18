@@ -28,26 +28,26 @@ require 'securerandom'
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully created an AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
-          puts "Transaction Response code : #{response.transactionResponse.responseCode}"
-          puts "Code : #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
-          puts "Transaction ID : #{response.transactionResponse.transId} (for later capture)"
+          puts "Transaction Response code: #{response.transactionResponse.responseCode}"
+          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
+		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+          puts "Transaction ID: #{response.transactionResponse.transId} (for later capture)"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
-            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+            puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
           raise "Failed to authorize card."
         end
       else
         puts "Transaction Failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
-          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "Error Code : #{response.messages.messages[0].code}"
-          puts "Error Message : #{response.messages.messages[0].text}"
+          puts "Error Code: #{response.messages.messages[0].code}"
+          puts "Error Message: #{response.messages.messages[0].text}"
         end
         raise "Failed to authorize card."
       end
@@ -69,25 +69,25 @@ require 'securerandom'
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully captured the authorized amount (Transaction ID: #{response.transactionResponse.transId})"
-          puts "Transaction Response code : #{response.transactionResponse.responseCode}"
-          puts "Code : #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+          puts "Transaction Response code: #{response.transactionResponse.responseCode}"
+          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
+		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
-            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+            puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
           raise "Failed to capture."
         end
       else
         puts "Transaction Failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
-          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "Error Code : #{response.messages.messages[0].code}"
-          puts "Error Message : #{response.messages.messages[0].text}"
+          puts "Error Code: #{response.messages.messages[0].code}"
+          puts "Error Message: #{response.messages.messages[0].text}"
         end
         raise "Failed to capture."
       end

@@ -22,7 +22,8 @@ require 'securerandom'
     request.transactionRequest.shipTo = NameAndAddressType.new("firstNameST","lastNameST","companyST","addressST","New York","NY",
           "10010","USA")
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyTransaction
-
+    request.transactionRequest.order = OrderType.new("invoiceNumber#{(SecureRandom.random_number*1000000).round(0)}","Order Description")    
+    
     # tax, duty, and shipping are all instances of ExtendedAmountType
     # Arguments for ExtendedAmountType.new are amount, name, description
     request.transactionRequest.tax = ExtendedAmountType.new("0.99","Sales tax","Local municipality sales tax")
@@ -62,30 +63,30 @@ require 'securerandom'
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully created an AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
-          puts "Transaction ID : #{response.transactionResponse.transId}"
-          puts "Transaction Response Code : #{response.transactionResponse.responseCode}"
-          puts "Code : #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
-          puts "User Fields : "
+          puts "Transaction ID: #{response.transactionResponse.transId}"
+          puts "Transaction Response Code: #{response.transactionResponse.responseCode}"
+          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
+		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+          puts "User Fields: "
           response.transactionResponse.userFields.userFields.each do |userField|
             puts userField.value
           end
         else
           puts "Transaction Failed" 
           if response.transactionResponse.errors != nil
-            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+            puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
           raise "Failed to authorize card."
         end
       else
         puts "Transaction Failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
-          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "Error Code : #{response.messages.messages[0].code}"
-          puts "Error Message : #{response.messages.messages[0].text}"
+          puts "Error Code: #{response.messages.messages[0].code}"
+          puts "Error Message: #{response.messages.messages[0].text}"
         end
         raise "Failed to authorize card."
       end

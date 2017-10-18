@@ -18,6 +18,7 @@ require 'securerandom'
     request.transactionRequest.payment.opaqueData = OpaqueDataType.new('COMMON.ACCEPT.INAPP.PAYMENT','119eyJjb2RlIjoiNTBfMl8wNjAwMDUyN0JEODE4RjQxOUEyRjhGQkIxMkY0MzdGQjAxQUIwRTY2NjhFNEFCN0VENzE4NTUwMjlGRUU0M0JFMENERUIwQzM2M0ExOUEwMDAzNzlGRDNFMjBCODJEMDFCQjkyNEJDIiwidG9rZW4iOiI5NDkwMjMyMTAyOTQwOTk5NDA0NjAzIiwidiI6IjEuMSJ9') 
     request.transactionRequest.customer = CustomerDataType.new(nil,nil,'bmc@mail.com')
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
+    request.transactionRequest.order = OrderType.new("invoiceNumber#{(SecureRandom.random_number*1000000).round(0)}","Order Description")    
     
     response = transaction.create_transaction(request)
   
@@ -25,25 +26,25 @@ require 'securerandom'
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
-          puts "Transaction Response code : #{response.transactionResponse.responseCode}"
-          puts "Code : #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+          puts "Transaction Response code: #{response.transactionResponse.responseCode}"
+          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
+		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
-            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+            puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
           raise "Failed to charge card."
         end
       else
         puts "Transaction Failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
-          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "Error Code : #{response.messages.messages[0].code}"
-          puts "Error Message : #{response.messages.messages[0].text}"
+          puts "Error Code: #{response.messages.messages[0].code}"
+          puts "Error Message: #{response.messages.messages[0].text}"
         end
         raise "Failed to charge card."
       end

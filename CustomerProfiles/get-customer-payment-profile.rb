@@ -22,7 +22,7 @@ require 'securerandom'
       puts "Successfully retrieved a payment profile with profile ID #{request.customerPaymentProfileId} and whose customer ID is #{request.customerProfileId}."
 
       if response.paymentProfile.subscriptionIds != nil && response.paymentProfile.subscriptionIds.subscriptionId != nil
-        puts "  List of subscriptions : "
+        puts "  List of subscriptions: "
         response.paymentProfile.subscriptionIds.subscriptionId.each do |subscriptionId|
           puts "#{subscriptionId}"
         end

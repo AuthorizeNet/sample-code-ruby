@@ -17,33 +17,35 @@ require 'securerandom'
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.bankAccount = BankAccountType.new('checking','121042882','123456789', 'John Doe','WEB','Wells Fargo Bank NA','101') 
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
-    
+    request.transactionRequest.order = OrderType.new("invoiceNumber#{(SecureRandom.random_number*1000000).round(0)}","Order Description")    
+
     response = transaction.create_transaction(request)
 
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && (response.transactionResponse.messages != nil)
-          puts "Successfully debited (Transaction ID: #{response.transactionResponse.transId})"
-          puts "Transaction Response code : #{response.transactionResponse.responseCode}"
-          puts "Code : #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+          puts "Successfully debited bank account."
+          puts "  Transaction ID: #{response.transactionResponse.transId}"
+          puts "  Transaction response code: #{response.transactionResponse.responseCode}"
+          puts "  Code: #{response.transactionResponse.messages.messages[0].code}"
+		      puts "  Description: #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
-          puts "Transaction Response code : #{response.transactionResponse.responseCode}"          
+          puts "Transaction response code: #{response.transactionResponse.responseCode}"          
           if response.transactionResponse.errors != nil
-            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+            puts "  Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "  Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
           puts "Failed to debit bank account."
         end
       else
         puts "Transaction Failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
-          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          puts "  Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "  Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "Error Code : #{response.messages.messages[0].code}"
-          puts "Error Message : #{response.messages.messages[0].text}"
+          puts "  Error Code: #{response.messages.messages[0].code}"
+          puts "  Error Message: #{response.messages.messages[0].text}"
         end
         puts "Failed to debit bank account."
       end

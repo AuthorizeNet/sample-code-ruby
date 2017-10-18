@@ -22,7 +22,7 @@ require 'securerandom'
       puts "Successfully retrieved a shipping address with profile ID #{request.customerAddressId} and whose customer ID is #{request.customerProfileId}."
 
       if response.subscriptionIds != nil && response.subscriptionIds.subscriptionId != nil
-        puts "  List of subscriptions : "
+        puts "  List of subscriptions: "
         response.subscriptionIds.subscriptionId.each do |subscriptionId|
           puts "    #{subscriptionId}"
         end

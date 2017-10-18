@@ -31,16 +31,16 @@ require 'securerandom'
     		puts "#{response.messages.messages[0].text}"
     	else
         response.transactions.transaction.each do |trans|
-  	  		puts "\nTransaction ID  :  #{trans.transId} "
-  	  		puts "Submitted on (Local)  :  %s " %[trans.submitTimeUTC]
-  	  		puts "Status  :  #{trans.transactionStatus} "
-  	  		puts "Settle Amount  :  %.2f " %[trans.settleAmount]
+  	  		puts "\nTransaction ID :  #{trans.transId} "
+  	  		puts "Submitted on (Local) :  %s " %[trans.submitTimeUTC]
+  	  		puts "Status :  #{trans.transactionStatus} "
+  	  		puts "Settle Amount :  %.2f " %[trans.settleAmount]
   	  	end
     	end
     else
-    	puts "Error : Failed to get Transaction List\n"
-    	puts "Error Text  :  #{response.messages.messages[0].text} \n"
-    	puts "Error Code  :  #{response.messages.messages[0].code} "
+    	puts "Error: Failed to get Transaction List\n"
+    	puts "Error Text :  #{response.messages.messages[0].text} \n"
+    	puts "Error Code :  #{response.messages.messages[0].code} "
     end
     return response
   
