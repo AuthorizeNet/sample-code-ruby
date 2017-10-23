@@ -246,7 +246,7 @@ it "should be able to run all Transaction Reporting sample code" do
     response = get_transaction_Details()
     validate_response(response)
     
-    #response = get_transaction_List()
+    response = get_transaction_List()
     validate_response(response)
     
     response = get_unsettled_transaction_List()
