@@ -5,9 +5,10 @@ require 'securerandom'
 
   include AuthorizeNet::API
 
-  def void()
+  def authorization_and_capture()
+    # Before we can void a transaction, we must first create a transaction,
+    # so that we have something to void.
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-  
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
   
     request = CreateTransactionRequest.new
@@ -26,10 +27,10 @@ require 'securerandom'
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successful AuthCapture Transaction (authorization code: #{response.transactionResponse.authCode})"
           authTransId = response.transactionResponse.transId
-          puts "Transaction ID (for later void: #{authTransId})"
-          puts "Transaction Response code: #{response.transactionResponse.responseCode}"
-          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+          puts "  Transaction ID (for later void: #{authTransId})"
+          puts "  Transaction Response code: #{response.transactionResponse.responseCode}"
+          puts "  Code: #{response.transactionResponse.messages.messages[0].code}"
+		      puts "  Description: #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
@@ -53,13 +54,21 @@ require 'securerandom'
       puts "Response is null"
       raise "Failed to authorize card."
     end
+    return authTransId
+  end
+
+  def void(authTransId)
+    # This function will take the transaction ID from the previously created transaction
+    # and send a void request for that transaction ID.
+    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
+    transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
   
     request = CreateTransactionRequest.new
   
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.refTransId = authTransId
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.payPal = PayPalType.new(succesUrl="", cancelUrl="")
+    request.transactionRequest.payment.payPal = PayPalType.new()
     request.transactionRequest.transactionType = TransactionTypeEnum::VoidTransaction
     
     response = transaction.create_transaction(request)
@@ -68,9 +77,9 @@ require 'securerandom'
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully voided the transaction (Transaction ID: #{response.transactionResponse.transId})"
-          puts "Transaction Response code: #{response.transactionResponse.responseCode}"
-          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
-		  puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+          puts "  Transaction Response code: #{response.transactionResponse.responseCode}"
+          puts "  Code: #{response.transactionResponse.messages.messages[0].code}"
+		      puts "  Description: #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
@@ -99,5 +108,6 @@ require 'securerandom'
   end
 
 if __FILE__ == $0
-  void()
+  authTransId = authorization_and_capture()
+  void(authTransId)
 end
