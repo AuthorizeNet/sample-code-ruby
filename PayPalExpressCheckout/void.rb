@@ -5,7 +5,7 @@ require 'securerandom'
 
   include AuthorizeNet::API
 
-  def authorization_and_capture()
+  def get_transId()
     # Before we can void a transaction, we must first create a transaction,
     # so that we have something to void.
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
@@ -108,6 +108,6 @@ require 'securerandom'
   end
 
 if __FILE__ == $0
-  authTransId = authorization_and_capture()
+  authTransId = get_transId()
   void(authTransId)
 end

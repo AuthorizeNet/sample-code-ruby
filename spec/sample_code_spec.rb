@@ -229,7 +229,8 @@ it "should be able to run all PayPal Express Checkout sample code" do
     response = prior_authorization_capture()
     validate_response(response)
     
-    response = void()
+    authTransId = get_transId()
+    response = void(authTransId)
     validate_response(response)
     
     end
