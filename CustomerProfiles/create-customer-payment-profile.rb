@@ -7,29 +7,52 @@ require 'securerandom'
 
   def create_customer_payment_profile(customerProfileId = '1813343337')
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
-    
-    request = CreateCustomerPaymentProfileRequest.new
-    
-    payment = PaymentType.new(CreditCardType.new('4111111111111111','2020-05'))
-    profile = CustomerPaymentProfileType.new(nil,nil,payment,nil,nil)
-    profile.billTo = CustomerAddressType.new
-    profile.billTo.firstName = "John"
-    profile.billTo.lastName = "Snow"
-    profile.defaultPaymentProfile = true;
+    # Build the payment object
+    payment = PaymentType.new(CreditCardType.new)
+    payment.creditCard.cardNumber = '4111111111111111'
+    payment.creditCard.expirationDate = '2020-05'
 
-    request.paymentProfile = profile
+    # Build an address object
+    billTo = CustomerAddressType.new
+    billTo.firstName = "Ellen"
+    billTo.lastName = "Johnson"
+    billTo.company = "Souveniropolis"
+    billTo.address = "14 Main Street"
+    billTo.city = "Pecan Springs"
+    billTo.state = "TX"
+    billTo.zip = "46282"
+    billTo.country = "US"
+    billTo.phoneNumber = "999-999-9999"
+    billTo.faxNumber = "999-999-9999"
+
+    # Use the previously defined payment and billTo objects to
+    # build a payment profile to send with the request
+    paymentProfile = CustomerPaymentProfileType.new
+    paymentProfile.payment = payment
+    paymentProfile.billTo = billTo
+    paymentProfile.defaultPaymentProfile = true
+
+    # Build the request object
+    request = CreateCustomerPaymentProfileRequest.new
+    request.paymentProfile = paymentProfile
     request.customerProfileId = customerProfileId
+    request.validationMode = ValidationModeEnum::LiveMode        
+
     response = transaction.create_customer_payment_profile(request)
 
-
-    if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully created a customer payment profile with id:  #{response.customerPaymentProfileId}."
+    if response != nil
+      if response.messages.resultCode == MessageTypeEnum::Ok
+        puts "Successfully created a customer payment profile with id: #{response.customerPaymentProfileId}."
+      else
+        puts response.messages.messages[0].code        
+        puts response.messages.messages[0].text
+        puts "Failed to create a new customer payment profile."
+      end
     else
-      puts "Failed to create a new customer payment profile: #{response.messages.messages[0].text}"
-    end
+      puts "Response is null"
+      raise "Failed to create a new customer payment profile."
     return response
   end
 
