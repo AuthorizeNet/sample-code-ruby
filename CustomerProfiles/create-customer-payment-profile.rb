@@ -53,6 +53,7 @@ require 'securerandom'
     else
       puts "Response is null"
       raise "Failed to create a new customer payment profile."
+    end
     return response
   end
 
