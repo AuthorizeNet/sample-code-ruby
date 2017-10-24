@@ -12,7 +12,7 @@ require 'securerandom'
     # Build the payment object
     payment = PaymentType.new(CreditCardType.new)
     payment.creditCard.cardNumber = '4111111111111111'
-    payment.creditCard.expirationDate = '2020-05'
+    payment.creditCard.expirationDate = '2022-05'
 
     # Build an address object
     billTo = CustomerAddressType.new
