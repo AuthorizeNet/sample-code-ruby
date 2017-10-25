@@ -16,7 +16,7 @@ require 'securerandom'
 
     # Build an address object
     billTo = CustomerAddressType.new
-    billTo.firstName = "Ellen"
+    billTo.firstName = "Jerry"
     billTo.lastName = "Johnson"
     billTo.company = "Souveniropolis"
     billTo.address = "14 Main Street"
