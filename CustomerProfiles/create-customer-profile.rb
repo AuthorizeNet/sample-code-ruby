@@ -22,7 +22,7 @@ require 'securerandom'
     billTo.address = "14 Main Street"
     billTo.city = "Pecan Springs"
     billTo.state = "TX"
-    billTo.zip = "46282"
+    billTo.zip = "44628"
     billTo.country = "US"
     billTo.phoneNumber = "999-999-9999"
     billTo.faxNumber = "999-999-9999"
