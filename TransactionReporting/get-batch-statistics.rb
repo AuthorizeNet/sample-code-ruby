@@ -20,7 +20,7 @@ require 'securerandom'
     
   if response != nil
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully got the list of subscriptions"
+      puts "Successfully got the list of batch statistics."
       puts response.messages.messages[0].code
       puts response.messages.messages[0].text
       puts response.batch.batchId
