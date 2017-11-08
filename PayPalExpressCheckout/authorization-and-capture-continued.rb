@@ -5,7 +5,7 @@ require 'securerandom'
 
   include AuthorizeNet::API
   
-  def authorization_and_capture_continue()
+  def authorization_and_capture_continued()
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
     
     puts "PayPal Authorization Capture-Continue Transaction"
@@ -65,5 +65,5 @@ require 'securerandom'
   end  
   
 if __FILE__ == $0
-  authorization_and_capture_continue()
+  authorization_and_capture_continued()
 end

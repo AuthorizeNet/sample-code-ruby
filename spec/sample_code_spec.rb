@@ -213,7 +213,10 @@ it "should be able to run all PayPal Express Checkout sample code" do
     
     response = authorization_and_capture()
     validate_response(response)
-    
+
+#    response = authorization_and_capture_continued()
+#    validate_response(response)
+
 #    response = authorization_only_continued()
 #    validate_response(response)
     
