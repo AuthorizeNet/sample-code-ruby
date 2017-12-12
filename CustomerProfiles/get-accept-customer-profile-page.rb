@@ -38,5 +38,5 @@ require 'securerandom'
   end
   
 if __FILE__ == $0
-  get_hosted_profile_page()
+  get_accept_customer_profile_page()
 end
