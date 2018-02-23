@@ -241,11 +241,15 @@ it "should be able to run all PayPal Express Checkout sample code" do
 it "should be able to run all Transaction Reporting sample code" do
     puts "START - Transaction Reporting"
     
-    response = get_batch_Statistics()
-    validate_response(response)
-    
     response = get_settled_batch_List()
     validate_response(response)
+	
+	#Start Get Batch Statistics
+	batchId = response.batchList.batch[0].batchId
+        
+	response = get_batch_Statistics(batchId)
+        validate_response(response)
+	#End Get Batch Statistics
     
     response = get_transaction_Details()
     validate_response(response)
