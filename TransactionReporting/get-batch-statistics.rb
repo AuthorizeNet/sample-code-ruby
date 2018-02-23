@@ -5,12 +5,11 @@ require 'securerandom'
   
   include AuthorizeNet::API
   
-  def get_batch_Statistics()
+  def get_batch_Statistics(batchId = '7889547')
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
     
     transaction = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     
-    batchId = "4532808"
     request = GetBatchStatisticsRequest.new
     request.batchId = batchId
     
