@@ -5,7 +5,7 @@ require 'securerandom'
 
   include AuthorizeNet::API
 
-  def authorization_only_continued()
+  def authorization_only_continued(transId)
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
   
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
@@ -26,7 +26,7 @@ require 'securerandom'
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = paymentType
     #refTransId should be taken from the transId returned by AuthOnly
-    request.transactionRequest.refTransId = "2241762126"
+    request.transactionRequest.refTransId = transId
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyContinueTransaction 
     response = transaction.create_transaction(request)
   
