@@ -5,7 +5,7 @@ require 'securerandom'
 
   include AuthorizeNet::API
 
-  def get_details()
+  def get_details(transId)
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
   
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
@@ -22,7 +22,7 @@ require 'securerandom'
     
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.payment = paymentType
-    request.transactionRequest.refTransId = "60009647574"
+    request.transactionRequest.refTransId = transId
     request.transactionRequest.transactionType = TransactionTypeEnum::GetDetailsTransaction
     
     response = transaction.create_transaction(request)
