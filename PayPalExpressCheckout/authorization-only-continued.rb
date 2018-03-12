@@ -23,7 +23,7 @@ require 'securerandom'
     paymentType.payPal = payPalType
     
     request.transactionRequest = TransactionRequestType.new()
-    request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
+    #request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = paymentType
     #refTransId should be taken from the transId returned by AuthOnly
     request.transactionRequest.refTransId = transId
