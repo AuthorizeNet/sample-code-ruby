@@ -23,7 +23,7 @@ require 'securerandom'
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = paymentType
-    request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
+    request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyTransaction
     
     response = transaction.create_transaction(request)
 
