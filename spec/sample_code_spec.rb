@@ -214,18 +214,21 @@ it "should be able to run all PayPal Express Checkout sample code" do
     puts "TEST - authorization and capture"
     response = authorization_and_capture()
     validate_response(response)
-    authTransId = response.transactionResponse.transId
 
 #    response = authorization_and_capture_continued()
-#    validate_response(response)
-
-#    response = authorization_only_continued()
 #    validate_response(response)
     
     puts "TEST - authorization only"
     response = authorization_only()
     validate_response(response)
+
+    authTransId = response.transactionResponse.transId
+    puts "TransId to be used for AuthOnlyContinued, GetDetails & Void : #{authTransId}"
     
+    puts "TEST - authorization only continued"
+    response = authorization_only_continued(authTransId)
+    validate_response(response)
+	
 #    response = credit()
 #    validate_response(response)
     
