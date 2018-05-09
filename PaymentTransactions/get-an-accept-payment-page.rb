@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def get_an_accept_payment_page()
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
     transactionRequest = TransactionRequestType.new
@@ -31,12 +30,12 @@ require 'securerandom'
     response = transaction.get_hosted_payment_page(request)
     
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "#{response.messages.messages[0].code}"
-      puts "#{response.messages.messages[0].text}"
-      puts "#{response.token}"
+      logger.info "#{response.messages.messages[0].code}"
+      logger.info "#{response.messages.messages[0].text}"
+      logger.info "#{response.token}"
     else
-      puts "#{response.messages.messages[0].code}"
-      puts "#{response.messages.messages[0].text}"
+      logger.info "#{response.messages.messages[0].code}"
+      logger.info "#{response.messages.messages[0].text}"
       raise "Failed to get hosted payment page"
     end
     return response

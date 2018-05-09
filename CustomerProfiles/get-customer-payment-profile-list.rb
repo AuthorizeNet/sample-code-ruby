@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def get_customer_payment_profile_list()
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     
     searchTypeEnum = CustomerPaymentProfileSearchTypeEnum::CardsExpiringInMonth
@@ -31,18 +30,18 @@ require 'securerandom'
     response = transaction.get_customer_payment_profile_list(request)
     
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully got customer payment profile list."
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
-      puts "  Total number in result set: #{response.totalNumInResultSet}"
+      logger.info "Successfully got customer payment profile list."
+      logger.info response.messages.messages[0].code
+      logger.info response.messages.messages[0].text
+      logger.info "  Total number in result set: #{response.totalNumInResultSet}"
 #      response.paymentProfiles.paymentProfile.each do |paymentProfile|
-#        puts "Payment profile ID = #{paymentProfile.customerPaymentProfileId}"
-#        puts "First Name in Billing Address = #{paymentProfile.billTo.firstName}"
-#        puts "Credit Card Number = #{paymentProfile.payment.creditCard.cardNumber}"
+#        logger.info "Payment profile ID = #{paymentProfile.customerPaymentProfileId}"
+#        logger.info "First Name in Billing Address = #{paymentProfile.billTo.firstName}"
+#        logger.info "Credit Card Number = #{paymentProfile.payment.creditCard.cardNumber}"
 #      end
     else
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      logger.error response.messages.messages[0].code
+      logger.error response.messages.messages[0].text
       raise "Failed to get customer payment profile list"
     end
     return response

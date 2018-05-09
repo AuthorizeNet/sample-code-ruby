@@ -2,13 +2,12 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
   
   def prior_authorization_capture()
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-    
-    puts "PayPal Prior Authorization Transaction"
+    logger.info "PayPal Prior Authorization Transaction"
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
   
     request = CreateTransactionRequest.new
@@ -25,32 +24,32 @@ require 'securerandom'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
-          puts "Successful AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
+          logger.info "Successful AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
           refTransId =  response.transactionResponse.transId
-          puts "Transaction Response code: #{response.transactionResponse.responseCode}"
-          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+          logger.info "Transaction Response code: #{response.transactionResponse.responseCode}"
+          logger.info "Code: #{response.transactionResponse.messages.messages[0].code}"
+		      logger.info "Description: #{response.transactionResponse.messages.messages[0].description}"
         else
-          puts "Transaction Failed"
+          logger.info "Transaction Failed"
           if response.transactionResponse.errors != nil
-            puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
+            logger.info "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            logger.info "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
           raise "Failed to authorize card."
         end
       else
-        puts "Transaction Failed"
+        logger.info "Transaction Failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
-          puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
-          puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
+          logger.info "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+          logger.info "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "Error Code: #{response.messages.messages[0].code}"
-          puts "Error Message: #{response.messages.messages[0].text}"
+          logger.info "Error Code: #{response.messages.messages[0].code}"
+          logger.info "Error Message: #{response.messages.messages[0].text}"
         end
         raise "Failed to authorize card."
       end
     else
-      puts "Response is null"
+      logger.info "Response is null"
       raise "Failed to authorize card."
     end
 
@@ -76,31 +75,31 @@ require 'securerandom'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
-          puts "Successfully created a Prior Authorization capture transaction (authorization code: #{response.transactionResponse.authCode})"
-          puts "Transaction Response code: #{response.transactionResponse.responseCode}"
-          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+          logger.info "Successfully created a Prior Authorization capture transaction (authorization code: #{response.transactionResponse.authCode})"
+          logger.info "Transaction Response code: #{response.transactionResponse.responseCode}"
+          logger.info "Code: #{response.transactionResponse.messages.messages[0].code}"
+		      logger.info "Description: #{response.transactionResponse.messages.messages[0].description}"
         else
-          puts "Transaction Failed"
+          logger.info "Transaction Failed"
           if response.transactionResponse.errors != nil
-            puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
+            logger.info "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            logger.info "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
           raise "Failed to make purchase."
         end
       else
-        puts "Transaction Failed"
+        logger.info "Transaction Failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
-          puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
-          puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
+          logger.info "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+          logger.info "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "Error Code: #{response.messages.messages[0].code}"
-          puts "Error Message: #{response.messages.messages[0].text}"
+          logger.info "Error Code: #{response.messages.messages[0].code}"
+          logger.info "Error Message: #{response.messages.messages[0].text}"
         end
         raise "Failed to make purchase."
       end
     else
-      puts "Response is null"
+      logger.info "Response is null"
       raise "Failed to make purchase."
     end
   

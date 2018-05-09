@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def get_customer_shipping_address(customerProfileId = '40036377', customerAddressId = '37808097')
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
     
@@ -19,17 +18,17 @@ require 'securerandom'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully retrieved a shipping address with profile ID #{request.customerAddressId} and whose customer ID is #{request.customerProfileId}."
+      logger.info "Successfully retrieved a shipping address with profile ID #{request.customerAddressId} and whose customer ID is #{request.customerProfileId}."
 
       if response.subscriptionIds != nil && response.subscriptionIds.subscriptionId != nil
-        puts "  List of subscriptions: "
+        logger.info "  List of subscriptions: "
         response.subscriptionIds.subscriptionId.each do |subscriptionId|
-          puts "    #{subscriptionId}"
+          logger.info "    #{subscriptionId}"
         end
       end
 
     else
-      puts response.messages.messages[0].text
+      logger.error response.messages.messages[0].text
       raise "Failed to get payment profile information with ID #{request.customerProfileId}"
     end
     return response

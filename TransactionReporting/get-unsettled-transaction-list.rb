@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def get_unsettled_transaction_List()
-    
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
       #merchant information
       transaction = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
       
@@ -29,13 +28,13 @@ require 'securerandom'
         unsettled_transactions = response.transactions
       
         response.transactions.transaction.each do |unsettled_transaction|
-          puts "Transaction #{unsettled_transaction.transId} was submitted at #{unsettled_transaction.submitTimeUTC}"
+          logger.info "Transaction #{unsettled_transaction.transId} was submitted at #{unsettled_transaction.submitTimeUTC}"
           
         end
-        puts "Total transaction received #{unsettled_transactions.transaction.length}"
+        logger.info "Total transaction received #{unsettled_transactions.transaction.length}"
       else
-        puts "ERROR message: #{response.messages.messages[0].text}"
-        puts "ERROR code: #{response.messages.messages[0].code}"
+        logger.info "ERROR message: #{response.messages.messages[0].text}"
+        logger.info "ERROR code: #{response.messages.messages[0].code}"
         raise "Failed to get unsettled transaction list."
       end
     

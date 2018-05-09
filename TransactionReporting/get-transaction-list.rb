@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def get_transaction_List()
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-  
     transaction1 = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
   
     batchId = "7590305"
@@ -27,25 +26,25 @@ require 'securerandom'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactions == nil
-          puts "#{response.messages.messages[0].text}"
+          logger.info "#{response.messages.messages[0].text}"
         else
-          puts "Successfully got the list of transactions for batch " + batchId + "."          
+          logger.info "Successfully got the list of transactions for batch " + batchId + "."          
           response.transactions.transaction.each do |trans|
-            puts "Transaction ID: #{trans.transId} "
-            puts "  Submitted on (Local): %s " % [trans.submitTimeUTC]
-            puts "  Status: #{trans.transactionStatus} "
-            puts "  Settle Amount: %.2f " % [trans.settleAmount]
+            logger.info "Transaction ID: #{trans.transId} "
+            logger.info "  Submitted on (Local): %s " % [trans.submitTimeUTC]
+            logger.info "  Status: #{trans.transactionStatus} "
+            logger.info "  Settle Amount: %.2f " % [trans.settleAmount]
           end
         end
       else
-        puts "Error: Failed to get Transaction List."
-        puts "Error Text: #{response.messages.messages[0].text}"
-        puts "Error Code: #{response.messages.messages[0].code}"
+        logger.info "Error: Failed to get Transaction List."
+        logger.info "Error Text: #{response.messages.messages[0].text}"
+        logger.info "Error Code: #{response.messages.messages[0].code}"
       end
     else
-      puts "Error: Failed to get Transaction List."
-      puts "Error Text: #{response.messages.messages[0].text}"
-      puts "Error Code: #{response.messages.messages[0].code}"
+      logger.info "Error: Failed to get Transaction List."
+      logger.info "Error Text: #{response.messages.messages[0].text}"
+      logger.info "Error Code: #{response.messages.messages[0].code}"
     end
 
     return response

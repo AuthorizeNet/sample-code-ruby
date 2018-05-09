@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def get_merchant_details()
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-    
       transaction = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
       
       request = GetMerchantDetailsRequest.new
@@ -16,28 +15,28 @@ require 'securerandom'
       response = transaction.get_merchant_details(request)
       
       if response.messages.resultCode == MessageTypeEnum::Ok
-        puts "Get Merchant Details Successful " 
-        puts "Gateway Id:   #{response.gatewayId}"
-        puts "Merchant Name:   #{response.merchantName}"
+        logger.info "Get Merchant Details Successful " 
+        logger.info "Gateway Id:   #{response.gatewayId}"
+        logger.info "Merchant Name:   #{response.merchantName}"
         response.processors.processor.each do |processor|
-          puts "Processor Name: #{processor.name}"
+          logger.info "Processor Name: #{processor.name}"
         end
         response.marketTypes.each do |marketType|
-          puts "MarketType: #{marketType}"
+          logger.info "MarketType: #{marketType}"
         end
         response.productCodes.each do |productCode|
-          puts "Product Code: #{productCode}"
+          logger.info "Product Code: #{productCode}"
         end
         response.paymentMethods.each do |paymentMethod|
-          puts "Payment Method: #{paymentMethod}"
+          logger.info "Payment Method: #{paymentMethod}"
         end
         response.currencies.each do |currency|
-          puts "Currency: #{currency}"
+          logger.info "Currency: #{currency}"
         end
 
       else
-        puts response.messages.messages[0].code
-        puts response.messages.messages[0].text
+        logger.error response.messages.messages[0].code
+        logger.error response.messages.messages[0].text
         raise "Failed to get transaction Details."
       end
     
