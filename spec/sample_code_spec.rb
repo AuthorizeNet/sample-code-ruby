@@ -14,6 +14,11 @@ require specpath + "spec_helper"
 include  AuthorizeNet::API
 
 describe "SampleCode Testing" do
+  # LOGLEVEL=INFO rspec ./spec/sample_code_spec.rb # INFO for verbose output, otherwise defaults to ERROR only.
+  def logger
+    ENV['LOGLEVEL'] ||= 'ERROR'
+    @logger ||= Logger.new(STDOUT).tap { |logger| logger.level = Logger.const_get(ENV['LOGLEVEL']) }
+  end
   
   before :all do
     begin
@@ -22,16 +27,10 @@ describe "SampleCode Testing" do
         item = item[0..-4]
         
         if item != specpath + 'sample_code_spec'
-            puts "working on: #{item}"
+            logger.info "requiring #{item}"
             require item
         end
       end
-#      Dir.glob("./sample-code-ruby/RecurringBilling/*") do |item| # note one extra "*"
-#        next if item == '.' or item == '..'
-#        item = item[0..-4]
-#        puts "working on: #{item}"
-#        require item
-#      end
 
       creds = YAML.load_file(File.dirname(__FILE__) + "/credentials.yml")
       @api_key = creds['api_transaction_key']
@@ -40,7 +39,7 @@ describe "SampleCode Testing" do
     rescue Errno::ENOENT => e
       @api_key = "TEST"
       @api_login = "TEST"
-      warn "WARNING: Running w/o valid AuthorizeNet sandbox credentials. Create spec/credentials.yml."
+      logger.warn "WARNING: Running w/o valid AuthorizeNet sandbox credentials. Create spec/credentials.yml."
     end
   end
   def validate_response(response= nil)
@@ -51,7 +50,7 @@ describe "SampleCode Testing" do
   end
   
   it "should be able to run all Customer Profile sample code" do
-    puts "START - Customer Profiles"
+    logger.info "START - Customer Profiles"
     
     response = create_customer_profile()
     validate_response(response)
@@ -112,7 +111,7 @@ describe "SampleCode Testing" do
   end
   
 it "should be able to run all Recurring Billing sample code" do
-    puts "START - Recurring Billing"
+    logger.info "START - Recurring Billing"
     
     response = create_Subscription()
     validate_response(response)
@@ -124,9 +123,9 @@ it "should be able to run all Recurring Billing sample code" do
 	shipping_response = create_customer_shipping_address(profile_response.customerProfileId)
 	
 	#waiting for creating customer profile.
-    puts "Waiting for creation of customer profile..."
+    logger.info "Waiting for creation of customer profile..."
     sleep 50
-    puts "Proceeding"
+    logger.info "Proceeding"
     	
 	response = create_subscription_from_customer_profile(profile_response.customerProfileId, payment_response.customerPaymentProfileId, shipping_response.customerAddressId)
 	validate_response(response)
@@ -155,7 +154,7 @@ it "should be able to run all Recurring Billing sample code" do
     
   
 it "should be able to run all Payment Transaction sample code" do
-    puts "START - Payment Transactions"
+    logger.info "START - Payment Transactions"
 
     response = authorize_credit_card()
     validate_response(response)
@@ -209,34 +208,34 @@ it "should be able to run all Payment Transaction sample code" do
     
     
 it "should be able to run all PayPal Express Checkout sample code" do
-    puts "START - PayPal Express Checkout"
+    logger.info "START - PayPal Express Checkout"
     
-    puts "TEST - authorization and capture"
+    logger.info "TEST - authorization and capture"
     response = authorization_and_capture()
     validate_response(response)
 
 #    response = authorization_and_capture_continued()
 #    validate_response(response)
     
-    puts "TEST - authorization only"
+    logger.info "TEST - authorization only"
     response = authorization_only()
     validate_response(response)
 
     authTransId = response.transactionResponse.transId
-    puts "TransId to be used for AuthOnlyContinued, GetDetails & Void : #{authTransId}"
+    logger.info "TransId to be used for AuthOnlyContinued, GetDetails & Void : #{authTransId}"
     
-    puts "TEST - authorization only continued"
+    logger.info "TEST - authorization only continued"
     response = authorization_only_continued(authTransId)
     validate_response(response)
 	
 #    response = credit()
 #    validate_response(response)
     
-    puts "TEST - Get Details"
+    logger.info "TEST - Get Details"
     response = get_details(authTransId)
     validate_response(response)
     
-    puts "TEST - prior authorization and capture"
+    logger.info "TEST - prior authorization and capture"
     response = prior_authorization_capture()
     validate_response(response)
     
@@ -248,7 +247,7 @@ it "should be able to run all PayPal Express Checkout sample code" do
     end
     
 it "should be able to run all Transaction Reporting sample code" do
-    puts "START - Transaction Reporting"
+    logger.info "START - Transaction Reporting"
     
     response = get_settled_batch_List()
     validate_response(response)
@@ -276,7 +275,7 @@ it "should be able to run all Transaction Reporting sample code" do
 
     
 it "should be able to run Merchant Details sample code" do
-    puts "START - Transaction Reporting / Merchant Details"
+    logger.info "START - Transaction Reporting / Merchant Details"
     
     response = get_merchant_details()
     validate_response(response)
@@ -285,7 +284,7 @@ end
 
 
 it "should be able to run all Visa Checkout sample code" do
-    puts "START - Visa Checkout"
+    logger.info "START - Visa Checkout"
     
 #    response = create_visa_checkout_transaction()
 #    validate_response(response)
