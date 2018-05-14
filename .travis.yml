@@ -1,17 +1,10 @@
 language: ruby
 
-sudo:
-    false
-    
 rvm:
   - 2.2
   - 2.3
   - 2.4
-  
-install:
-  - gem install authorizenet
-  - bundle install
-
+  - 2.5
 
 script: 
-  - bundle exec rspec spec/sample_code_spec.rb
+  - bundle exec rspec
