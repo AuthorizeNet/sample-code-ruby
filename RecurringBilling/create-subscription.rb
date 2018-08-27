@@ -25,7 +25,7 @@ require 'securerandom'
     request.subscription.amount = random_amount
     request.subscription.trialAmount = 0.00
     request.subscription.payment = PaymentType.new
-    request.subscription.payment.creditCard = CreditCardType.new('4111111111111111','0120','123')
+    request.subscription.payment.creditCard = CreditCardType.new('4111111111111111','0728','123')
 
     request.subscription.order = OrderType.new('invoiceNumber123','description123')
     request.subscription.customer = CustomerType.new(CustomerTypeEnum::Individual,'custId1','a@a.com')
