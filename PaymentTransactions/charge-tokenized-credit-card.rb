@@ -16,7 +16,7 @@ require 'securerandom'
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0220','123',nil,"EjRWeJASNFZ4kBI0VniQEjRWeJA=") 
+    request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0728','123',nil,"EjRWeJASNFZ4kBI0VniQEjRWeJA=") 
     request.transactionRequest.order = OrderType.new("invoiceNumber#{(SecureRandom.random_number*1000000).round(0)}","Order Description")    
     
     response = transaction.create_transaction(request)
