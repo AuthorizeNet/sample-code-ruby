@@ -17,7 +17,7 @@ require 'securerandom'
     random_amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.amount = random_amount
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0220','123') 
+    request.transactionRequest.payment.creditCard = CreditCardType.new('4242424242424242','0728','123') 
     request.transactionRequest.transactionType = TransactionTypeEnum::AuthOnlyTransaction
     
     response = transaction.create_transaction(request)

@@ -15,7 +15,7 @@ require 'securerandom'
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 150 ).round(2)
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.creditCard = CreditCardType.new("4242424242424242","0220","123")
+    request.transactionRequest.payment.creditCard = CreditCardType.new("4242424242424242","0728","123")
     request.transactionRequest.customer = CustomerDataType.new(CustomerTypeEnum::Individual,"CUST-1234","bmc@mail.com",DriversLicenseType.new("DrivLicenseNumber123","WA","05/05/1990"),"123456789")
     request.transactionRequest.billTo = CustomerAddressType.new("firstNameBT","lastNameBT","companyBT","addressBT","New York","NY",
           "10010","USA","2121111111","2121111111")
