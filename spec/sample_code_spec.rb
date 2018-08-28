@@ -48,6 +48,8 @@ describe "SampleCode Testing" do
     expect(response.messages).not_to eq(nil)
     expect(response.messages.resultCode).not_to eq(nil)
     expect(response.messages.resultCode).to eq(MessageTypeEnum::Ok)
+	expect(response.messages.resultCode).to eq(MessageTypeEnum::Error)
+
   end
   
   it "should be able to run all Customer Profile sample code" do
