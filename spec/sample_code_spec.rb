@@ -172,21 +172,21 @@ it "should be able to run all Payment Transaction sample code" do
     response = capture_previously_authorized_amount()
     validate_response(response)
     
-    #response = charge_credit_card()
-    #validate_response(response)
+    response = charge_credit_card()
+    validate_response(response)
     
     #create customer profile
-    #response = create_customer_profile()
-    #validate_response(response)
-    #customerProfileId = response.customerProfileId
+    response = create_customer_profile()
+    validate_response(response)
+    customerProfileId = response.customerProfileId
     
     #create customer payment profile
-    #response = create_customer_payment_profile(customerProfileId)
-    #validate_response(response)
-    #customerPaymentProfileId = response.customerPaymentProfileId
+    response = create_customer_payment_profile(customerProfileId)
+    validate_response(response)
+    customerPaymentProfileId = response.customerPaymentProfileId
       
-    #response = charge_customer_profile(customerProfileId, customerPaymentProfileId)
-    #validate_response(response)
+    response = charge_customer_profile(customerProfileId, customerPaymentProfileId)
+    validate_response(response)
     
     #response = charge_tokenized_credit_card()
     #validate_response(response)
