@@ -157,11 +157,11 @@ it "should be able to run all Recurring Billing sample code" do
 it "should be able to run all Payment Transaction sample code" do
     puts "START - Payment Transactions"
 
-    response = authorize_credit_card()
-    validate_response(response)
-    
-    #response = capture_funds_authorized_through_another_channel()
+    #response = authorize_credit_card()
     #validate_response(response)
+    
+    response = capture_funds_authorized_through_another_channel()
+    validate_response(response)
     
 #    response = capture_only()
 #    validate_response(response)
