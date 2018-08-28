@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def authorization_only()
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-  
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     
     # Define the PayPal specific parameters
@@ -31,34 +30,34 @@ require 'securerandom'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && (response.transactionResponse.responseCode == "1" || response.transactionResponse.responseCode == "5")
-          puts "Successfully created an authorize only transaction."
-          puts "  Response Code: #{response.transactionResponse.responseCode}" 
-          puts "  Transaction ID: #{response.transactionResponse.transId}"
-          puts "  Secure Acceptance URL: #{response.transactionResponse.secureAcceptance.SecureAcceptanceUrl}"
-          puts "  Transaction Response code: #{response.transactionResponse.responseCode}"
-          puts "  Code: #{response.transactionResponse.messages.messages[0].code}"
-		      puts "  Description: #{response.transactionResponse.messages.messages[0].description}"
+          logger.info "Successfully created an authorize only transaction."
+          logger.info "  Response Code: #{response.transactionResponse.responseCode}" 
+          logger.info "  Transaction ID: #{response.transactionResponse.transId}"
+          logger.info "  Secure Acceptance URL: #{response.transactionResponse.secureAcceptance.SecureAcceptanceUrl}"
+          logger.info "  Transaction Response code: #{response.transactionResponse.responseCode}"
+          logger.info "  Code: #{response.transactionResponse.messages.messages[0].code}"
+		      logger.info "  Description: #{response.transactionResponse.messages.messages[0].description}"
         else
-          puts "PayPal authorize only transaction failed"
+          logger.info "PayPal authorize only transaction failed"
           if response.transactionResponse.errors != nil
-            puts "  Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "  Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
+            logger.info "  Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            logger.info "  Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
           raise "Failed PayPal Authorize Only Transaction."
         end
       else
-        puts "PayPal authorize only transaction failed"
+        logger.info "PayPal authorize only transaction failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
-          puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
-          puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
+          logger.info "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+          logger.info "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "Error Code: #{response.messages.messages[0].code}"
-          puts "Error Message: #{response.messages.messages[0].text}"
+          logger.info "Error Code: #{response.messages.messages[0].code}"
+          logger.info "Error Message: #{response.messages.messages[0].text}"
         end
         raise "Failed PayPal Authorize Only Transaction."
       end
     else
-      puts "Response is null"
+      logger.info "Response is null"
       raise "Failed PayPal Authorize Only Transaction."
     end    
     

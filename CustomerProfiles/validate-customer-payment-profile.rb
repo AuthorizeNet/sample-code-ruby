@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
 include AuthorizeNet::API
 
 def validate_customer_payment_profile(customerProfileId = '36152115', customerPaymentProfileId = '32689262')
-	config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-
 	transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
 	request = ValidateCustomerPaymentProfileRequest.new
@@ -20,11 +19,11 @@ def validate_customer_payment_profile(customerProfileId = '36152115', customerPa
 	response = transaction.validate_customer_payment_profile(request)
 
 	if response.messages.resultCode == MessageTypeEnum::Ok
-	  puts "Successfully validated customer with customer profile ID #{request.customerProfileId}"
-	  puts "Direct Response: #{response.directResponse} "
+	  logger.info "Successfully validated customer with customer profile ID #{request.customerProfileId}"
+	  logger.info "Direct Response: #{response.directResponse} "
 	else
-	    puts response.messages.messages[0].code
-	    puts response.messages.messages[0].text
+	    logger.error response.messages.messages[0].code
+	    logger.error response.messages.messages[0].text
 	    raise "Failed to validate customer with customer profile ID #{request.customerProfileId} and payment profile ID #{customerPaymentProfileId}"
 	end
 

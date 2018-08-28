@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def get_transaction_Details()
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-    
       transaction = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
       
       transId = "60032208160"
@@ -18,16 +17,16 @@ require 'securerandom'
       response = transaction.get_transaction_details(request)
       
       if response.messages.resultCode == MessageTypeEnum::Ok
-        puts "Get Transaction Details Successful " 
-        puts "Transaction Id:   #{response.transaction.transId}"
-        puts "Transaction Type:   #{response.transaction.transactionType}"
-        puts "Transaction Status:   #{response.transaction.transactionStatus}"
-        puts "Description: #{response.transaction.order.description}"
-        printf("Auth Amount:  %.2f\n", response.transaction.authAmount)
-        printf("Settle Amount:  %.2f\n", response.transaction.settleAmount)
+        logger.info "Get Transaction Details Successful " 
+        logger.info "Transaction Id:   #{response.transaction.transId}"
+        logger.info "Transaction Type:   #{response.transaction.transactionType}"
+        logger.info "Transaction Status:   #{response.transaction.transactionStatus}"
+        logger.info "Description: #{response.transaction.order.description}"
+        logger.info "Auth Amount:  %.2f" % response.transaction.authAmount
+        logger.info "Settle Amount:  %.2f" % response.transaction.settleAmount
       else
-        puts response.messages.messages[0].code
-        puts response.messages.messages[0].text
+        logger.error response.messages.messages[0].code
+        logger.error response.messages.messages[0].text
         raise "Failed to get transaction Details."
       end
     

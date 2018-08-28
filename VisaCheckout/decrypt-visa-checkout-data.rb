@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def decrypt_visa_checkout_data()
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-  
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
   
     request = DecryptPaymentDataRequest.new
@@ -18,13 +17,13 @@ require 'securerandom'
   
   
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully decrypted data (Card Number: #{response.cardInfo.cardNumber})"
-      puts "Billing Last Name #{response.billingInfo.lastName}"
-      puts "Shipping Last Name #{response.shippingInfo.lastName}"
-      puts "Amount #{response.paymentDetails.amount}"
+      logger.info "Successfully decrypted data (Card Number: #{response.cardInfo.cardNumber})"
+      logger.info "Billing Last Name #{response.billingInfo.lastName}"
+      logger.info "Shipping Last Name #{response.shippingInfo.lastName}"
+      logger.info "Amount #{response.paymentDetails.amount}"
     else
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      logger.error response.messages.messages[0].code
+      logger.error response.messages.messages[0].text
       raise "Failed to decrypt."
     end
     

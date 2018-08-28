@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def update_customer_shipping_address(customerProfileId = '35894174', customerAddressId = '35745790')
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
     
@@ -24,9 +23,9 @@ require 'securerandom'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully updated customer with customer profile ID #{request.address.customerAddressId}."
+      logger.info "Successfully updated customer with customer profile ID #{request.address.customerAddressId}."
     else
-      puts response.messages.messages[0].text
+      logger.error response.messages.messages[0].text
       raise "Failed to update customer with customer profile ID #{request.address.customerAddressId}."
     end
     return response

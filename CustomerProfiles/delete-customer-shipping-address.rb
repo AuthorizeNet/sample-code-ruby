@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def delete_customer_shipping_address(customerProfileId = '36551110', customerAddressId = '35894174')
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
     
@@ -19,9 +18,9 @@ require 'securerandom'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully deleted shipping address with customer shipping profile ID #{request.customerAddressId}."
+      logger.info "Successfully deleted shipping address with customer shipping profile ID #{request.customerAddressId}."
     else
-      puts response.messages.messages[0].text
+      logger.error response.messages.messages[0].text
       raise "Failed to delete payment profile with profile ID #{request.customerAddressId}."
     end
     return response

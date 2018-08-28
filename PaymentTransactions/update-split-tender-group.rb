@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def update_split_tender_group()
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-  
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     
     #set the split tender ID here
@@ -26,13 +25,13 @@ require 'securerandom'
     response = transaction.update_split_tender_group(request)
   
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successful Update Split Tender Group"
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      logger.info "Successful Update Split Tender Group"
+      logger.info response.messages.messages[0].code
+      logger.info response.messages.messages[0].text
   
     else
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      logger.error response.messages.messages[0].code
+      logger.error response.messages.messages[0].text
       raise "Failed to update split tender group."
     end
     

@@ -2,12 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def get_customer_profile(customerProfileId = '40036377')
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
-
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
 
     
@@ -17,32 +16,32 @@ require 'securerandom'
     response = transaction.get_customer_profile(request)
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully retrieved a customer with profile ID is #{request.customerProfileId} and whose customer ID is #{response.profile.merchantCustomerId}."
+      logger.info "Successfully retrieved a customer with profile ID is #{request.customerProfileId} and whose customer ID is #{response.profile.merchantCustomerId}."
       response.profile.paymentProfiles.each do |paymentProfile|
-        puts "  Payment Profile ID #{paymentProfile.customerPaymentProfileId}" 
-        puts "  Payment Details:"
+        logger.info "  Payment Profile ID #{paymentProfile.customerPaymentProfileId}" 
+        logger.info "  Payment Details:"
         if paymentProfile.billTo != nil
-          puts "    Last Name: #{paymentProfile.billTo.lastName}"
-          puts "    Address: #{paymentProfile.billTo.address}"    
+          logger.info "    Last Name: #{paymentProfile.billTo.lastName}"
+          logger.info "    Address: #{paymentProfile.billTo.address}"    
         end
       end
       response.profile.shipToList.each do |ship|
-        puts "  Shipping Address ID #{ship.customerAddressId}"
-        puts "  Shipping Details:"
-        puts "    First Name: #{ship.firstName}"
-        puts "    Last Name: #{ship.lastName}"
-        puts "    Address: #{ship.address}"
+        logger.info "  Shipping Address ID #{ship.customerAddressId}"
+        logger.info "  Shipping Details:"
+        logger.info "    First Name: #{ship.firstName}"
+        logger.info "    Last Name: #{ship.lastName}"
+        logger.info "    Address: #{ship.address}"
       end
 
       if response.subscriptionIds != nil && response.subscriptionIds.subscriptionId != nil
-        puts "  List of subscriptions: "
+        logger.info "  List of subscriptions: "
         response.subscriptionIds.subscriptionId.each do |subscriptionId|
-          puts "    #{subscriptionId}"
+          logger.info "    #{subscriptionId}"
         end
       end
 
     else
-      puts response.messages.messages[0].text
+      logger.error response.messages.messages[0].text
       raise "Failed to get customer profile information with ID #{request.customerProfileId}"
     end
     return response

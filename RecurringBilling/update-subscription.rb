@@ -2,11 +2,11 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../shared_helper'
 
   include AuthorizeNet::API
 
   def update_subscription(subscriptionId = '3095800')
-    config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     #subscription = Subscription.new(config['api_login_id'], config['api_subscription_key'], :gateway => :sandbox)
   
@@ -33,15 +33,15 @@ require 'securerandom'
   
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        puts "Successfully updated a subscription."
-        puts "  Response code: #{response.messages.messages[0].code}"
-        puts "  Response message: #{response.messages.messages[0].text}"
+        logger.info "Successfully updated a subscription."
+        logger.info "  Response code: #{response.messages.messages[0].code}"
+        logger.info "  Response message: #{response.messages.messages[0].text}"
     
       else
-        #puts response.transactionResponse.errors.errors[0].errorCode
-        #puts response.transactionResponse.errors.errors[0].errorText
-        puts response.messages.messages[0].code
-        puts response.messages.messages[0].text
+        #logger.info response.transactionResponse.errors.errors[0].errorCode
+        #logger.info response.transactionResponse.errors.errors[0].errorText
+        logger.error response.messages.messages[0].code
+        logger.error response.messages.messages[0].text
         raise "Failed to get a subscriptions status"
       end
     end
