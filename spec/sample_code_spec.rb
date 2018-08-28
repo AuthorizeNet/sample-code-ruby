@@ -200,11 +200,11 @@ it "should be able to run all Payment Transaction sample code" do
 #    response = refund_transaction()
 #    validate_response(response)
     
-    #response = update_split_tender_group()
-    #validate_response(response)
+    response = update_split_tender_group()
+    validate_response(response)
     
-    #response = void_transaction()
-    #validate_response(response)
+    response = void_transaction()
+    validate_response(response)
     end
     
     
