@@ -17,7 +17,7 @@ require 'securerandom'
     request.transactionRequest.payment = PaymentType.new
 	#Generate random bank account number
 	randomAccountNumber= Random.rand(100000000..9999999999).to_s;
-    request.transactionRequest.payment.bankAccount = BankAccountType.new('checking','122000661',randomAccountNumber, 'John Doe','PPD','Wells Fargo Bank NA','101') 
+    request.transactionRequest.payment.bankAccount = BankAccountType.new('checking', '122000661', "'#{randomAccountNumber}'", 'John Doe','PPD','Wells Fargo Bank NA','101') 
     request.transactionRequest.transactionType = TransactionTypeEnum::RefundTransaction
     
     response = transaction.create_transaction(request)
