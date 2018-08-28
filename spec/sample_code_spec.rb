@@ -160,51 +160,51 @@ it "should be able to run all Payment Transaction sample code" do
     response = authorize_credit_card()
     validate_response(response)
     
-    response = capture_funds_authorized_through_another_channel()
-    validate_response(response)
+    #response = capture_funds_authorized_through_another_channel()
+    #validate_response(response)
     
 #    response = capture_only()
 #    validate_response(response)
     
-    response = capture_funds_authorized_through_another_channel()
-    validate_response(response)
+    #response = capture_funds_authorized_through_another_channel()
+    #validate_response(response)
     
-    response = capture_previously_authorized_amount()
-    validate_response(response)
+    #response = capture_previously_authorized_amount()
+    #validate_response(response)
     
-    response = charge_credit_card()
-    validate_response(response)
+    #response = charge_credit_card()
+    #validate_response(response)
     
     #create customer profile
-    response = create_customer_profile()
-    validate_response(response)
-    customerProfileId = response.customerProfileId
+    #response = create_customer_profile()
+    #validate_response(response)
+    #customerProfileId = response.customerProfileId
     
     #create customer payment profile
-    response = create_customer_payment_profile(customerProfileId)
-    validate_response(response)
-    customerPaymentProfileId = response.customerPaymentProfileId
+    #response = create_customer_payment_profile(customerProfileId)
+    #validate_response(response)
+    #customerPaymentProfileId = response.customerPaymentProfileId
       
-    response = charge_customer_profile(customerProfileId, customerPaymentProfileId)
-    validate_response(response)
+    #response = charge_customer_profile(customerProfileId, customerPaymentProfileId)
+    #validate_response(response)
     
-    response = charge_tokenized_credit_card()
-    validate_response(response)
+    #response = charge_tokenized_credit_card()
+    #validate_response(response)
     
-    response = credit_bank_account()
-    validate_response(response)
+    #response = credit_bank_account()
+    #validate_response(response)
     
-    response = debit_bank_account()
-    validate_response(response)
+    #response = debit_bank_account()
+    #validate_response(response)
     
 #    response = refund_transaction()
 #    validate_response(response)
     
-    response = update_split_tender_group()
-    validate_response(response)
+    #response = update_split_tender_group()
+    #validate_response(response)
     
-    response = void_transaction()
-    validate_response(response)
+    #response = void_transaction()
+    #validate_response(response)
     end
     
     
