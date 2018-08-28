@@ -15,7 +15,7 @@ require 'securerandom'
     request.transactionRequest = TransactionRequestType.new()
     request.transactionRequest.amount = ((SecureRandom.random_number + 1 ) * 15 ).round(2)
     request.transactionRequest.payment = PaymentType.new
-    request.transactionRequest.payment.bankAccount = BankAccountType.new('checking','121042882','1234567890', 'John Doe','PPD','Wells Fargo Bank NA','101') 
+    request.transactionRequest.payment.bankAccount = BankAccountType.new('checking','125000105','1234567890', 'John Doe','PPD','Wells Fargo Bank NA','101') 
     request.transactionRequest.transactionType = TransactionTypeEnum::RefundTransaction
     
     response = transaction.create_transaction(request)
