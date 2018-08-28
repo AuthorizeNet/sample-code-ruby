@@ -169,8 +169,8 @@ it "should be able to run all Payment Transaction sample code" do
     response = capture_funds_authorized_through_another_channel()
     validate_response(response)
     
-    #response = capture_previously_authorized_amount()
-    #validate_response(response)
+    response = capture_previously_authorized_amount()
+    validate_response(response)
     
     #response = charge_credit_card()
     #validate_response(response)
