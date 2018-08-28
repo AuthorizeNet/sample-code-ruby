@@ -191,11 +191,11 @@ it "should be able to run all Payment Transaction sample code" do
     response = charge_tokenized_credit_card()
     validate_response(response)
     
-    response = credit_bank_account()
-    validate_response(response)
+    #response = credit_bank_account()
+    #validate_response(response)
     
-    response = debit_bank_account()
-    validate_response(response)
+    #response = debit_bank_account()
+    #validate_response(response)
     
 #    response = refund_transaction()
 #    validate_response(response)
