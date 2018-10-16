@@ -1,7 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -19,10 +19,10 @@ require 'rubygems'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully deleted shipping address with customer shipping profile id #{request.customerAddressId}"
+      puts "Successfully deleted shipping address with customer shipping profile ID #{request.customerAddressId}."
     else
       puts response.messages.messages[0].text
-      raise "Failed to delete payment profile with profile id #{request.customerAddressId}"
+      raise "Failed to delete payment profile with profile ID #{request.customerAddressId}."
     end
     return response
   end

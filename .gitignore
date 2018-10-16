@@ -40,3 +40,5 @@ credentials.yml
 ## PHPStorm IDE files
 /.idea/
 
+# Operating System files
+.DS_Store

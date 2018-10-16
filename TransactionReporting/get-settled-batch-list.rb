@@ -1,8 +1,8 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
- require 'securerandom'
-  require "date"
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
+require "date"
 
   include AuthorizeNet::API
 
@@ -11,7 +11,7 @@ require 'rubygems'
   
     transaction = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
   
-    firstSettlementDate = DateTime.now()-(1 * 24)
+    firstSettlementDate = DateTime.now()-(1 * 7)
     lastSettlementDate = DateTime.now()
   
     puts "First settlement date: #{firstSettlementDate} Last settlement date: #{lastSettlementDate}"
@@ -40,7 +40,7 @@ require 'rubygems'
     
     return response
   
-end
+  end
 
   
   

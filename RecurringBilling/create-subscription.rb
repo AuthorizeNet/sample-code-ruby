@@ -1,9 +1,7 @@
 require 'rubygems'
 require 'yaml'
-require 'authorizenet'
-
-
- require 'securerandom'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -27,10 +25,10 @@ require 'authorizenet'
     request.subscription.amount = random_amount
     request.subscription.trialAmount = 0.00
     request.subscription.payment = PaymentType.new
-    request.subscription.payment.creditCard = CreditCardType.new('4111111111111111','0120','123')
+    request.subscription.payment.creditCard = CreditCardType.new('4111111111111111','0728','123')
 
     request.subscription.order = OrderType.new('invoiceNumber123','description123')
-    request.subscription.customer =  CustomerDataType.new(CustomerTypeEnum::Individual,'custId1','a@a.com')
+    request.subscription.customer = CustomerType.new(CustomerTypeEnum::Individual,'custId1','a@a.com')
     request.subscription.billTo = NameAndAddressType.new('John','Doe','xyt','10800 Blue St','New York','NY','10010','USA')
     request.subscription.shipTo = NameAndAddressType.new('John','Doe','xyt','10800 Blue St','New York','NY','10010','USA')
 
@@ -38,14 +36,14 @@ require 'authorizenet'
      
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        puts "Successfully created a subscription #{response.subscriptionId}"
+        puts "Successfully created a subscription with ID #{response.subscriptionId}."
     
       else
         #puts response.transactionResponse.errors.errors[0].errorCode
         #puts response.transactionResponse.errors.errors[0].errorText
         puts response.messages.messages[0].code
         puts response.messages.messages[0].text
-        raise "Failed to create a subscription"
+        raise "Failed to create a subscription."
       end
     end
     return response
@@ -54,4 +52,3 @@ require 'authorizenet'
 if __FILE__ == $0
   create_Subscription()
 end
-

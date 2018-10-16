@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'yaml'
-require 'authorizenet' 
- require 'securerandom'
+require 'authorizenet' 
+require 'securerandom'
 
 include AuthorizeNet::API
 
@@ -20,12 +20,12 @@ def validate_customer_payment_profile(customerProfileId = '36152115', customerPa
 	response = transaction.validate_customer_payment_profile(request)
 
 	if response.messages.resultCode == MessageTypeEnum::Ok
-	  puts "Successfully validated customer with customer profile id #{request.customerProfileId}"
+	  puts "Successfully validated customer with customer profile ID #{request.customerProfileId}"
 	  puts "Direct Response: #{response.directResponse} "
 	else
 	    puts response.messages.messages[0].code
 	    puts response.messages.messages[0].text
-	    raise "Failed to validate customer with customer profile id #{request.customerProfileId} and payment profile id #{customerPaymentProfileId}"
+	    raise "Failed to validate customer with customer profile ID #{request.customerProfileId} and payment profile ID #{customerPaymentProfileId}"
 	end
 
 	return response

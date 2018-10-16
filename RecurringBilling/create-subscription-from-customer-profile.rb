@@ -1,8 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
-
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -32,15 +31,13 @@ require 'rubygems'
     request.subscription.profile.customerAddressId = addressId
 	
     response = transaction.create_subscription(request)
-
-	puts response.messages.to_yaml()
 	
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        puts "Successfully created a subscription #{response.subscriptionId}"
+        puts "Successfully created a subscription with ID #{response.subscriptionId}."
       else
-        #puts response.transactionResponse.errors.errors[0].errorCode
-        #puts response.transactionResponse.errors.errors[0].errorText
+        # puts response.transactionResponse.errors.errors[0].errorCode
+        # puts response.transactionResponse.errors.errors[0].errorText
         puts response.messages.messages[0].code
         puts response.messages.messages[0].text
         raise "Failed to create a subscription"

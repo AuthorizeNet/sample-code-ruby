@@ -1,8 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
-
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -26,17 +25,18 @@ require 'rubygems'
     response = transaction.get_hosted_profile_page(request)
     
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "#{response.messages.messages[0].code}"
-      puts "#{response.messages.messages[0].text}"
-      puts "#{response.token}"
+      puts "Successfully got Accept Customer page token."
+      puts "  Response code: #{response.messages.messages[0].code}"
+      puts "  Response message: #{response.messages.messages[0].text}"
+      puts "  Token: #{response.token}"
     else
       puts "#{response.messages.messages[0].code}"
       puts "#{response.messages.messages[0].text}"
-      raise "Failed to get hosted profile page with customer profile id #{request.customerProfileId}"
+      raise "Failed to get hosted profile page with customer profile ID #{request.customerProfileId}"
     end
     return response
   end
   
 if __FILE__ == $0
-  get_hosted_profile_page()
+  get_accept_customer_profile_page()
 end

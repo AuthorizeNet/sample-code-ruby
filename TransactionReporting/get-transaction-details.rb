@@ -1,7 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -10,7 +10,7 @@ require 'rubygems'
     
       transaction = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
       
-      transId = "2239287784"
+      transId = "60032208160"
       request = GetTransactionDetailsRequest.new
       request.transId = transId
       
@@ -22,6 +22,7 @@ require 'rubygems'
         puts "Transaction Id:   #{response.transaction.transId}"
         puts "Transaction Type:   #{response.transaction.transactionType}"
         puts "Transaction Status:   #{response.transaction.transactionStatus}"
+        puts "Description: #{response.transaction.order.description}"
         printf("Auth Amount:  %.2f\n", response.transaction.authAmount)
         printf("Settle Amount:  %.2f\n", response.transaction.settleAmount)
       else
@@ -31,7 +32,7 @@ require 'rubygems'
       end
     
     return response
-end
+  end
   
   
 if __FILE__ == $0

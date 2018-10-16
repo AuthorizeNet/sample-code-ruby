@@ -1,7 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -17,7 +17,8 @@ require 'rubygems'
     request.sorting.orderDescending = 'false'
     
     request.paging = Paging.new
-    request.paging.limit = '1000'
+    # Paging limit can be up to 1000
+    request.paging.limit = '20'
     request.paging.offset = '1'
   
   
@@ -26,19 +27,24 @@ require 'rubygems'
   
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
-        puts "Successfully got the list of subscriptions"
-        puts response.messages.messages[0].code
-        puts response.messages.messages[0].text
+        puts "Successfully got the list of subscriptions."
+        puts "  Response code: #{response.messages.messages[0].code}"
+        puts "  Response message: #{response.messages.messages[0].text}"
+
+        response.subscriptionDetails.subscriptionDetail.each do |sub|
+          puts "  Subscription #{sub.id} #{sub.name} - Status: #{sub.status}"
+          
+        end
     
       else
     
         puts response.messages.messages[0].code
         puts response.messages.messages[0].text
-        raise "Failed to get the list of subscriptions"
+        raise "Failed to get the list of subscriptions."
       end
     end
     return response
- end
+  end
 
 if __FILE__ == $0
   get_list_of_subscriptions()

@@ -1,12 +1,11 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
-
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
   
-  def authorization_and_capture_continue()
+  def authorization_and_capture_continued()
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
     
     puts "PayPal Authorization Capture-Continue Transaction"
@@ -34,25 +33,25 @@ require 'rubygems'
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successfully created an Authorization Capture-Continue transaction (authorization code: #{response.transactionResponse.authCode})"
-          puts "Transaction Response code : #{response.transactionResponse.responseCode}"
-          puts "Code : #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description : #{response.transactionResponse.messages.messages[0].description}"
+          puts "Transaction Response code: #{response.transactionResponse.responseCode}"
+          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
+		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
-            puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+            puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
           raise "Failed to make purchase."
         end
       else
         puts "Transaction Failed"
         if response.transactionResponse != nil && response.transactionResponse.errors != nil
-          puts "Error Code : #{response.transactionResponse.errors.errors[0].errorCode}"
-          puts "Error Message : #{response.transactionResponse.errors.errors[0].errorText}"
+          puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+          puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "Error Code : #{response.messages.messages[0].code}"
-          puts "Error Message : #{response.messages.messages[0].text}"
+          puts "Error Code: #{response.messages.messages[0].code}"
+          puts "Error Message: #{response.messages.messages[0].text}"
         end
         raise "Failed to make purchase."
       end
@@ -63,8 +62,8 @@ require 'rubygems'
 
     return response
   
-end  
+  end  
   
 if __FILE__ == $0
-  authorization_and_capture_continue()
+  authorization_and_capture_continued()
 end

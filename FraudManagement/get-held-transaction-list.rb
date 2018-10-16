@@ -5,7 +5,7 @@ require 'securerandom'
 
   include AuthorizeNet::API
 
-  def get_unsettled_transaction_List()
+  def get_held_transaction_List()
     
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
       #merchant information
@@ -13,10 +13,9 @@ require 'securerandom'
       
       request = GetUnsettledTransactionListRequest.new
 
-      request.status  = TransactionGroupStatusEnum::ANY;
+      request.status  = TransactionGroupStatusEnum::PENDINGAPPROVAL;
       request.paging = Paging.new;
-      # Paging limit can be up to 1000
-      request.paging.limit = '20'
+      request.paging.limit = 10;
       request.paging.offset = 1;
 
       request.sorting = TransactionListSorting.new;

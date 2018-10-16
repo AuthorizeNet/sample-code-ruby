@@ -51,7 +51,8 @@ describe "SampleCode Testing" do
   end
   
   it "should be able to run all Customer Profile sample code" do
-
+    puts "START - Customer Profiles"
+    
     response = create_customer_profile()
     validate_response(response)
     customerProfileId = response.customerProfileId
@@ -73,7 +74,6 @@ describe "SampleCode Testing" do
 #    validate_response(response)
    
     response = get_customer_payment_profile(customerProfileId, customerPaymentProfileId)
-    
     validate_response(response)
     
     response = get_customer_payment_profile_list()
@@ -88,7 +88,7 @@ describe "SampleCode Testing" do
     response = get_customer_shipping_address(customerProfileId, customerAddressId)
     validate_response(response)
     
-    response = get_hosted_profile_page(customerProfileId)
+    response = get_accept_customer_profile_page(customerProfileId)
     validate_response(response)
         
     response = update_customer_payment_profile(customerProfileId, customerPaymentProfileId)
@@ -112,7 +112,8 @@ describe "SampleCode Testing" do
   end
   
 it "should be able to run all Recurring Billing sample code" do
-
+    puts "START - Recurring Billing"
+    
     response = create_Subscription()
     validate_response(response)
     subscriptionId = response.subscriptionId
@@ -123,7 +124,9 @@ it "should be able to run all Recurring Billing sample code" do
 	shipping_response = create_customer_shipping_address(profile_response.customerProfileId)
 	
 	#waiting for creating customer profile.
-	sleep 10
+    puts "Waiting for creation of customer profile..."
+    sleep 50
+    puts "Proceeding"
     	
 	response = create_subscription_from_customer_profile(profile_response.customerProfileId, payment_response.customerPaymentProfileId, shipping_response.customerAddressId)
 	validate_response(response)
@@ -152,7 +155,7 @@ it "should be able to run all Recurring Billing sample code" do
     
   
 it "should be able to run all Payment Transaction sample code" do
-    puts "START"
+    puts "START - Payment Transactions"
 
     response = authorize_credit_card()
     validate_response(response)
@@ -205,53 +208,85 @@ it "should be able to run all Payment Transaction sample code" do
     end
     
     
-it "should be able to run all Paypal Express Checkout sample code" do
-
+it "should be able to run all PayPal Express Checkout sample code" do
+    puts "START - PayPal Express Checkout"
+    
+    puts "TEST - authorization and capture"
     response = authorization_and_capture()
     validate_response(response)
-    
-#    response = authorization_only_continued()
+
+#    response = authorization_and_capture_continued()
 #    validate_response(response)
     
+    puts "TEST - authorization only"
     response = authorization_only()
     validate_response(response)
+
+    authTransId = response.transactionResponse.transId
+    puts "TransId to be used for AuthOnlyContinued, GetDetails & Void : #{authTransId}"
     
+    puts "TEST - authorization only continued"
+    response = authorization_only_continued(authTransId)
+    validate_response(response)
+	
 #    response = credit()
 #    validate_response(response)
     
-    response = get_details()
+    puts "TEST - Get Details"
+    response = get_details(authTransId)
     validate_response(response)
     
+    puts "TEST - prior authorization and capture"
     response = prior_authorization_capture()
     validate_response(response)
     
-    response = void()
-    validate_response(response)
+#    puts "TEST - Void"
+#    authTransId = get_transId()
+#    response = void(authTransId)
+#    validate_response(response)
     
     end
     
 it "should be able to run all Transaction Reporting sample code" do
-
-    response = get_batch_Statistics()
-    validate_response(response)
+    puts "START - Transaction Reporting"
     
     response = get_settled_batch_List()
     validate_response(response)
+	
+	#Start Get Batch Statistics
+	batchId = response.batchList.batch[0].batchId
+        
+	response = get_batch_Statistics(batchId)
+        validate_response(response)
+	#End Get Batch Statistics
     
     response = get_transaction_Details()
     validate_response(response)
     
-    #response = get_transaction_List()
+    response = get_transaction_List()
     validate_response(response)
     
     response = get_unsettled_transaction_List()
     validate_response(response)
+	
+    response = get_Transaction_List_For_Customer()
+    validate_response(response)
     
     end
-  
-    
-it "should be able to run all Visa Checkout sample code" do
 
+    
+it "should be able to run Merchant Details sample code" do
+    puts "START - Transaction Reporting / Merchant Details"
+    
+    response = get_merchant_details()
+    validate_response(response)
+
+end
+
+
+it "should be able to run all Visa Checkout sample code" do
+    puts "START - Visa Checkout"
+    
 #    response = create_visa_checkout_transaction()
 #    validate_response(response)
     
@@ -266,6 +301,20 @@ it "should be able to run all Apple Pay sample code" do
 #    validate_response(response)
 #    
     end
+
+it "should be able to run Update Held Transaction sample code" do
+
+    #response = update_held_transaction("12345")
+    #validate_response(response)
+
+end
+
+it "should be able to run Get Accept Payment Page sample code" do
+
+    response = get_an_accept_payment_page()
+    validate_response(response)
+
+end
     
     
 end

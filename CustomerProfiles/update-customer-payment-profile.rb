@@ -1,7 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -23,10 +23,10 @@ require 'rubygems'
 
 
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully updated customer payment profile with  id #{request.paymentProfile.customerPaymentProfileId}"
+      puts "Successfully updated customer payment profile with  ID #{request.paymentProfile.customerPaymentProfileId}."
     else
       puts response.messages.messages[0].text
-      raise "Failed to update customer with customer payment profile id #{request.paymentProfile.customerPaymentProfileId}"
+      raise "Failed to update customer with customer payment profile ID #{request.paymentProfile.customerPaymentProfileId}."
     end
     return response
   end

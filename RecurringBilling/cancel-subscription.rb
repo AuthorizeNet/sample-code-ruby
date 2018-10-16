@@ -1,7 +1,7 @@
 require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
- require 'securerandom'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
 
   include AuthorizeNet::API
 
@@ -18,9 +18,9 @@ require 'rubygems'
       
       if response != nil
         if response.messages.resultCode == MessageTypeEnum::Ok
-          puts "Successfully cancelled a subscription"
-          puts response.messages.messages[0].code
-          puts response.messages.messages[0].text
+          puts "Successfully cancelled a subscription."
+          puts "  Response code: #{response.messages.messages[0].code}"
+          puts "  Response message: #{response.messages.messages[0].text}"
         end
       
       else
@@ -29,7 +29,7 @@ require 'rubygems'
         raise "Failed to cancel a subscription"
       end
       return response
-    end
+  end
 
 if __FILE__ == $0
   cancel_subscription()

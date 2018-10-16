@@ -1,16 +1,15 @@
-  require 'rubygems'
-  require 'yaml'
-  require 'authorizenet' 
- require 'securerandom'
+require 'rubygems'
+require 'yaml'
+require 'authorizenet' 
+require 'securerandom'
   
   include AuthorizeNet::API
   
-  def get_batch_Statistics()
+  def get_batch_Statistics(batchId = "7889547")
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
     
     transaction = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     
-    batchId = "4532808"
     request = GetBatchStatisticsRequest.new
     request.batchId = batchId
     
@@ -20,7 +19,7 @@
     
   if response != nil
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "Successfully got the list of subscriptions"
+      puts "Successfully got the list of batch statistics."
       puts response.messages.messages[0].code
       puts response.messages.messages[0].text
       puts response.batch.batchId
@@ -30,14 +29,14 @@
       puts response.batch.paymentMethod
       for i in 0..response.batch.statistics.length-1
         puts "Statistic Details::"
-        puts "Account Type: " + response.batch.statistics[i].accountType
-        puts "Charge Amount: " + response.batch.statistics[i].chargeAmount
-        puts "Charge Count: " + response.batch.statistics[i].chargeCount
-        puts "Refund Amount: " + response.batch.statistics[i].refundAmount
-        puts "Refund Count: " + response.batch.statistics[i].refundCount
-        puts "Void Count: " + response.batch.statistics[i].voidCount
-        puts "Decline Count: " + response.batch.statistics[i].declineCount
-        puts "Error Count: " + response.batch.statistics[i].errorCount
+        puts "Account Type: " + response.batch.statistics[i].accountType.to_s
+        puts "Charge Amount: " + response.batch.statistics[i].chargeAmount.to_s
+        puts "Charge Count: " + response.batch.statistics[i].chargeCount.to_s
+        puts "Refund Amount: " + response.batch.statistics[i].refundAmount.to_s
+        puts "Refund Count: " + response.batch.statistics[i].refundCount.to_s
+        puts "Void Count: " + response.batch.statistics[i].voidCount.to_s
+        puts "Decline Count: " + response.batch.statistics[i].declineCount.to_s
+        puts "Error Count: " + response.batch.statistics[i].errorCount.to_s
       end
       
   
@@ -51,7 +50,7 @@
   
   return response
 
-end
+  end
 
 if __FILE__ == $0
   get_batch_Statistics()
