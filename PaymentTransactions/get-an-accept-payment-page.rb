@@ -14,16 +14,17 @@ require 'securerandom'
     transactionRequest.amount = 12.12
     transactionRequest.transactionType = TransactionTypeEnum::AuthCaptureTransaction
     
-    setting1 = SettingType.new
-    setting1.settingName = SettingNameEnum::HostedPaymentButtonOptions
-    setting1.settingValue = "{\"text\": \"Pay\"}"
+    # setting1 = SettingType.new
+    # setting1.settingName = SettingNameEnum::HostedPaymentButtonOptions
+    # setting1.settingValue = "{\"text\": \"Pay\"}"
 
-    setting2 = SettingType.new
-    setting2.settingName = SettingNameEnum::HostedPaymentOrderOptions
-    setting2.settingValue = "{\"show\": false}"
-    
+    # setting2 = SettingType.new
+    # setting2.settingName = SettingNameEnum::HostedPaymentOrderOptions
+    # setting2.settingValue = "{\"show\": false}"
+    setting1=SettingType.new(settingName = SettingNameEnum::HostedPaymentButtonOptions, settingValue = "{\"text\": \"Pay\"}")
+    setting2=SettingType.new(settingName = SettingNameEnum::HostedPaymentOrderOptions, settingValue =  "{\"show\": false}")
     settings = Settings.new([ setting1, setting2])
-    
+     
     request = GetHostedPaymentPageRequest.new
     request.transactionRequest = transactionRequest
     request.hostedPaymentSettings = settings
