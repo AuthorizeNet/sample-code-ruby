@@ -10,10 +10,7 @@ require 'securerandom'
 
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
     
-    setting = SettingType.new
-    setting.settingName = SettingNameEnum::HostedProfileReturnUrl
-    setting.settingValue = "https://returnurl.com/return/"
-    
+    setting=SettingType.new(settingName = SettingNameEnum::HostedProfileReturnUrl, settingValue = "https://returnurl.com/return/") 
     settings = Settings.new([setting])
     
     
