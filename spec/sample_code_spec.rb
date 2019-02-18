@@ -211,9 +211,9 @@ it "should be able to run all Payment Transaction sample code" do
 it "should be able to run all PayPal Express Checkout sample code" do
     puts "START - PayPal Express Checkout"
     
-    puts "TEST - authorization and capture"
-    response = authorization_and_capture()
-    validate_response(response)
+    # puts "TEST - authorization and capture"
+    # response = authorization_and_capture()
+    # validate_response(response)
 
 #    response = authorization_and_capture_continued()
 #    validate_response(response)
