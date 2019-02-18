@@ -4,10 +4,14 @@ sudo:
     false
     
 rvm:
-  - 2.2
-  - 2.3
   - 2.4
-  
+  - 2.3
+  - 2.2
+
+matrix:
+    allow_failures:
+          - 2.2
+
 install:
   - gem install authorizenet
   - bundle install
