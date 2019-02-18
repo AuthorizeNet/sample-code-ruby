@@ -209,41 +209,41 @@ it "should be able to run all Payment Transaction sample code" do
     
     
 it "should be able to run all PayPal Express Checkout sample code" do
-    puts "START - PayPal Express Checkout"
+#     puts "START - PayPal Express Checkout"
     
-    puts "TEST - authorization and capture"
-    response = authorization_and_capture()
-    validate_response(response)
+#     puts "TEST - authorization and capture"
+#     response = authorization_and_capture()
+#     validate_response(response)
 
-#    response = authorization_and_capture_continued()
-#    validate_response(response)
+# #    response = authorization_and_capture_continued()
+# #    validate_response(response)
     
-    puts "TEST - authorization only"
-    response = authorization_only()
-    validate_response(response)
+#     puts "TEST - authorization only"
+#     response = authorization_only()
+#     validate_response(response)
 
-    authTransId = response.transactionResponse.transId
-    puts "TransId to be used for AuthOnlyContinued, GetDetails & Void : #{authTransId}"
+#     authTransId = response.transactionResponse.transId
+#     puts "TransId to be used for AuthOnlyContinued, GetDetails & Void : #{authTransId}"
     
-    puts "TEST - authorization only continued"
-    response = authorization_only_continued(authTransId)
-    validate_response(response)
+#     puts "TEST - authorization only continued"
+#     response = authorization_only_continued(authTransId)
+#     validate_response(response)
 	
-#    response = credit()
-#    validate_response(response)
+# #    response = credit()
+# #    validate_response(response)
     
-    puts "TEST - Get Details"
-    response = get_details(authTransId)
-    validate_response(response)
+#     puts "TEST - Get Details"
+#     response = get_details(authTransId)
+#     validate_response(response)
     
-    puts "TEST - prior authorization and capture"
-    response = prior_authorization_capture()
-    validate_response(response)
+#     puts "TEST - prior authorization and capture"
+#     response = prior_authorization_capture()
+#     validate_response(response)
     
-#    puts "TEST - Void"
-#    authTransId = get_transId()
-#    response = void(authTransId)
-#    validate_response(response)
+# #    puts "TEST - Void"
+# #    authTransId = get_transId()
+# #    response = void(authTransId)
+# #    validate_response(response)
     
     end
     
