@@ -21,8 +21,9 @@ def calculate_TransHashSha512(signatureKey,textToHash)
         if(!textToHash || textToHash.length == 0)
             raise 'textToHash  cannot be null or empty';
         end
-        if(signatureKey.length>2 || signatureKey.length%2!=0)
+        if(signatureKey.length<2 || signatureKey.length%2!=0)
             raise 'Signature Key cannot be less than 2 or odd';
+        end
         digest = OpenSSL::Digest.new('sha512')
         return OpenSSL::HMAC.hexdigest(digest, [signatureKey].pack('H*'), textToHash).upcase
 end
