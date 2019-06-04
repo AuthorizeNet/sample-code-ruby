@@ -62,14 +62,20 @@ require 'securerandom'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
-          puts "Successfully created an AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
-          puts "Transaction ID: #{response.transactionResponse.transId}"
-          puts "Transaction Response Code: #{response.transactionResponse.responseCode}"
-          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
-          puts "User Fields: "
-          response.transactionResponse.userFields.userFields.each do |userField|
-            puts userField.value
+          if response.transctionResponse.responseCode == '1'
+            puts "Successfully created an AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
+            puts "Transaction ID: #{response.transactionResponse.transId}"
+            puts "Transaction Response Code: #{response.transactionResponse.responseCode}"
+            puts "Code: #{response.transactionResponse.messages.messages[0].code}"
+            puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+            puts "User Fields: "
+            response.transactionResponse.userFields.userFields.each do |userField|
+              puts userField.value
+            end
+          else
+            puts 'Transaction Failed'
+            puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+            puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
         else
           puts "Transaction Failed" 
