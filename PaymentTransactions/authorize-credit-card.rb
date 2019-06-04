@@ -62,7 +62,7 @@ require 'securerandom'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
-          if response.transctionResponse.responseCode == '1'
+          if response.transactionResponse.responseCode == '1'
             puts "Successfully created an AuthOnly Transaction (authorization code: #{response.transactionResponse.authCode})"
             puts "Transaction ID: #{response.transactionResponse.transId}"
             puts "Transaction Response Code: #{response.transactionResponse.responseCode}"

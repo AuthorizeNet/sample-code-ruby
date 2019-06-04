@@ -32,8 +32,6 @@ require 'securerandom'
             puts "Description: #{response.transactionResponse.messages.messages[0].description}"
           else
             puts "Transaction Failed"
-            puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
-            puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
           end
         else
           puts "Transaction Failed"
