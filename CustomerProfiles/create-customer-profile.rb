@@ -32,7 +32,6 @@ require 'securerandom'
     paymentProfile = CustomerPaymentProfileType.new
     paymentProfile.payment = payment
     paymentProfile.billTo = billTo
-    paymentProfile.defaultPaymentProfile = true
 
     # Build a shipping address  to send with the request
     shippingAddress = CustomerAddressType.new
