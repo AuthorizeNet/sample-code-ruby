@@ -287,10 +287,10 @@ end
 it "should be able to run all Visa Checkout sample code" do
     puts "START - Visa Checkout"
     
-#    response = create_visa_checkout_transaction()
+#    response = create_visa_src_transaction()
 #    validate_response(response)
     
-    response = decrypt_visa_checkout_data()
+    response = decrypt_visa_src_data()
     validate_response(response)
     
     end
