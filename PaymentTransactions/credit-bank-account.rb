@@ -25,10 +25,19 @@ require 'securerandom'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactionResponse != nil && (response.transactionResponse.messages != nil)
-          puts "Successfully credited (Transaction ID: #{response.transactionResponse.transId})"
-          puts "Transaction Response code: #{response.transactionResponse.responseCode}"
-          puts "Code: #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+          if response.transactionResponse.responseCode == '1'
+            puts "Successfully credited (Transaction ID: #{response.transactionResponse.transId})"
+            puts "Transaction Response code: #{response.transactionResponse.responseCode}"
+            puts "Code: #{response.transactionResponse.messages.messages[0].code}"
+            puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+          else
+            puts "Transaction Failed"
+            if response.transactionResponse.errors != nil
+              puts "Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
+              puts "Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
+            end
+            puts "Failed to credit bank account."
+          end
         else
           puts "Transaction Failed"
           puts "Transaction Response code: #{response.transactionResponse.responseCode}"
