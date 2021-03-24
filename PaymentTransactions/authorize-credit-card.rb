@@ -66,7 +66,7 @@ require 'securerandom'
           puts "Transaction ID: #{response.transactionResponse.transId}"
           puts "Transaction Response Code: #{response.transactionResponse.responseCode}"
           puts "Code: #{response.transactionResponse.messages.messages[0].code}"
-		      puts "Description: #{response.transactionResponse.messages.messages[0].description}"
+          puts "Description: #{response.transactionResponse.messages.messages[0].description}"
           puts "User Fields: "
           response.transactionResponse.userFields.userFields.each do |userField|
             puts userField.value

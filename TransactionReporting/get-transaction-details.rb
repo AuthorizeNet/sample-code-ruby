@@ -2,6 +2,7 @@ require 'rubygems'
 require 'yaml'
 require 'authorizenet' 
 require 'securerandom'
+require_relative '../PaymentTransactions/authorize-credit-card.rb'
 
   include AuthorizeNet::API
 
@@ -10,7 +11,7 @@ require 'securerandom'
     
       transaction = AuthorizeNet::API::Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
       
-      transId = "60032208160"
+      transId = authorize_credit_card().transactionResponse.transId # "60032208160"
       request = GetTransactionDetailsRequest.new
       request.transId = transId
       
