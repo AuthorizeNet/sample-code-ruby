@@ -5,7 +5,7 @@ require 'securerandom'
 
   include AuthorizeNet::API
 
-  def get_customer_profile(customerProfileId = '40036377')
+  def get_customer_profile(customerProfileId = '1929820324')
     config = YAML.load_file(File.dirname(__FILE__) + "/../credentials.yml")
 
     transaction = Transaction.new(config['api_login_id'], config['api_transaction_key'], :gateway => :sandbox)
