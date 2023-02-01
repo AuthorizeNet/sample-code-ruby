@@ -30,7 +30,7 @@ require 'securerandom'
           puts "  Transaction ID (for later void: #{authTransId})"
           puts "  Transaction Response code: #{response.transactionResponse.responseCode}"
           puts "  Code: #{response.transactionResponse.messages[0].code}"
-		      puts "  Description: #{response.transactionResponse.messages[0].description}"
+          puts "  Description: #{response.transactionResponse.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
@@ -79,7 +79,7 @@ require 'securerandom'
           puts "Successfully voided the transaction (Transaction ID: #{response.transactionResponse.transId})"
           puts "  Transaction Response code: #{response.transactionResponse.responseCode}"
           puts "  Code: #{response.transactionResponse.messages[0].code}"
-		      puts "  Description: #{response.transactionResponse.messages[0].description}"
+          puts "  Description: #{response.transactionResponse.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil
