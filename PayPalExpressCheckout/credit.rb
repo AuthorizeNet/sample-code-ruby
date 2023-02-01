@@ -33,8 +33,8 @@ require 'securerandom'
         if response.transactionResponse != nil && response.transactionResponse.messages != nil
           puts "Successful Credit Transaction (Transaction response code: #{response.transactionResponse.responseCode})"
           puts "Transaction Response code: #{response.transactionResponse.responseCode}"
-          puts "Code: #{response.transactionResponse.messages.message[0].code}"
-          puts "Description: #{response.transactionResponse.messages.message[0].description}"
+          puts "Code: #{response.transactionResponse.messages[0].code}"
+          puts "Description: #{response.transactionResponse.messages[0].description}"
         else
           puts "Transaction Failed"
           if response.transactionResponse.errors != nil

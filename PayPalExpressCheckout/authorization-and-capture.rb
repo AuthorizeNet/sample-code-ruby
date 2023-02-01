@@ -35,8 +35,8 @@ require 'securerandom'
           puts "  Transaction ID: #{response.transactionResponse.transId}"
           puts "  Secure Acceptance URL: #{response.transactionResponse.secureAcceptance.SecureAcceptanceUrl}"
           puts "  Transaction Response code: #{response.transactionResponse.responseCode}"
-          puts "  Code: #{response.transactionResponse.messages.message[0].code}"
-		      puts "  Description: #{response.transactionResponse.messages.message[0].description}"
+          puts "  Code: #{response.transactionResponse.messages[0].code}"
+		      puts "  Description: #{response.transactionResponse.messages[0].description}"
         else
           puts "PayPal authorize and capture transaction failed"
           if response.transactionResponse.errors != nil
