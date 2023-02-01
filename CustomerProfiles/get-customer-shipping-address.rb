@@ -29,7 +29,7 @@ require 'securerandom'
       end
 
     else
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].text
       raise "Failed to get payment profile information with ID #{request.customerProfileId}"
     end
     return response

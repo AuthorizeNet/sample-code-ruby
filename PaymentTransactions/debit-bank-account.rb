@@ -29,8 +29,8 @@ require 'securerandom'
           puts "Successfully debited bank account."
           puts "  Transaction ID: #{response.transactionResponse.transId}"
           puts "  Transaction response code: #{response.transactionResponse.responseCode}"
-          puts "  Code: #{response.transactionResponse.messages.messages[0].code}"
-		      puts "  Description: #{response.transactionResponse.messages.messages[0].description}"
+          puts "  Code: #{response.transactionResponse.messages.message[0].code}"
+		      puts "  Description: #{response.transactionResponse.messages.message[0].description}"
         else
           puts "Transaction Failed"
           puts "Transaction response code: #{response.transactionResponse.responseCode}"          
@@ -46,8 +46,8 @@ require 'securerandom'
           puts "  Error Code: #{response.transactionResponse.errors.errors[0].errorCode}"
           puts "  Error Message: #{response.transactionResponse.errors.errors[0].errorText}"
         else
-          puts "  Error Code: #{response.messages.messages[0].code}"
-          puts "  Error Message: #{response.messages.messages[0].text}"
+          puts "  Error Code: #{response.messages.message[0].code}"
+          puts "  Error Message: #{response.messages.message[0].text}"
         end
         puts "Failed to debit bank account."
       end

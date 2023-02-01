@@ -19,8 +19,8 @@ require 'securerandom'
     
     if response.messages.resultCode == MessageTypeEnum::Ok
       puts "Successfully got subscription details."
-      puts "  Response code: #{response.messages.messages[0].code}"
-      puts "  Response message: #{response.messages.messages[0].text}"
+      puts "  Response code: #{response.messages.message[0].code}"
+      puts "  Response message: #{response.messages.message[0].text}"
       puts "  Subscription name: #{response.subscription.name}"
       puts "  Payment schedule start date: #{response.subscription.paymentSchedule.startDate}"
       puts "  Payment schedule Total Occurrences: #{response.subscription.paymentSchedule.totalOccurrences}"
@@ -29,8 +29,8 @@ require 'securerandom'
       puts "  First Name in Billing Address: #{response.subscription.profile.paymentProfile.billTo.firstName}"
      
     else
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].code
+      puts response.messages.message[0].text
       raise "Failed to get subscription details."
     end
     

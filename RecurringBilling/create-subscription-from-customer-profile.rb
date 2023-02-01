@@ -38,8 +38,8 @@ require 'securerandom'
       else
         # puts response.transactionResponse.errors.errors[0].errorCode
         # puts response.transactionResponse.errors.errors[0].errorText
-        puts response.messages.messages[0].code
-        puts response.messages.messages[0].text
+        puts response.messages.message[0].code
+        puts response.messages.message[0].text
         raise "Failed to create a subscription"
       end
     end

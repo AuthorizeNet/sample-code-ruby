@@ -22,8 +22,8 @@ require 'securerandom'
         puts "  Status: #{response.status}"
     
       else
-        puts response.messages.messages[0].code
-        puts response.messages.messages[0].text
+        puts response.messages.message[0].code
+        puts response.messages.message[0].text
         raise "Failed to get a subscriptions status"
       end
     end

@@ -21,7 +21,7 @@ require 'securerandom'
     if response.messages.resultCode == MessageTypeEnum::Ok
       puts "Successfully deleted shipping address with customer shipping profile ID #{request.customerAddressId}."
     else
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].text
       raise "Failed to delete payment profile with profile ID #{request.customerAddressId}."
     end
     return response

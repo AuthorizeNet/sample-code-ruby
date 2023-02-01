@@ -40,7 +40,7 @@ require 'securerandom'
       puts "New customer payment profile ID: #{response.customerPaymentProfileIdList.numericString[0]}"
       puts "New customer shipping profile ID (if created): #{response.customerShippingAddressIdList.numericString[0]}"
     else
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].text
       raise "Failed to create a customer profile from an existing transaction."
     end
     return response

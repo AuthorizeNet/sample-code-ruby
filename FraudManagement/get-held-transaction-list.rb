@@ -33,8 +33,8 @@ require 'securerandom'
         end
         puts "Total transaction received #{unsettled_transactions.transaction.length}"
       else
-        puts "ERROR message: #{response.messages.messages[0].text}"
-        puts "ERROR code: #{response.messages.messages[0].code}"
+        puts "ERROR message: #{response.messages.message[0].text}"
+        puts "ERROR code: #{response.messages.message[0].code}"
         raise "Failed to get unsettled transaction list."
       end
     

@@ -46,8 +46,8 @@ require 'securerandom'
       if response.messages.resultCode == MessageTypeEnum::Ok
         puts "Successfully created a customer payment profile with id: #{response.customerPaymentProfileId}."
       else
-        puts response.messages.messages[0].code        
-        puts response.messages.messages[0].text
+        puts response.messages.message[0].code
+        puts response.messages.message[0].text
         puts "Failed to create a new customer payment profile."
       end
     else

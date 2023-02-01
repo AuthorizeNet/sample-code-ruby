@@ -23,8 +23,8 @@ def validate_customer_payment_profile(customerProfileId = '36152115', customerPa
 	  puts "Successfully validated customer with customer profile ID #{request.customerProfileId}"
 	  puts "Direct Response: #{response.directResponse} "
 	else
-	    puts response.messages.messages[0].code
-	    puts response.messages.messages[0].text
+	    puts response.messages.message[0].code
+	    puts response.messages.message[0].text
 	    raise "Failed to validate customer with customer profile ID #{request.customerProfileId} and payment profile ID #{customerPaymentProfileId}"
 	end
 

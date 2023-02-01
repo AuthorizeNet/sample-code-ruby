@@ -27,8 +27,8 @@ require_relative '../PaymentTransactions/authorize-credit-card.rb'
         printf("Auth Amount:  %.2f\n", response.transaction.authAmount)
         printf("Settle Amount:  %.2f\n", response.transaction.settleAmount)
       else
-        puts response.messages.messages[0].code
-        puts response.messages.messages[0].text
+        puts response.messages.message[0].code
+        puts response.messages.message[0].text
         raise "Failed to get transaction Details."
       end
     

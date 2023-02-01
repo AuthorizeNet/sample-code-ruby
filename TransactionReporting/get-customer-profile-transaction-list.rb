@@ -25,7 +25,7 @@ require 'securerandom'
     if response.messages.resultCode == MessageTypeEnum::Ok
     	transactions = response.transactions
     	if transactions == nil
-    		puts "#{response.messages.messages[0].text}"
+        puts "#{response.messages.message[0].text}"
     	else
         response.transactions.transaction.each do |trans|
   	  		puts "\nTransaction ID :  #{trans.transId} "
@@ -36,8 +36,8 @@ require 'securerandom'
     	end
     else
     	puts "Error: Failed to get Transaction List for customer\n"
-    	puts "Error Text :  #{response.messages.messages[0].text} \n"
-    	puts "Error Code :  #{response.messages.messages[0].code} "
+      puts "Error Text :  #{response.messages.message[0].text} \n"
+      puts "Error Code :  #{response.messages.message[0].code} "
     end
     return response
   

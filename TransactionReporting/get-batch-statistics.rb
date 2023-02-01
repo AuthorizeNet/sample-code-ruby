@@ -20,8 +20,8 @@ require 'securerandom'
   if response != nil
     if response.messages.resultCode == MessageTypeEnum::Ok
       puts "Successfully got the list of batch statistics."
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].code
+      puts response.messages.message[0].text
       puts response.batch.batchId
       puts response.batch.settlementTimeUTC
       puts response.batch.settlementTimeLocal
@@ -42,8 +42,8 @@ require 'securerandom'
   
     else
   
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].code
+      puts response.messages.message[0].text
       raise "Failed to get the batch statistics"
     end
   end

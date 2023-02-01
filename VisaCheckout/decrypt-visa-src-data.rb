@@ -23,8 +23,8 @@ require 'securerandom'
       puts "Shipping Last Name #{response.shippingInfo.lastName}"
       puts "Amount #{response.paymentDetails.amount}"
     else
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].code
+      puts response.messages.message[0].text
       raise "Failed to decrypt."
     end
     

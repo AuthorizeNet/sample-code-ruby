@@ -27,12 +27,12 @@ require 'securerandom'
   
     if response.messages.resultCode == MessageTypeEnum::Ok
       puts "Successful Update Split Tender Group"
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].code
+      puts response.messages.message[0].text
   
     else
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].code
+      puts response.messages.message[0].text
       raise "Failed to update split tender group."
     end
     

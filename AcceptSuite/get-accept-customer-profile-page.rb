@@ -23,12 +23,12 @@ require 'securerandom'
     
     if response.messages.resultCode == MessageTypeEnum::Ok
       puts "Successfully got Accept Customer page token."
-      puts "  Response code: #{response.messages.messages[0].code}"
-      puts "  Response message: #{response.messages.messages[0].text}"
+      puts "  Response code: #{response.messages.message[0].code}"
+      puts "  Response message: #{response.messages.message[0].text}"
       puts "  Token: #{response.token}"
     else
-      puts "#{response.messages.messages[0].code}"
-      puts "#{response.messages.messages[0].text}"
+      puts "#{response.messages.message[0].code}"
+      puts "#{response.messages.message[0].text}"
       raise "Failed to get hosted profile page with customer profile ID #{request.customerProfileId}"
     end
     return response

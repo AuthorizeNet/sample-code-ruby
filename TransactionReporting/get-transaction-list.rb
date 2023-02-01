@@ -27,7 +27,7 @@ require 'securerandom'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         if response.transactions == nil
-          puts "#{response.messages.messages[0].text}"
+          puts "#{response.messages.message[0].text}"
         else
           puts "Successfully got the list of transactions for batch " + batchId + "."          
           response.transactions.transaction.each do |trans|
@@ -39,13 +39,13 @@ require 'securerandom'
         end
       else
         puts "Error: Failed to get Transaction List."
-        puts "Error Text: #{response.messages.messages[0].text}"
-        puts "Error Code: #{response.messages.messages[0].code}"
+        puts "Error Text: #{response.messages.message[0].text}"
+        puts "Error Code: #{response.messages.message[0].code}"
       end
     else
       puts "Error: Failed to get Transaction List."
-      puts "Error Text: #{response.messages.messages[0].text}"
-      puts "Error Code: #{response.messages.messages[0].code}"
+      puts "Error Text: #{response.messages.message[0].text}"
+      puts "Error Code: #{response.messages.message[0].code}"
     end
 
     return response

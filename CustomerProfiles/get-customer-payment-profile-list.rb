@@ -32,8 +32,8 @@ require 'securerandom'
     
     if response.messages.resultCode == MessageTypeEnum::Ok
       puts "Successfully got customer payment profile list."
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].code
+      puts response.messages.message[0].text
       puts "  Total number in result set: #{response.totalNumInResultSet}"
 #      response.paymentProfiles.paymentProfile.each do |paymentProfile|
 #        puts "Payment profile ID = #{paymentProfile.customerPaymentProfileId}"
@@ -41,8 +41,8 @@ require 'securerandom'
 #        puts "Credit Card Number = #{paymentProfile.payment.creditCard.cardNumber}"
 #      end
     else
-      puts response.messages.messages[0].code
-      puts response.messages.messages[0].text
+      puts response.messages.message[0].code
+      puts response.messages.message[0].text
       raise "Failed to get customer payment profile list"
     end
     return response

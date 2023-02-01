@@ -26,12 +26,12 @@ require 'securerandom'
     response = transaction.get_hosted_payment_page(request)
     
     if response.messages.resultCode == MessageTypeEnum::Ok
-      puts "#{response.messages.messages[0].code}"
-      puts "#{response.messages.messages[0].text}"
+      puts "#{response.messages.message[0].code}"
+      puts "#{response.messages.message[0].text}"
       puts "#{response.token}"
     else
-      puts "#{response.messages.messages[0].code}"
-      puts "#{response.messages.messages[0].text}"
+      puts "#{response.messages.message[0].code}"
+      puts "#{response.messages.message[0].text}"
       raise "Failed to get hosted payment page"
     end
     return response

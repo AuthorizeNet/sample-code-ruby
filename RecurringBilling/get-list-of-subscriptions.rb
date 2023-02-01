@@ -28,8 +28,8 @@ require 'securerandom'
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         puts "Successfully got the list of subscriptions."
-        puts "  Response code: #{response.messages.messages[0].code}"
-        puts "  Response message: #{response.messages.messages[0].text}"
+        puts "  Response code: #{response.messages.message[0].code}"
+        puts "  Response message: #{response.messages.message[0].text}"
 
         response.subscriptionDetails.subscriptionDetail.each do |sub|
           puts "  Subscription #{sub.id} #{sub.name} - Status: #{sub.status}"
@@ -38,8 +38,8 @@ require 'securerandom'
     
       else
     
-        puts response.messages.messages[0].code
-        puts response.messages.messages[0].text
+        puts response.messages.message[0].code
+        puts response.messages.message[0].text
         raise "Failed to get the list of subscriptions."
       end
     end
