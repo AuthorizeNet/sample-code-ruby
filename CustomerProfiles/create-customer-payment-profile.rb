@@ -16,8 +16,8 @@ require 'securerandom'
 
     # Build an address object
     billTo = CustomerAddressType.new
-    billTo.firstName = "Jerry"
-    billTo.lastName = "Johnson"
+    billTo.firstName = "Jerry" + (0...8).map { (65 + rand(26)).chr }.join
+    billTo.lastName = "Johnson" + (0...8).map { (65 + rand(26)).chr }.join
     billTo.company = "Souveniropolis"
     billTo.address = "14 Main Street"
     billTo.city = "Pecan Springs"
@@ -38,7 +38,7 @@ require 'securerandom'
     request = CreateCustomerPaymentProfileRequest.new
     request.paymentProfile = paymentProfile
     request.customerProfileId = customerProfileId
-    request.validationMode = ValidationModeEnum::LiveMode        
+    request.validationMode = ValidationModeEnum::LiveMode
 
     response = transaction.create_customer_payment_profile(request)
 
@@ -46,7 +46,7 @@ require 'securerandom'
       if response.messages.resultCode == MessageTypeEnum::Ok
         puts "Successfully created a customer payment profile with id: #{response.customerPaymentProfileId}."
       else
-        puts response.messages.messages[0].code        
+        puts response.messages.messages[0].code
         puts response.messages.messages[0].text
         puts "Failed to create a new customer payment profile."
       end
