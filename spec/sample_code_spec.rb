@@ -65,13 +65,13 @@ describe "SampleCode Testing" do
     validate_response(response)
     customerAddressId = response.customerAddressId
 
-    # response = validate_customer_payment_profile(customerProfileId, customerPaymentProfileId)
-    # validate_response(response)
+    response = validate_customer_payment_profile(customerProfileId, customerPaymentProfileId)
+    validate_response(response)
 
-    # create_transaction_for_profile = authorize_credit_card()
-    # validate_response(response)
-    # response = create_customer_profile_from_a_transaction(create_transaction_for_profile.transactionResponse.transId)
-    # validate_response(response)
+    create_transaction_for_profile = authorize_credit_card()
+    validate_response(response)
+    response = create_customer_profile_from_a_transaction(create_transaction_for_profile.transactionResponse.transId)
+    validate_response(response)
 
     response = get_customer_payment_profile(customerProfileId, customerPaymentProfileId)
     validate_response(response)
