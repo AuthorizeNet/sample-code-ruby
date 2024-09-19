@@ -1,5 +1,6 @@
 # Ruby Sample Code for the Authorize.Net SDK
-[![Travis CI Status](https://travis-ci.org/AuthorizeNet/sample-code-ruby.svg?branch=master)](https://travis-ci.org/AuthorizeNet/sample-code-ruby)
+[![Travis CI       ][travis_badge]][travis]
+[![Coverage        ][coverage_badge]][coverage]
 
 This repository contains working code samples which demonstrate Ruby integration with the [Authorize.Net Ruby SDK](https://www.github.com/AuthorizeNet/sdk-ruby).
 
@@ -30,3 +31,8 @@ e.g.
 ```
     $ ruby PaymentTransactions/charge-credit-card.rb
 ```
+
+[travis_badge]: https://travis-ci.org/AuthorizeNet/sample-code-ruby.svg?branch=master
+[travis]: https://travis-ci.org/AuthorizeNet/sample-code-ruby
+[coverage_badge]: https://scrutinizer-ci.com/g/AuthorizeNet/sample-code-ruby/badges/coverage.png?b=master
+[coverage]: https://scrutinizer-ci.com/g/AuthorizeNet/sample-code-ruby/?branch=master
