@@ -25,13 +25,13 @@ require 'securerandom'
     request.subscription.amount = random_amount
     request.subscription.trialAmount = 0.00
 
-	request.subscription.profile = CustomerProfileIdType.new
-	request.subscription.profile.customerProfileId = profileId
+    request.subscription.profile = CustomerProfileIdType.new
+    request.subscription.profile.customerProfileId = profileId
     request.subscription.profile.customerPaymentProfileId = paymentProfileId
     request.subscription.profile.customerAddressId = addressId
-	
+    
     response = transaction.create_subscription(request)
-	
+    
     if response != nil
       if response.messages.resultCode == MessageTypeEnum::Ok
         puts "Successfully created a subscription with ID #{response.subscriptionId}."
