@@ -18,7 +18,7 @@ require 'securerandom'
     request.transactionRequest.payment = PaymentType.new
     request.transactionRequest.payment.creditCard = CreditCardType.new
     request.transactionRequest.payment.creditCard.cardNumber ="4242424242424242"
-    request.transactionRequest.payment.creditCard.expirationDate="0728"
+    request.transactionRequest.payment.creditCard.expirationDate="0735"
     request.transactionRequest.payment.creditCard.cardCode="123"
     request.transactionRequest.payment.creditCard.cryptogram="EjRWeJASNFZ4kBI0VniQEjRWeJA="
     request.transactionRequest.payment.creditCard.tokenRequestorName="CHASE_PAY"
